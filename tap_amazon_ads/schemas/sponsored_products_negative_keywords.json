@@ -1,1 +1,95 @@
-{}
+{
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+        "keywordId": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "nativeLanguageKeyword": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "nativeLanguageLocale": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "campaignId": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "matchType": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "state": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "adGroupId": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "keywordText": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "extendedData": {
+            "type": [
+                "null",
+                "object"
+            ],
+            "additionalProperties": false,
+            "properties": {
+                "lastUpdateDateTime": {
+                    "type": [
+                        "null",
+                        "string"
+                    ],
+                    "format": "date-time"
+                },
+                "servingStatus": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                },
+                "servingStatusDetails": {
+                    "type": [
+                        "null",
+                        "array"
+                    ],
+                    "items": {
+                        "type": [
+                            "null",
+                            "string"
+                        ]
+                    }
+                },
+                "creationDateTime": {
+                    "type": [
+                        "null",
+                        "string"
+                    ],
+                    "format": "date-time"
+                }
+            }
+        }
+    }
+}

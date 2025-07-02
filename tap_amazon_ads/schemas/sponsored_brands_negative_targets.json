@@ -1,1 +1,75 @@
-{}
+{
+    "type": "object",
+    "properties": {
+        "targetId": {
+            "type": [
+                "null",
+                "integer"
+            ]
+        },
+        "adGroupId": {
+            "type": [
+                "null",
+                "integer"
+            ]
+        },
+        "campaignId": {
+            "type": [
+                "null",
+                "integer"
+            ]
+        },
+        "expressions": {
+            "type": [
+                "null",
+                "object"
+            ],
+            "properties": {
+                "type": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                },
+                "value": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                }
+            }
+        },
+        "resolvedExpressions": {
+            "type": [
+                "null",
+                "object"
+            ],
+            "properties": {
+                "type": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                },
+                "value": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                }
+            }
+        },
+        "state": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "bid": {
+            "type": [
+                "null",
+                "number"
+            ]
+        }
+    }
+}

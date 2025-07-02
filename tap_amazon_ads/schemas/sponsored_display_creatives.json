@@ -1,1 +1,55 @@
-{}
+{
+    "type": "object",
+    "properties": {
+        "creativeId": {
+            "type": [
+                "null",
+                "integer"
+            ]
+        },
+        "adGroupId": {
+            "type": [
+                "null",
+                "integer"
+            ]
+        },
+        "creativeType": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "properties": {
+            "type": [
+                "null",
+                "object"
+            ],
+            "properties": {
+                "headline": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                },
+                "hasTermsAndConditions": {
+                    "type": [
+                        "null",
+                        "boolean"
+                    ]
+                },
+                "originalHeadline": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                }
+            }
+        },
+        "moderationStatus": {
+            "type": [
+                "null",
+                "string"
+            ]
+        }
+    }
+}

@@ -1,1 +1,310 @@
-{}
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "fees": {
+      "type": [
+        "null",
+        "array"
+      ],
+      "items": {
+        "type": [
+          "null",
+          "object"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "cost": {
+            "type": [
+              "null",
+              "object"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "amount": {
+                "type": [
+                  "null",
+                  "number"
+                ]
+              },
+              "currencyCode": {
+                "type": [
+                  "null",
+                  "string"
+                ]
+              }
+            }
+          },
+          "feeIdentifiers": {
+            "type": [
+              "null",
+              "object"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "countryCode": {
+                "type": [
+                  "null",
+                  "string"
+                ]
+              }
+            }
+          },
+          "feeType": {
+            "type": [
+              "null",
+              "string"
+            ]
+          }
+        }
+      }
+    },
+    "paymentTermsDays": {
+      "type": [
+        "null",
+        "integer"
+      ]
+    },
+    "taxAmountDue": {
+      "type": [
+        "null",
+        "object"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "amount": {
+          "type": [
+            "null",
+            "number"
+          ]
+        },
+        "currencyCode": {
+          "type": [
+            "null",
+            "string"
+          ]
+        }
+      }
+    },
+    "remainingTaxAmountDue": {
+      "type": [
+        "null",
+        "object"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "amount": {
+          "type": [
+            "null",
+            "number"
+          ]
+        },
+        "currencyCode": {
+          "type": [
+            "null",
+            "string"
+          ]
+        }
+      }
+    },
+    "remainingFees": {
+      "type": [
+        "null",
+        "array"
+      ],
+      "items": {
+        "type": [
+          "null",
+          "object"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "cost": {
+            "type": [
+              "null",
+              "object"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "amount": {
+                "type": [
+                  "null",
+                  "number"
+                ]
+              },
+              "currencyCode": {
+                "type": [
+                  "null",
+                  "string"
+                ]
+              }
+            }
+          },
+          "feeIdentifiers": {
+            "type": [
+              "null",
+              "object"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "countryCode": {
+                "type": [
+                  "null",
+                  "string"
+                ]
+              }
+            }
+          },
+          "feeType": {
+            "type": [
+              "null",
+              "string"
+            ]
+          }
+        }
+      }
+    },
+    "toDate": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "dueDate": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "billingAggregation": {
+      "type": [
+        "null",
+        "object"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "billingAggregationResourcePath": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "billingLevel": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "billingAggregationId": {
+          "type": [
+            "null",
+            "string"
+          ]
+        }
+      }
+    },
+    "invoiceDate": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "remainingAmountDue": {
+      "type": [
+        "null",
+        "object"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "amount": {
+          "type": [
+            "null",
+            "number"
+          ]
+        },
+        "currencyCode": {
+          "type": [
+            "null",
+            "string"
+          ]
+        }
+      }
+    },
+    "fromDate": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "amountDue": {
+      "type": [
+        "null",
+        "object"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "amount": {
+          "type": [
+            "null",
+            "number"
+          ]
+        },
+        "currencyCode": {
+          "type": [
+            "null",
+            "string"
+          ]
+        }
+      }
+    },
+    "taxRate": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "purchaseOrderNumber": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "paymentTermsType": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "paymentMethod": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "id": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "downloadableDocuments": {
+      "type": [
+        "null",
+        "array"
+      ],
+      "items": {
+        "type": [
+          "null",
+          "string"
+        ]
+      }
+    },
+    "status": {
+      "type": [
+        "null",
+        "string"
+      ]
+    }
+  }
+}

@@ -1,1 +1,29 @@
-{}
+{
+    "type": "object",
+    "properties": {
+        "assetID": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "url": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "mediaType": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "name": {
+            "type": [
+                "null",
+                "string"
+            ]
+        }
+    }
+}

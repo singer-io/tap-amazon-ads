@@ -1,1 +1,119 @@
-{}
+{
+    "type": "object",
+    "properties": {
+        "campaignId": {
+            "type": [
+                "null",
+                "integer"
+            ]
+        },
+        "name": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "tactic": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "budgetType": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "budget": {
+            "type": [
+                "null",
+                "number"
+            ]
+        },
+        "startDate": {
+            "type": [
+                "null",
+                "string"
+            ],
+            "format": "date-time"
+        },
+        "endDate": {
+            "type": [
+                "null",
+                "string"
+            ],
+            "format": "date-time"
+        },
+        "state": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "portfolioId": {
+            "type": [
+                "null",
+                "integer"
+            ]
+        },
+        "servingStatus": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "costType": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "creationDate": {
+            "type": [
+                "null",
+                "string"
+            ],
+            "format": "date-time"
+        },
+        "lastUpdatedDate": {
+            "type": [
+                "null",
+                "string"
+            ],
+            "format": "date-time"
+        },
+        "ruleBasedBudget": {
+            "type": [
+                "null",
+                "object"
+            ],
+            "properties": {
+                "isProcessing": {
+                    "type": [
+                        "null",
+                        "boolean"
+                    ]
+                },
+                "applicableRuleName": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                },
+                "value": {
+                    "type": [
+                        "null",
+                        "number"
+                    ]
+                },
+                "applicableRuleId": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                }
+            }
+        }
+    }
+}

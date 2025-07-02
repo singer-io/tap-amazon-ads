@@ -1,1 +1,101 @@
-{}
+{
+    "type": "object",
+    "properties": {
+        "targetId": {
+            "type": [
+                "null",
+                "integer"
+            ]
+        },
+        "adGroupId": {
+            "type": [
+                "null",
+                "integer"
+            ]
+        },
+        "campaignId": {
+            "type": [
+                "null",
+                "integer"
+            ]
+        },
+        "state": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "expressionType": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "bid": {
+            "type": [
+                "null",
+                "number"
+            ]
+        },
+        "expression": {
+            "type": [
+                "null",
+                "object"
+            ],
+            "properties": {
+                "type": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                },
+                "value": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                }
+            }
+        },
+        "resolvedExpression": {
+            "type": [
+                "null",
+                "object"
+            ],
+            "properties": {
+                "type": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                },
+                "value": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                }
+            }
+        },
+        "servingStatus": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "creationDate": {
+            "type": [
+                "null",
+                "integer"
+            ],
+            "format": "date-time"
+        },
+        "lastUpdateDate": {
+            "type": [
+                "null",
+                "integer"
+            ],
+            "format": "date-time"
+        }
+    }
+}

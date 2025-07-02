@@ -1,1 +1,66 @@
-{}
+{
+    "type": "object",
+    "properties": {
+        "campaignId": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "name": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "state": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "adGroupId": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "extendedData": {
+            "type": [
+                "null",
+                "object"
+            ],
+            "properties": {
+                "servingStatus": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                },
+                "lastUpdateDate": {
+                    "type": [
+                        "null",
+                        "string"
+                    ],
+                    "format": "date-time"
+                },
+                "servingStatusDetails": {
+                    "type": [
+                        "null",
+                        "array"
+                    ],
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "creationDate": {
+                    "type": [
+                        "null",
+                        "string"
+                    ],
+                    "format": "date-time"
+                }
+            }
+        }
+    }
+}

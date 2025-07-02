@@ -1,1 +1,79 @@
-{}
+{
+    "type": "object",
+    "properties": {
+        "adId": {
+            "type": [
+                "null",
+                "integer"
+            ]
+        },
+        "adGroupId": {
+            "type": [
+                "null",
+                "integer"
+            ]
+        },
+        "campaignId": {
+            "type": [
+                "null",
+                "integer"
+            ]
+        },
+        "landingPageURL": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "landingPageType": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "adName": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "asin": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "sku": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "state": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "servingStatus": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "creationDate": {
+            "type": [
+                "null",
+                "string"
+            ],
+            "format": "date-time"
+        },
+        "lastUpdatedDate": {
+            "type": [
+                "null",
+                "string"
+            ],
+            "format": "date-time"
+        }
+    }
+}

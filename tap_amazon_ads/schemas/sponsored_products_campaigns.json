@@ -1,1 +1,285 @@
-{}
+{
+    "type": "object",
+    "properties": {
+        "siteRestrictions": {
+            "type": [
+                "null",
+                "array"
+            ],
+            "items": {
+                "type": [
+                    "null",
+                    "string"
+                ]
+            }
+        },
+        "offAmazonSettings": {
+            "type": [
+                "null",
+                "object"
+            ],
+            "properties": {
+                "offAmazonBudgetControlStrategy": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                }
+            },
+            "additionalProperties": false
+        },
+        "endDate": {
+            "type": [
+                "null",
+                "string"
+            ],
+            "format": "date"
+        },
+        "campaignId": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "dynamicBidding": {
+            "type": [
+                "null",
+                "object"
+            ],
+            "properties": {
+                "strategy": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                },
+                "placementBidding": {
+                    "type": [
+                        "null",
+                        "array"
+                    ],
+                    "items": {
+                        "type": [
+                            "null",
+                            "object"
+                        ],
+                        "properties": {
+                            "percentage": {
+                                "type": [
+                                    "null",
+                                    "integer"
+                                ]
+                            },
+                            "placement": {
+                                "type": [
+                                    "null",
+                                    "string"
+                                ]
+                            }
+                        },
+                        "additionalProperties": false
+                    }
+                },
+                "shopperCohortBidding": {
+                    "type": [
+                        "null",
+                        "array"
+                    ],
+                    "items": {
+                        "type": [
+                            "null",
+                            "object"
+                        ],
+                        "properties": {
+                            "shopperCohortType": {
+                                "type": [
+                                    "null",
+                                    "string"
+                                ]
+                            },
+                            "percentage": {
+                                "type": [
+                                    "null",
+                                    "integer"
+                                ]
+                            },
+                            "audienceSegments": {
+                                "type": [
+                                    "null",
+                                    "array"
+                                ],
+                                "items": {
+                                    "type": [
+                                        "null",
+                                        "object"
+                                    ],
+                                    "properties": {
+                                        "audienceId": {
+                                            "type": [
+                                                "null",
+                                                "string"
+                                            ]
+                                        },
+                                        "audienceSegmentType": {
+                                            "type": [
+                                                "null",
+                                                "string"
+                                            ]
+                                        }
+                                    },
+                                    "additionalProperties": false
+                                }
+                            }
+                        },
+                        "additionalProperties": false
+                    }
+                }
+            },
+            "additionalProperties": false
+        },
+        "tags": {
+            "type": [
+                "null",
+                "object"
+            ],
+            "additionalProperties": {
+                "type": [
+                    "null",
+                    "string"
+                ]
+            }
+        },
+        "portfolioId": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "name": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "targetingType": {
+            "type": [
+                "null",
+                "string"
+            ],
+            "enum": [
+                "AUTO",
+                "MANUAL",
+                null
+            ]
+        },
+        "state": {
+            "type": [
+                "null",
+                "string"
+            ],
+            "enum": [
+                "ENABLED",
+                "PAUSED",
+                "ARCHIVED",
+                null
+            ]
+        },
+        "startDate": {
+            "type": [
+                "null",
+                "string"
+            ],
+            "format": "date"
+        },
+        "budget": {
+            "type": [
+                "null",
+                "object"
+            ],
+            "properties": {
+                "budgetType": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                },
+                "budget": {
+                    "type": [
+                        "null",
+                        "number"
+                    ]
+                },
+                "effectiveBudget": {
+                    "type": [
+                        "null",
+                        "number"
+                    ]
+                }
+            },
+            "additionalProperties": false
+        },
+        "extendedData": {
+            "type": [
+                "null",
+                "object"
+            ],
+            "properties": {
+                "lastUpdateDateTime": {
+                    "type": [
+                        "null",
+                        "string"
+                    ],
+                    "format": "date-time"
+                },
+                "servingStatus": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                },
+                "servingStatusDetails": {
+                    "type": [
+                        "null",
+                        "array"
+                    ],
+                    "items": {
+                        "type": [
+                            "null",
+                            "object"
+                        ],
+                        "properties": {
+                            "name": {
+                                "type": [
+                                    "null",
+                                    "string"
+                                ]
+                            },
+                            "helpUrl": {
+                                "type": [
+                                    "null",
+                                    "string"
+                                ]
+                            },
+                            "message": {
+                                "type": [
+                                    "null",
+                                    "string"
+                                ]
+                            }
+                        },
+                        "additionalProperties": false
+                    }
+                },
+                "creationDateTime": {
+                    "type": [
+                        "null",
+                        "string"
+                    ],
+                    "format": "date-time"
+                }
+            },
+            "additionalProperties": false
+        }
+    },
+    "additionalProperties": false
+}
