@@ -23,7 +23,7 @@
         "createdDate": {
             "type": [
                 "null",
-                "integer"
+                "string"
             ],
             "format": "date-time"
         },
@@ -87,7 +87,8 @@
                                     "type": [
                                         "null",
                                         "string"
-                                    ]
+                                    ],
+                                    "format": "date-time"
                                 },
                                 "startDate": {
                                     "type": [

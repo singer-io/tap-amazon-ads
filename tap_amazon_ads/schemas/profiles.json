@@ -22,7 +22,7 @@
         "dailyBudget": {
             "type": [
                 "null",
-                "integer"
+                "number"
             ]
         },
         "timezone": {

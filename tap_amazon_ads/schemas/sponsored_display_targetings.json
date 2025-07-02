@@ -86,14 +86,14 @@
         "creationDate": {
             "type": [
                 "null",
-                "integer"
+                "string"
             ],
             "format": "date-time"
         },
         "lastUpdateDate": {
             "type": [
                 "null",
-                "integer"
+                "string"
             ],
             "format": "date-time"
         }

@@ -33,7 +33,7 @@
                 "null",
                 "string"
             ],
-            "format": "date"
+            "format": "date-time"
         },
         "campaignId": {
             "type": [
@@ -67,7 +67,7 @@
                             "percentage": {
                                 "type": [
                                     "null",
-                                    "integer"
+                                    "number"
                                 ]
                             },
                             "placement": {
@@ -100,7 +100,7 @@
                             "percentage": {
                                 "type": [
                                     "null",
-                                    "integer"
+                                    "number"
                                 ]
                             },
                             "audienceSegments": {
@@ -189,7 +189,7 @@
                 "null",
                 "string"
             ],
-            "format": "date"
+            "format": "date-time"
         },
         "budget": {
             "type": [

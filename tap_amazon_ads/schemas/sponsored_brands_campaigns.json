@@ -86,7 +86,7 @@
                             "percentage": {
                                 "type": [
                                     "null",
-                                    "integer"
+                                    "number"
                                 ]
                             },
                             "audienceSegments": {
@@ -126,7 +126,7 @@
                             "percentage": {
                                 "type": [
                                     "null",
-                                    "integer"
+                                    "number"
                                 ]
                             },
                             "placement": {
