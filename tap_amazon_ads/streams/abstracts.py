@@ -227,4 +227,3 @@ class FullTableStream(BaseStream):
                     child.sync(state=state, transformer=transformer, parent_obj=record)
 
             return counter.value
-
