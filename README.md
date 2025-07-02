@@ -78,6 +78,11 @@ This tap:
 - Primary keys: ['portfolioId']
 - Replication strategy: INCREMENTAL
 
+** [invoices](https://advertising.amazon.com/API/docs/en-us/billing#tag/invoice/operation/getAdvertiserInvoices)**
+- Data Key = invoiceSummaries
+- Primary keys: ['id']
+- Replication strategy: INCREMENTAL
+
 ** [sponsored_display_campaigns](https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Campaigns)**
 - Primary keys: ['campaignId']
 - Replication strategy: INCREMENTAL
@@ -186,12 +191,6 @@ This tap:
 - Data Key = budgetRulesForAdvertiserResponse
 - Primary keys: ['ruleId']
 - Replication strategy: INCREMENTAL
-
-** [invoices](https://advertising.amazon.com/API/docs/en-us/billing#tag/invoice/operation/getAdvertiserInvoices)**
-- Data Key = invoiceSummaries
-- Primary keys: ['id']
-- Replication strategy: INCREMENTAL
-
 
 
 ## Authentication

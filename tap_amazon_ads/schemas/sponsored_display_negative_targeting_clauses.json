@@ -1,0 +1,72 @@
+{
+    "type": "object",
+    "properties": {
+        "targetId": {
+            "type": [
+                "null",
+                "integer"
+            ]
+        },
+        "adGroupId": {
+            "type": [
+                "null",
+                "integer"
+            ]
+        },
+        "state": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "expressionType": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "expression": {
+            "type": [
+                "null",
+                "array"
+            ],
+            "items": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": [
+                            "null",
+                            "string"
+                        ]
+                    },
+                    "value": {
+                        "type": [
+                            "null",
+                            "string"
+                        ]
+                    }
+                }
+            }
+        },
+        "servingStatus": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "creationDate": {
+            "type": [
+                "null",
+                "string"
+            ],
+            "format": "date-time"
+        },
+        "lastUpdatedDate": {
+            "type": [
+                "null",
+                "string"
+            ],
+            "format": "date-time"
+        }
+    }
+}

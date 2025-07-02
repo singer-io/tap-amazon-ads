@@ -1,0 +1,215 @@
+{
+    "type": "object",
+    "properties": {
+        "ruleState": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "lastUpdatedDate": {
+            "type": [
+                "null",
+                "string"
+            ],
+            "format": "date-time"
+        },
+        "createdDate": {
+            "type": [
+                "null",
+                "string"
+            ],
+            "format": "date-time"
+        },
+        "ruleDetails": {
+            "type": [
+                "null",
+                "object"
+            ],
+            "properties": {
+                "duration": {
+                    "type": [
+                        "null",
+                        "object"
+                    ],
+                    "properties": {
+                        "eventTypeRuleDuration": {
+                            "type": [
+                                "null",
+                                "object"
+                            ],
+                            "properties": {
+                                "eventId": {
+                                    "type": [
+                                        "null",
+                                        "string"
+                                    ]
+                                },
+                                "endDate": {
+                                    "type": [
+                                        "null",
+                                        "string"
+                                    ],
+                                    "format": "date-time"
+                                },
+                                "eventName": {
+                                    "type": [
+                                        "null",
+                                        "string"
+                                    ]
+                                },
+                                "startDate": {
+                                    "type": [
+                                        "null",
+                                        "string"
+                                    ],
+                                    "format": "date-time"
+                                }
+                            }
+                        },
+                        "dateRangeTypeRuleDuration": {
+                            "type": [
+                                "null",
+                                "object"
+                            ],
+                            "properties": {
+                                "endDate": {
+                                    "type": [
+                                        "null",
+                                        "string"
+                                    ],
+                                    "format": "date-time"
+                                },
+                                "startDate": {
+                                    "type": [
+                                        "null",
+                                        "string"
+                                    ],
+                                    "format": "date-time"
+                                }
+                            }
+                        }
+                    }
+                },
+                "recurrence": {
+                    "type": [
+                        "null",
+                        "object"
+                    ],
+                    "properties": {
+                        "type": {
+                            "type": [
+                                "null",
+                                "string"
+                            ]
+                        },
+                        "daysOfWeek": {
+                            "type": [
+                                "null",
+                                "array"
+                            ],
+                            "items": {
+                                "type": "string"
+                            }
+                        },
+                        "intraDaySchedule": {
+                            "type": [
+                                "null",
+                                "array"
+                            ],
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "startTime": {
+                                        "type": [
+                                            "null",
+                                            "string"
+                                        ],
+                                        "format": "date-time"
+                                    },
+                                    "endTime": {
+                                        "type": [
+                                            "null",
+                                            "string"
+                                        ],
+                                        "format": "date-time"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "ruleType": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                },
+                "budgetIncreaseBy": {
+                    "type": [
+                        "null",
+                        "object"
+                    ],
+                    "properties": {
+                        "type": {
+                            "type": [
+                                "null",
+                                "string"
+                            ]
+                        },
+                        "value": {
+                            "type": [
+                                "null",
+                                "number"
+                            ]
+                        }
+                    }
+                },
+                "name": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                },
+                "performanceMeasureCondition": {
+                    "type": [
+                        "null",
+                        "object"
+                    ],
+                    "properties": {
+                        "metricName": {
+                            "type": [
+                                "null",
+                                "string"
+                            ]
+                        },
+                        "comparisonOperator": {
+                            "type": [
+                                "null",
+                                "string"
+                            ]
+                        },
+                        "threshold": {
+                            "type": [
+                                "null",
+                                "number"
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "ruleId": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "ruleStatus": {
+            "type": [
+                "null",
+                "string"
+            ]
+        }
+    }
+}

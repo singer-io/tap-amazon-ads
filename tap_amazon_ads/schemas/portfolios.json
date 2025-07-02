@@ -1,0 +1,120 @@
+{
+    "type": "object",
+    "properties": {
+        "portfolioId": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "inBudget": {
+            "type": [
+                "null",
+                "boolean"
+            ]
+        },
+        "name": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "state": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "budget": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "amount": {
+                    "type": [
+                        "null",
+                        "number"
+                    ]
+                },
+                "endDate": {
+                    "type": [
+                        "null",
+                        "string"
+                    ],
+                    "format": "date-time"
+                },
+                "currencyCode": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                },
+                "startDate": {
+                    "type": [
+                        "null",
+                        "string"
+                    ],
+                    "format": "date-time"
+                },
+                "policy": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                }
+            }
+        },
+        "budgetControls": {
+            "type": "object",
+            "properties": {
+                "campaignUnspentBudgetSharing": {
+                    "type": "object",
+                    "properties": {
+                        "featureState": {
+                            "type": [
+                                "null",
+                                "string"
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "extendedData": {
+            "type": "object",
+            "properties": {
+                "statusReasons": {
+                    "type": [
+                        "null",
+                        "array"
+                    ],
+                    "items": {
+                        "type": [
+                            "null",
+                            "string"
+                        ]
+                    }
+                },
+                "lastUpdateDateTime": {
+                    "type": [
+                        "null",
+                        "string"
+                    ],
+                    "format": "date-time"
+                },
+                "servingStatus": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                },
+                "creationDateTime": {
+                    "type": [
+                        "null",
+                        "string"
+                    ],
+                    "format": "date-time"
+                }
+            }
+        }
+    }
+}
