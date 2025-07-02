@@ -1,0 +1,125 @@
+{
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+        "globalStoreSetting": {
+            "type": [
+                "null",
+                "object"
+            ],
+            "additionalProperties": false,
+            "properties": {
+                "catalogSourceCountryCode": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                }
+            }
+        },
+        "adId": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "campaignId": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "customText": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "asin": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "state": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "sku": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "adGroupId": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "extendedData": {
+            "type": [
+                "null",
+                "object"
+            ],
+            "additionalProperties": false,
+            "properties": {
+                "lastUpdateDateTime": {
+                    "type": [
+                        "null",
+                        "string"
+                    ],
+                    "format": "date-time"
+                },
+                "servingStatus": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                },
+                "servingStatusDetails": {
+                    "type": [
+                        "null",
+                        "array"
+                    ],
+                    "items": {
+                        "type": [
+                            "null",
+                            "object"
+                        ],
+                        "additionalProperties": false,
+                        "properties": {
+                            "name": {
+                                "type": [
+                                    "null",
+                                    "string"
+                                ]
+                            },
+                            "helpUrl": {
+                                "type": [
+                                    "null",
+                                    "string"
+                                ]
+                            },
+                            "message": {
+                                "type": [
+                                    "null",
+                                    "string"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "creationDateTime": {
+                    "type": [
+                        "null",
+                        "string"
+                    ],
+                    "format": "date-time"
+                }
+            }
+        }
+    }
+}
