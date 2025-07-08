@@ -12,3 +12,6 @@ class SponsoredProductsKeywords(IncrementalStream):
     replication_keys = ["extendedData.lastUpdateDateTime"]
     data_key = "keywords"
     path = "sp/keywords/list"
+    http_method = "POST"
+    api_version = 3
+    schema_version = "application/vnd.spKeyword.v"

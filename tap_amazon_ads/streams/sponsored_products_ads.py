@@ -12,3 +12,6 @@ class SponsoredProductsAds(IncrementalStream):
     replication_keys = ["extendedData.lastUpdateDateTime"]
     data_key = "productAds"
     path = "sp/productAds/list"
+    http_method = "POST"
+    api_version = 3
+    schema_version = "application/vnd.spProductAd.v"

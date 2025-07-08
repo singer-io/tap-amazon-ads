@@ -12,3 +12,4 @@ class SponsoredProductsBudgetRules(IncrementalStream):
     replication_keys = ["lastUpdatedDate"]
     data_key = "budgetRulesForAdvertiserResponse"
     path = "sp/budgetRules"
+    http_method = "GET"

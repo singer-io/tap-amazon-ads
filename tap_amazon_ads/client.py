@@ -49,7 +49,7 @@ class Client:
     def __init__(self, config: Mapping[str, Any]) -> None:
         self.config = config
         self._session = session()
-        self.base_url = "https://advertising-api.amazon.com/"
+        self.base_url = "https://advertising-api.amazon.com"
         self._access_token = None
         self._expires_at = None
 
@@ -68,13 +68,17 @@ class Client:
         LOGGER.info("Refreshing Access Token")
         resp_json = self.post(
             endpoint=REFRESH_URL,
-            headers={"User-Agent": self.config["user_agent"]},
+            headers={
+                "User-Agent": self.config["user_agent"],
+                "content-type": "application/x-www-form-urlencoded;charset=UTF-8"
+            },
             body={
                 "refresh_token": self.config["refresh_token"],
                 "client_id": self.config["client_id"],
                 "client_secret": self.config["client_secret"],
-                "grant_type": "refresh_token",
-            }
+                "grant_type": "refresh_token"
+            },
+            is_auth_req=False
         )
         self._access_token = resp_json["access_token"]
         expires_in_seconds = resp_json.get("expires_in", 1 * 60 * 60)
@@ -89,25 +93,41 @@ class Client:
         self._refresh_access_token()
         return self._access_token
 
+    @property
+    def headers(self) -> Dict[str, str]:
+        data = {
+            'User-Agent': self.config["user_agent"],
+            'Amazon-Advertising-API-ClientId': self.config["client_id"],
+            "Authorization": f"Bearer {self.get_access_token()}",
+            'Content-Type': 'application/json'
+        }
+        if profile_id := self.config["profiles"]:
+            data['Amazon-Advertising-API-Scope'] = profile_id
+        return data
+
     def authenticate(self, headers: Dict, params: Dict) -> Tuple[Dict, Dict]:
         """Authenticates the request with the token"""
-        headers["Authorization"] = f"Bearer {self.get_access_token()}"
-        headers["User-Agent"] = self.config["user_agent"]
-        headers["Amazon-Advertising-API-ClientId"] = self.config["client_id"]
-        headers["Amazon-Advertising-API-Scope"] = self.config["profiles"]
-        headers["Content-Type"] = "application/json"
-
+        if headers is False:
+            base_header = self.headers.copy()
+            base_header.pop("Content-Type")
+            headers = base_header
+        elif headers is not None:
+            base_header = self.headers.copy()
+            base_header.update(headers)
+            headers = base_header
         return headers, params
 
-    def get(self, endpoint: str, params: Dict, headers: Dict, path: str = None) -> Any:
+    def get(self, endpoint: str, params: Dict = {}, headers: Dict = {}, path: str = None, is_auth_req: bool = True) -> Any:
         """Calls the make_request method with a prefixed method type `GET`"""
         endpoint = endpoint or f"{self.base_url}/{path}"
-        headers, params = self.authenticate(headers, params)
+        if is_auth_req:
+            headers, params = self.authenticate(headers, params)
         return self.__make_request("GET", endpoint, headers=headers, params=params, timeout=self.request_timeout)
 
-    def post(self, endpoint: str, params: Dict, headers: Dict, body: Dict, path: str = None, add_auth: bool = False) -> Any:
+    def post(self, endpoint: str, params: Dict = {}, headers: Dict = {}, body: Dict = {}, path: str = None, is_auth_req: bool = True) -> Any:
         """Calls the make_request method with a prefixed method type `POST`"""
-        if add_auth:
+        endpoint = endpoint or f"{self.base_url}/{path}"
+        if is_auth_req:
             headers, params = self.authenticate(headers, params)
         return self.__make_request("POST", endpoint, headers=headers, params=params, data=body, timeout=self.request_timeout)
 

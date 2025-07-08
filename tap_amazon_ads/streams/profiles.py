@@ -9,4 +9,6 @@ class Profiles(FullTableStream):
     tap_stream_id = "profiles"
     key_properties = ["profileId"]
     replication_method = "FULL_TABLE"
+    replication_keys = []
     path = "v2/profiles"
+    http_method = "GET"

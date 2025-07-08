@@ -9,5 +9,7 @@ class SponsoredBrandsNegativeTargets(FullTableStream):
     tap_stream_id = "sponsored_brands_negative_targets"
     key_properties = ["targetId"]
     replication_method = "FULL_TABLE"
+    replication_keys = []
     data_key = "negativeTargets"
     path = "sb/negativeTargets/list"
+    http_method = "POST"

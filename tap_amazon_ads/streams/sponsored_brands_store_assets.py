@@ -9,4 +9,8 @@ class SponsoredBrandsStoreAssets(FullTableStream):
     tap_stream_id = "sponsored_brands_store_assets"
     key_properties = ["assetID"]
     replication_method = "FULL_TABLE"
+    replication_keys = []
     path = "stores/assets"
+    http_method = "GET"
+    api_version = 3
+    schema_version = "application/vnd.mediaasset.v"

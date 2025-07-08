@@ -9,4 +9,8 @@ class SponsoredBrandsKeywords(FullTableStream):
     tap_stream_id = "sponsored_brands_keywords"
     key_properties = ["keywordId"]
     replication_method = "FULL_TABLE"
+    replication_keys = []
     path = "sb/keywords"
+    http_method = "GET"
+    api_version = 3.2
+    schema_version = "application/vnd.sbkeyword.v"

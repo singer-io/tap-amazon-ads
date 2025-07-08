@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
-from typing import Any, Dict, Tuple, List
+from typing import Any, Dict, Tuple, Iterator
+import json
 from singer import (
     Transformer,
     get_bookmark,
@@ -29,11 +30,15 @@ class BaseStream(ABC):
     path = ""
     page_size = 100
     next_page_key = "next_token"
-    headers = {'Accept': 'application/json'}
+    # headers = {'Accept': 'application/json'}      #singer tap generator existing logic for headers
     children = []
     parent = ""
     data_key = ""
     parent_bookmark_key = ""
+    schema_version = "application/json"
+    api_version = None
+    prefer = False
+    prefer_value = ""
 
     def __init__(self, client=None, catalog=None) -> None:
         self.client = client
@@ -68,6 +73,30 @@ class BaseStream(ABC):
     def key_properties(self) -> Tuple[str, str]:
         """List of key properties for stream."""
 
+    @property
+    @abstractmethod
+    def http_method(self) -> str:
+        """Defines the http method for the stream."""
+
+    @property
+    def headers(self):
+        """
+            Constructs and returns the HTTP headers for API requests.
+            This property dynamically builds the headers based on the current
+            `api_version`, `schema_version`, and optionally a `prefer` setting.
+            - If `api_version` is set, it appends the version and '+json' to the
+            `schema_version` string for the Accept and Content-Type headers.
+            - If `prefer` is enabled, it adds the Prefer header with the given value.
+            Returns:
+                dict: A dictionary of HTTP headers to be used in the API request.
+        """
+        if self.api_version:
+            self.schema_version = self.schema_version + str(self.api_version) + '+json'
+        headers = {"Accept": self.schema_version, "Content-Type": self.schema_version}
+        if self.prefer:
+            headers.update({"Prefer": self.prefer_value})
+        return headers
+
     def is_selected(self):
         return metadata.get(self.metadata, (), "selected")
 
@@ -94,18 +123,32 @@ class BaseStream(ABC):
         """
 
 
-    def get_records(self) -> List:
+    def get_records(self) -> Iterator:
         """Interacts with api client interaction and pagination."""
-        self.params["page"] = self.page_size
+        # self.params["page"] = self.page_size      # commented for later changes if required
         next_page = 1
+        payload = self.request_body_json()
         while next_page:
-            response = self.client.get(
-                self.url_endpoint, self.params, self.headers, self.path
-            )
-            raw_records = response.get(self.data_key, [])
-            next_page = response.get(self.next_page_key)
+            if self.http_method == "POST":
+                response = self.client.post(
+                    self.url_endpoint, self.params, self.headers, body=json.dumps(payload), path=self.path
+                )
+            elif self.http_method == "GET":
+                response = self.client.get(
+                    self.url_endpoint, self.params, self.headers, self.path
+                )
+            else:
+                raise ValueError(f"Unsupported HTTP method: {self.http_method}")
 
-            self.params[self.next_page_key] = next_page
+            if isinstance(response, list):
+                raw_records = response
+                next_page = None
+            elif isinstance(response, dict):
+                raw_records = response.get(self.data_key, [])
+                next_page = response.get(self.next_page_key)
+                payload[self.next_page_key] = next_page
+            else:
+                raise TypeError("Unexpected response type. Expected dict or list.")
             yield from raw_records
 
     def write_schema(self) -> None:
@@ -138,6 +181,26 @@ class BaseStream(ABC):
         """
         return self.url_endpoint or f"{self.client.base_url}/{self.path}"
 
+    def request_body_json(self) -> Dict:
+        """
+        Constructs the JSON body payload for the API request.
+        """
+        return {
+            "includeExtendedDataFields": True
+        }
+
+    def get_dot_path_value(self, record: dict, dotted_path: str, default=None):
+        """
+        Safely retrieve a nested value from a dictionary using a dotted key path.
+        """
+        keys = dotted_path.split(".")
+        value = record
+        for key in keys:
+            if isinstance(value, dict) and key in value:
+                value = value[key]
+            else:
+                return default
+        return value
 
 class IncrementalStream(BaseStream):
     """Base Class for Incremental Stream."""
@@ -175,7 +238,7 @@ class IncrementalStream(BaseStream):
         """Implementation for `type: Incremental` stream."""
         bookmark_date = self.get_bookmark(state, self.tap_stream_id)
         current_max_bookmark_date = bookmark_date
-        self.update_params(updated_since=bookmark_date)
+        # self.update_params(updated_since=bookmark_date)   # update when we need to send start_date in params
         self.url_endpoint = self.get_url_endpoint(parent_obj)
 
         with metrics.record_counter(self.tap_stream_id) as counter:
@@ -184,9 +247,10 @@ class IncrementalStream(BaseStream):
                 transformed_record = transformer.transform(
                     record, self.schema, self.metadata
                 )
-                self.append_times_to_dates(transformed_record)
+                # self.append_times_to_dates(transformed_record)
 
-                record_timestamp = transformed_record[self.replication_keys[0]]
+                # record_timestamp = transformed_record[self.replication_keys[0]]
+                record_timestamp = self.get_dot_path_value(transformed_record, self.replication_keys[0])
                 if record_timestamp >= bookmark_date:
                     if self.is_selected():
                         write_record(self.tap_stream_id, transformed_record)

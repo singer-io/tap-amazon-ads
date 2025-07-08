@@ -12,3 +12,6 @@ class SponsoredBrandsAdCreatives(IncrementalStream):
     replication_keys = ["lastUpdateTime"]
     data_key = "creatives"
     path = "sb/ads/creatives/list"
+    http_method = "POST"
+    api_version = 4
+    schema_version = "application/vnd.sbAdCreativeResource.v"

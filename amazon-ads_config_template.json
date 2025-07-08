@@ -163,7 +163,7 @@
       "replication_keys": [
         "extendedData.lastUpdateDateTime"
       ],
-      "path": "sb/v4/campaigns",
+      "path": "sb/v4/campaigns/list",
       "data_key": "campaigns",
       "parent": "",
       "doc_link": "https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi/prod#tag/Campaigns"

@@ -11,3 +11,4 @@ class SponsoredDisplayTargetings(IncrementalStream):
     replication_method = "INCREMENTAL"
     replication_keys = ["lastUpdateDate"]
     path = "sd/targets/extended"
+    http_method = "GET"

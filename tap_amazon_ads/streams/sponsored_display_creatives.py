@@ -9,4 +9,6 @@ class SponsoredDisplayCreatives(FullTableStream):
     tap_stream_id = "sponsored_display_creatives"
     key_properties = ["creativeId"]
     replication_method = "FULL_TABLE"
+    replication_keys = []
     path = "sd/creatives"
+    http_method = "GET"

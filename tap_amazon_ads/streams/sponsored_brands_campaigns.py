@@ -11,4 +11,7 @@ class SponsoredBrandsCampaigns(IncrementalStream):
     replication_method = "INCREMENTAL"
     replication_keys = ["extendedData.lastUpdateDateTime"]
     data_key = "campaigns"
-    path = "sb/v4/campaigns"
+    path = "sb/v4/campaigns/list"
+    http_method = "POST"
+    api_version = 4
+    schema_version = "application/vnd.sbcampaignresource.v"

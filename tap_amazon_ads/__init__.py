@@ -29,10 +29,10 @@ def main():
     if parsed_args.state:
         state = parsed_args.state
 
-    with Client(parsed_args.config) as client:
-        if parsed_args.discover:
-            do_discover()
-        elif parsed_args.catalog:
+    if parsed_args.discover:
+        do_discover()
+    elif parsed_args.catalog:
+        with Client(parsed_args.config) as client:
             sync(
                 client=client,
                 config=parsed_args.config,

@@ -12,3 +12,6 @@ class SponsoredProductsNegativeKeywords(IncrementalStream):
     replication_keys = ["extendedData.lastUpdateDateTime"]
     data_key = "negativeKeywords"
     path = "sp/negativeKeywords/list"
+    http_method = "POST"
+    api_version = 3
+    schema_version = "application/vnd.spNegativeKeyword.v"
