@@ -14,15 +14,14 @@ class Portfolios(IncrementalStream):
     path = "portfolios/list"
     http_method = "POST"
     api_version = 3
-    schema_version = "application/vnd.spPortfolio.v"
+    accept_header = f"application/vnd.spPortfolio.v{api_version}+json"
+    content_type = f"application/vnd.spPortfolio.v{api_version}+json"
     prefer = True
     prefer_value = 'return=representation'
 
-    # @property
-    # def headers(self):
-    #     schema_version = 'application/vnd.spPortfolio.v' + str(self.api_version) + '+json'
-    #     headers = {"Accept": schema_version, "Content-Type": schema_version}
-    #     prefer_value = 'return=representation'
-    #     if self.prefer:
-    #         headers.update({"Prefer": prefer_value})
-    #     return headers
+    def update_data_payload(self, parent_obj: Dict = None) -> Dict:
+        """
+        Constructs the JSON body payload for the API request.
+        """
+        super().update_data_payload(parent_obj)
+        self.data_payload["includeExtendedDataFields"] = True

@@ -11,4 +11,5 @@ class SponsoredDisplayAdGroups(IncrementalStream):
     replication_method = "INCREMENTAL"
     replication_keys = ["lastUpdatedDate"]
     path = "sd/adGroups/extended"
+    children = ["sponsored_display_creatives"]
     http_method = "GET"

@@ -10,5 +10,8 @@ class SponsoredBrandsProductTargets(FullTableStream):
     key_properties = ["targetId"]
     replication_method = "FULL_TABLE"
     replication_keys = []
+    data_key = "targets"
     path = "sb/targets/list"
     http_method = "POST"
+    api_version = 3.2
+    accept_header = f"application/vnd.sblisttargetsresponse.v{api_version}+json"

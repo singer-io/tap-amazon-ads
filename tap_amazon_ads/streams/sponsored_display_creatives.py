@@ -11,4 +11,11 @@ class SponsoredDisplayCreatives(FullTableStream):
     replication_method = "FULL_TABLE"
     replication_keys = []
     path = "sd/creatives"
+    parent = "sponsored_display_ad_groups"
     http_method = "GET"
+
+    def update_params(self, parent_obj: Dict = None, **kwargs):
+        """Update params for the stream"""
+        # params are enum and selected between adGroupIdFilter and creativeId
+        kwargs["adGroupIdFilter"] = parent_obj.get("adGroupId")
+        super().update_params(**kwargs)

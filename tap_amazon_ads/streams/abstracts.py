@@ -35,7 +35,8 @@ class BaseStream(ABC):
     parent = ""
     data_key = ""
     parent_bookmark_key = ""
-    schema_version = "application/json"
+    content_type  = "application/json"
+    accept_header = "application/json"
     api_version = None
     prefer = False
     prefer_value = ""
@@ -47,6 +48,7 @@ class BaseStream(ABC):
         self.metadata = metadata.to_map(catalog.metadata)
         self.child_to_sync = []
         self.params = {}
+        self.data_payload = dict()
 
     @property
     @abstractmethod
@@ -90,9 +92,7 @@ class BaseStream(ABC):
             Returns:
                 dict: A dictionary of HTTP headers to be used in the API request.
         """
-        if self.api_version:
-            self.schema_version = self.schema_version + str(self.api_version) + '+json'
-        headers = {"Accept": self.schema_version, "Content-Type": self.schema_version}
+        headers = {"Accept": self.accept_header, "Content-Type": self.content_type}
         if self.prefer:
             headers.update({"Prefer": self.prefer_value})
         return headers
@@ -127,11 +127,11 @@ class BaseStream(ABC):
         """Interacts with api client interaction and pagination."""
         # self.params["page"] = self.page_size      # commented for later changes if required
         next_page = 1
-        payload = self.request_body_json()
+
         while next_page:
             if self.http_method == "POST":
                 response = self.client.post(
-                    self.url_endpoint, self.params, self.headers, body=json.dumps(payload), path=self.path
+                    self.url_endpoint, self.params, self.headers, body=json.dumps(self.data_payload), path=self.path
                 )
             elif self.http_method == "GET":
                 response = self.client.get(
@@ -146,7 +146,7 @@ class BaseStream(ABC):
             elif isinstance(response, dict):
                 raw_records = response.get(self.data_key, [])
                 next_page = response.get(self.next_page_key)
-                payload[self.next_page_key] = next_page
+                self.data_payload[self.next_page_key] = next_page
             else:
                 raise TypeError("Unexpected response type. Expected dict or list.")
             yield from raw_records
@@ -163,7 +163,7 @@ class BaseStream(ABC):
             )
             raise err
 
-    def update_params(self, **kwargs) -> None:
+    def update_params(self, parent_obj: Dict = None, **kwargs) -> None:
         """
         Update params for the stream
         """
@@ -181,13 +181,11 @@ class BaseStream(ABC):
         """
         return self.url_endpoint or f"{self.client.base_url}/{self.path}"
 
-    def request_body_json(self) -> Dict:
+    def update_data_payload(self, parent_obj: Dict = None) -> Dict:
         """
         Constructs the JSON body payload for the API request.
         """
-        return {
-            "includeExtendedDataFields": True
-        }
+        self.data_payload = dict()
 
     def get_dot_path_value(self, record: dict, dotted_path: str, default=None):
         """
@@ -240,6 +238,8 @@ class IncrementalStream(BaseStream):
         current_max_bookmark_date = bookmark_date
         # self.update_params(updated_since=bookmark_date)   # update when we need to send start_date in params
         self.url_endpoint = self.get_url_endpoint(parent_obj)
+        self.update_data_payload(parent_obj=parent_obj)
+        self.update_params(parent_obj)
 
         with metrics.record_counter(self.tap_stream_id) as counter:
             for record in self.get_records():
@@ -278,6 +278,8 @@ class FullTableStream(BaseStream):
     ) -> Dict:
         """Abstract implementation for `type: Fulltable` stream."""
         self.url_endpoint = self.get_url_endpoint(parent_obj)
+        self.update_data_payload(parent_obj=parent_obj)
+        self.update_params(parent_obj)
         with metrics.record_counter(self.tap_stream_id) as counter:
             for record in self.get_records():
                 transformed_record = transformer.transform(

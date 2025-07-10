@@ -13,4 +13,4 @@ class SponsoredBrandsStoreAssets(FullTableStream):
     path = "stores/assets"
     http_method = "GET"
     api_version = 3
-    schema_version = "application/vnd.mediaasset.v"
+    accept_header = f"application/vnd.mediaasset.v{api_version}+json"

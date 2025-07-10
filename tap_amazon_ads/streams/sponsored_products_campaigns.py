@@ -14,4 +14,12 @@ class SponsoredProductsCampaigns(IncrementalStream):
     path = "sp/campaigns/list"
     http_method = "POST"
     api_version = 3
-    schema_version = "application/vnd.spCampaign.v"
+    accept_header = f"application/vnd.spCampaign.v{api_version}+json"
+    content_type = f"application/vnd.spCampaign.v{api_version}+json"
+
+    def update_data_payload(self, parent_obj: Dict = None) -> Dict:
+        """
+        Constructs the JSON body payload for the API request.
+        """
+        super().update_data_payload(parent_obj)
+        self.data_payload["includeExtendedDataFields"] = True

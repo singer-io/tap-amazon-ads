@@ -11,5 +11,12 @@ class SponsoredDisplayBudgetRules(IncrementalStream):
     replication_method = "INCREMENTAL"
     replication_keys = ["lastUpdateDate"]
     data_key = "budgetRulesForAdvertiserResponse"
+    children = ["sponsored_brands_budget_rules_campaigns"]
     path = "sd/budgetRules"
     http_method = "GET"
+    page_size = 30
+
+    def update_params(self, parent_obj: Dict = None, **kwargs):
+        """Update params for the stream"""
+        kwargs["pageSize"] = self.page_size
+        super().update_params(**kwargs)

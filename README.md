@@ -12,6 +12,10 @@ This tap:
 
     - [Portfolios](https://advertising.amazon.com/API/docs/en-us/reference/portfolios)
 
+    - [Invoices](https://advertising.amazon.com/API/docs/en-us/billing#tag/invoice/operation/getAdvertiserInvoices)
+
+    - [SponsoredDisplayCampaignsBudgetRules](https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Budget-rules/operation/DisassociateAssociatedBudgetRuleForSBCampaigns)
+
     - [SponsoredDisplayCampaigns](https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Campaigns)
 
     - [SponsoredDisplayAdGroups](https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Ad-Groups)
@@ -20,6 +24,8 @@ This tap:
 
     - [SponsoredDisplayTargetings](https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Targeting)
 
+    - [SponsoredDisplayBudgetRulesCampaigns](https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Budget-Rules/operation/GetCampaignsAssociatedWithSDBudgetRule)
+
     - [SponsoredDisplayBudgetRules](https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Budget-Rules)
 
     - [SponsoredDisplayBrandSafetyList](https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Brand-Safety-List)
@@ -27,6 +33,8 @@ This tap:
     - [SponsoredDisplayNegativeTargetingClauses](https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Negative-Targeting)
 
     - [SponsoredDisplayCreatives](https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Creatives)
+
+    - [SponsoredBrandsCampaignsBudgetRules](https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi/prod#tag/Budget-rules/operation/ListAssociatedBudgetRulesForSBCampaigns)
 
     - [SponsoredBrandsCampaigns](https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi/prod#tag/Campaigns)
 
@@ -46,6 +54,10 @@ This tap:
 
     - [SponsoredBrandsAdCreatives](https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi/prod#tag/Ad-creatives)
 
+    - [SponsoredBrandsAds](https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi/prod#tag/Ads/operation/ListSponsoredBrandsAds)
+
+    - [SponsoredBrandsBudgetRulesCampaigns](https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi/prod#tag/Budget-rules/operation/GetCampaignsAssociatedWithSBBudgetRule)
+
     - [SponsoredBrandsBudgetRules](https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi/prod#tag/Budget-rules)
 
     - [SponsoredProductsCampaigns](https://advertising.amazon.com/API/docs/en-us/sponsored-products/3-0/openapi/prod#tag/Campaigns)
@@ -59,8 +71,6 @@ This tap:
     - [SponsoredProductsAds](https://advertising.amazon.com/API/docs/en-us/sponsored-products/3-0/openapi/prod#tag/Product-ads/operation/ListSponsoredProductsProductAds)
 
     - [SponsoredProductsBudgetRules](https://advertising.amazon.com/API/docs/en-us/sponsored-products/3-0/openapi/prod#tag/BudgetRules/operation/GetSPBudgetRulesForAdvertiser)
-
-    - [Invoices](https://advertising.amazon.com/API/docs/en-us/billing#tag/invoice/operation/getAdvertiserInvoices)
 
 - Outputs the schema for each resource
 - Incrementally pulls data based on the input state
@@ -83,6 +93,11 @@ This tap:
 - Primary keys: ['id']
 - Replication strategy: INCREMENTAL
 
+** [sponsored_display_campaigns_budget_rules](https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Budget-rules/operation/DisassociateAssociatedBudgetRuleForSBCampaigns)**
+- Data Key = associatedRules
+- Primary keys: ['ruleId']
+- Replication strategy: INCREMENTAL
+
 ** [sponsored_display_campaigns](https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Campaigns)**
 - Primary keys: ['campaignId']
 - Replication strategy: INCREMENTAL
@@ -98,6 +113,11 @@ This tap:
 ** [sponsored_display_targetings](https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Targeting)**
 - Primary keys: ['targetId']
 - Replication strategy: INCREMENTAL
+
+** [sponsored_display_budget_rules_campaigns](https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Budget-Rules/operation/GetCampaignsAssociatedWithSDBudgetRule)**
+- Data Key = associatedCampaigns
+- Primary keys: ['campaignId']
+- Replication strategy: FULL_TABLE
 
 ** [sponsored_display_budget_rules](https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Budget-Rules)**
 - Data Key = budgetRulesForAdvertiserResponse
@@ -116,6 +136,11 @@ This tap:
 ** [sponsored_display_creatives](https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Creatives)**
 - Primary keys: ['creativeId']
 - Replication strategy: FULL_TABLE
+
+** [sponsored_brands_campaigns_budget_rules](https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi/prod#tag/Budget-rules/operation/ListAssociatedBudgetRulesForSBCampaigns)**
+- Data Key = associatedRules
+- Primary keys: ['ruleId']
+- Replication strategy: INCREMENTAL
 
 ** [sponsored_brands_campaigns](https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi/prod#tag/Campaigns)**
 - Data Key = campaigns
@@ -156,6 +181,16 @@ This tap:
 - Data Key = creatives
 - Primary keys: ['adId']
 - Replication strategy: INCREMENTAL
+
+** [sponsored_brands_ads](https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi/prod#tag/Ads/operation/ListSponsoredBrandsAds)**
+- Data Key = ads
+- Primary keys: ['adId']
+- Replication strategy: INCREMENTAL
+
+** [sponsored_brands_budget_rules_campaigns](https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi/prod#tag/Budget-rules/operation/GetCampaignsAssociatedWithSBBudgetRule)**
+- Data Key = associatedCampaigns
+- Primary keys: ['campaignId']
+- Replication strategy: FULL_TABLE
 
 ** [sponsored_brands_budget_rules](https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi/prod#tag/Budget-rules)**
 - Data Key = budgetRulesForAdvertiserResponse
