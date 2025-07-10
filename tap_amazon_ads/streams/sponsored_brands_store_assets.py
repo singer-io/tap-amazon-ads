@@ -14,3 +14,4 @@ class SponsoredBrandsStoreAssets(FullTableStream):
     http_method = "GET"
     api_version = 3
     accept_header = f"application/vnd.mediaasset.v{api_version}+json"
+

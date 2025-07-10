@@ -34,3 +34,4 @@ class SponsoredBrandsAdCreatives(IncrementalStream):
         """
         super().update_data_payload(parent_obj)
         self.data_payload["adId"] = parent_obj.get("adId", None)
+

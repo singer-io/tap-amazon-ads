@@ -23,3 +23,4 @@ class SponsoredBrandsBidRecommendations(FullTableStream):
             "campaignId": parent_obj.get("campaignId")
             }
         self.data_payload.update(data)
+

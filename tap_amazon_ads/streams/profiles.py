@@ -12,3 +12,4 @@ class Profiles(FullTableStream):
     replication_keys = []
     path = "v2/profiles"
     http_method = "GET"
+

@@ -65,3 +65,4 @@ STREAMS = {
     "sponsored_products_budget_rules": SponsoredProductsBudgetRules,
     "invoices": Invoices
 }
+

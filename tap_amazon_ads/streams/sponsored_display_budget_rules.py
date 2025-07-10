@@ -20,3 +20,4 @@ class SponsoredDisplayBudgetRules(IncrementalStream):
         """Update params for the stream"""
         kwargs["pageSize"] = self.page_size
         super().update_params(**kwargs)
+

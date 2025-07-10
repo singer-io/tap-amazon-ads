@@ -30,7 +30,6 @@ class BaseStream(ABC):
     path = ""
     page_size = 100
     next_page_key = "next_token"
-    # headers = {'Accept': 'application/json'}      #singer tap generator existing logic for headers
     children = []
     parent = ""
     data_key = ""
@@ -236,7 +235,6 @@ class IncrementalStream(BaseStream):
         """Implementation for `type: Incremental` stream."""
         bookmark_date = self.get_bookmark(state, self.tap_stream_id)
         current_max_bookmark_date = bookmark_date
-        # self.update_params(updated_since=bookmark_date)   # update when we need to send start_date in params
         self.url_endpoint = self.get_url_endpoint(parent_obj)
         self.update_data_payload(parent_obj=parent_obj)
         self.update_params(parent_obj)
@@ -247,9 +245,7 @@ class IncrementalStream(BaseStream):
                 transformed_record = transformer.transform(
                     record, self.schema, self.metadata
                 )
-                # self.append_times_to_dates(transformed_record)
 
-                # record_timestamp = transformed_record[self.replication_keys[0]]
                 record_timestamp = self.get_dot_path_value(transformed_record, self.replication_keys[0])
                 if record_timestamp >= bookmark_date:
                     if self.is_selected():
@@ -293,3 +289,4 @@ class FullTableStream(BaseStream):
                     child.sync(state=state, transformer=transformer, parent_obj=record)
 
             return counter.value
+

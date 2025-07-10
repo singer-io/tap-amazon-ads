@@ -14,3 +14,4 @@ class SponsoredBrandsNegativeKeywords(FullTableStream):
     http_method = "GET"
     api_version = 3.2
     accept_header = f"application/vnd.sbnegativekeyword.v{api_version}+json"
+

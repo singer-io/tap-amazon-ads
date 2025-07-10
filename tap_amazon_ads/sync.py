@@ -69,3 +69,4 @@ def sync(client: Client, config: Dict, catalog: singer.Catalog, state) -> None:
                     stream_name, total_records
                 )
             )
+

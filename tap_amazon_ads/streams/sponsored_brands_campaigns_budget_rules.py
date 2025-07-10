@@ -18,3 +18,4 @@ class SponsoredBrandsCampaignsBudgetRules(IncrementalStream):
     def get_url_endpoint(self, parent_obj: Dict = None) -> str:
         """Prepare URL endpoint for child streams."""
         return f"{self.client.base_url}/{self.path.format(parent_obj['campaignId'])}"
+

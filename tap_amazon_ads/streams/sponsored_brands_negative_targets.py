@@ -23,5 +23,6 @@ class SponsoredBrandsNegativeTargets(FullTableStream):
         `filterType` Enum values:["CREATIVE_TYPE", "TARGETING_STATE", "CAMPAIGN_ID", "AD_GROUP_ID"]
         """
         super().update_data_payload(parent_obj)
-        # need to confirm how would we like to select the filterType from enums
+        # note: need to confirm how would we like to select the filterType from enums values
         self.data_payload["filters"] = [{"filterType": "CREATIVE_TYPE","values": ["productCollection"]}]
+

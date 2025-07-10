@@ -162,3 +162,4 @@ class Client:
             raise_for_error(response)
 
         return response.json()
+

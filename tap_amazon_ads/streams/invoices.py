@@ -15,3 +15,4 @@ class Invoices(IncrementalStream):
     http_method = "GET"
     api_version = 1.1
     content_type = f"application/vnd.invoices.v{api_version}+json"
+

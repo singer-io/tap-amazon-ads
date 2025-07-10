@@ -25,3 +25,4 @@ class Portfolios(IncrementalStream):
         """
         super().update_data_payload(parent_obj)
         self.data_payload["includeExtendedDataFields"] = True
+

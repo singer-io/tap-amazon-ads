@@ -13,3 +13,4 @@ class SponsoredDisplayAdGroups(IncrementalStream):
     path = "sd/adGroups/extended"
     children = ["sponsored_display_creatives"]
     http_method = "GET"
+

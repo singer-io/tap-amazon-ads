@@ -13,3 +13,4 @@ class SponsoredDisplayBrandSafetyList(FullTableStream):
     data_key = "requestStatusList"
     path = "sd/brandSafety/status"
     http_method = "GET"
+

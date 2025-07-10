@@ -14,3 +14,4 @@ class SponsoredBrandsKeywords(FullTableStream):
     http_method = "GET"
     api_version = 3.2
     accept_header = f"application/vnd.sbkeyword.v{api_version}+json"
+

@@ -12,3 +12,4 @@ class SponsoredDisplayProductAds(IncrementalStream):
     replication_keys = ["lastUpdateDate"]
     path = "sd/productAds/extended"
     http_method = "GET"
+
