@@ -2,9 +2,20 @@ class Amazon_AdsError(Exception):
     """class representing Generic Http error."""
 
     def __init__(self, message=None, response=None):
-        super().__init__(message)
-        self.message = message
-        self.response = response
+        try:
+            super().__init__(message)
+            self.message = message
+            self.response = response
+            self.amzn_error_details = response.get('details')
+            self.amzn_code = response.get('code')
+        except (IndexError, AttributeError):
+            pass
+
+    def get_amzn_code(self):
+        return self.amzn_code
+
+    def get_amzn_error_details(self):
+        return self.amzn_error_details
 
 
 class Amazon_AdsBackoffError(Amazon_AdsError):
@@ -18,7 +29,6 @@ class Amazon_AdsBadRequestError(Amazon_AdsError):
 class Amazon_AdsUnauthorizedError(Amazon_AdsError):
     """class representing 401 status code."""
     pass
-
 
 class Amazon_AdsForbiddenError(Amazon_AdsError):
     """class representing 403 status code."""
@@ -54,6 +64,10 @@ class Amazon_AdsBadGatewayError(Amazon_AdsBackoffError):
 
 class Amazon_AdsServiceUnavailableError(Amazon_AdsBackoffError):
     """class representing 503 status code."""
+    pass
+
+class Amazon_AdsGatewayTimeout(Amazon_AdsBackoffError):
+    """class representing 504 status code."""
     pass
 
 ERROR_CODE_EXCEPTION_MAPPING = {
@@ -101,6 +115,10 @@ ERROR_CODE_EXCEPTION_MAPPING = {
     503: {
         "raise_exception": Amazon_AdsServiceUnavailableError,
         "message": "API service is currently unavailable."
+    },
+    504: {
+        "raise_exception": Amazon_AdsGatewayTimeout,
+        "message": "API request timed out after waiting for a response."
     }
 }
 
