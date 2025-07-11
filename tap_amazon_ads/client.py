@@ -7,7 +7,14 @@ from requests import session
 from requests.exceptions import Timeout, ConnectionError, ChunkedEncodingError
 from singer import get_logger, metrics
 
-from tap_amazon_ads.exceptions import ERROR_CODE_EXCEPTION_MAPPING, Amazon_AdsError, Amazon_AdsBackoffError
+from tap_amazon_ads.exceptions import (
+    ERROR_CODE_EXCEPTION_MAPPING,
+    Amazon_AdsError,
+    Amazon_AdsRateLimitError,
+    Amazon_AdsInternalServerError,
+    Amazon_AdsBadGatewayError,
+    Amazon_AdsServiceUnavailableError,
+    Amazon_AdsGatewayTimeout)
 
 LOGGER = get_logger()
 REQUEST_TIMEOUT = 300
@@ -25,8 +32,8 @@ def raise_for_error(response: requests.Response) -> None:
     except Exception:
         response_json = {}
     if response.status_code not in [200, 201, 204]:
-        if response_json.get("error"):
-            message = "HTTP-error-code: {}, Error: {}".format(response.status_code, response_json.get("error"))
+        if response_json.get("code"):
+            message = "HTTP-error-code: {}, Error: {}".format(response.status_code, response_json.get("details"))
         else:
             message = "HTTP-error-code: {}, Error: {}".format(
                 response.status_code,
@@ -139,7 +146,11 @@ class Client:
             ConnectionError,
             ChunkedEncodingError,
             Timeout,
-            Amazon_AdsBackoffError
+            Amazon_AdsRateLimitError,
+            Amazon_AdsInternalServerError,
+            Amazon_AdsBadGatewayError,
+            Amazon_AdsServiceUnavailableError,
+            Amazon_AdsGatewayTimeout
         ),
         max_tries=5,
         factor=2,
