@@ -15,6 +15,7 @@ class SponsoredBrandsNegativeTargets(FullTableStream):
     http_method = "POST"
     api_version = 3.2
     accept_header = f"application/vnd.sblistnegativetargetsresponse.v{api_version}+json"
+    pagination_in = "body"
 
     def update_data_payload(self, parent_obj: Dict = None) -> Dict:
         """

@@ -29,7 +29,7 @@ class BaseStream(ABC):
     url_endpoint = ""
     path = ""
     page_size = 100
-    next_page_key = "next_token"
+    next_page_key = "nextToken"
     children = []
     parent = ""
     data_key = ""
@@ -39,6 +39,7 @@ class BaseStream(ABC):
     api_version = None
     prefer = False
     prefer_value = ""
+    pagination_in = None
 
     def __init__(self, client=None, catalog=None) -> None:
         self.client = client
@@ -144,8 +145,7 @@ class BaseStream(ABC):
                 next_page = None
             elif isinstance(response, dict):
                 raw_records = response.get(self.data_key, [])
-                next_page = response.get(self.next_page_key)
-                self.data_payload[self.next_page_key] = next_page
+                next_page = self.update_pagination_key(response)
             else:
                 raise TypeError("Unexpected response type. Expected dict or list.")
             yield from raw_records
@@ -199,10 +199,23 @@ class BaseStream(ABC):
                 return default
         return value
 
+    def update_pagination_key(self, response):
+        """
+        Extracts and updates the pagination key from the API response.
+        This method parses the given response to retrieve the pagination token (e.g., 'nextCursor', 'nextToken')
+        and updates the internal state to be used for the next paginated request.
+        """
+        next_page = response.get(self.next_page_key)
+        if self.pagination_in == "params" and next_page:
+            self.params[self.next_page_key] = next_page
+        elif self.pagination_in == "body" and next_page:
+            self.data_payload[self.next_page_key] = next_page
+        else:
+            next_page = None
+        return next_page
+
 class IncrementalStream(BaseStream):
     """Base Class for Incremental Stream."""
-
-
     def get_bookmark(self, state: dict, stream: str, key: Any = None) -> int:
         """A wrapper for singer.get_bookmark to deal with compatibility for
         bookmark values or start values."""
@@ -226,12 +239,7 @@ class IncrementalStream(BaseStream):
         )
 
 
-    def sync(
-        self,
-        state: Dict,
-        transformer: Transformer,
-        parent_obj: Dict = None,
-    ) -> Dict:
+    def sync(self,state: Dict,transformer: Transformer,parent_obj: Dict = None,) -> Dict:
         """Implementation for `type: Incremental` stream."""
         bookmark_date = self.get_bookmark(state, self.tap_stream_id)
         current_max_bookmark_date = bookmark_date
@@ -266,12 +274,7 @@ class IncrementalStream(BaseStream):
 class FullTableStream(BaseStream):
     """Base Class for Incremental Stream."""
 
-    def sync(
-        self,
-        state: Dict,
-        transformer: Transformer,
-        parent_obj: Dict = None,
-    ) -> Dict:
+    def sync(self, state: Dict, transformer: Transformer, parent_obj: Dict = None) -> Dict:
         """Abstract implementation for `type: Fulltable` stream."""
         self.url_endpoint = self.get_url_endpoint(parent_obj)
         self.update_data_payload(parent_obj=parent_obj)

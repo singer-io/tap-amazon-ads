@@ -9,12 +9,13 @@ class SponsoredDisplayBudgetRules(IncrementalStream):
     tap_stream_id = "sponsored_display_budget_rules"
     key_properties = ["ruleId"]
     replication_method = "INCREMENTAL"
-    replication_keys = ["lastUpdateDate"]
+    replication_keys = ["lastUpdatedDate"]
     data_key = "budgetRulesForAdvertiserResponse"
-    children = ["sponsored_brands_budget_rules_campaigns"]
+    children = ["sponsored_display_budget_rules_campaigns"]
     path = "sd/budgetRules"
     http_method = "GET"
     page_size = 30
+    pagination_in = "params"
 
     def update_params(self, parent_obj: Dict = None, **kwargs):
         """Update params for the stream"""

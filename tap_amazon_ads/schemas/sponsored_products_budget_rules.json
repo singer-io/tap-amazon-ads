@@ -6,11 +6,6 @@
             "type": [
                 "null",
                 "string"
-            ],
-            "enum": [
-                "ACTIVE",
-                "INACTIVE",
-                null
             ]
         },
         "lastUpdatedDate": {

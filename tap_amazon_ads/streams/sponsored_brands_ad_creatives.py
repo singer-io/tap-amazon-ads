@@ -18,6 +18,7 @@ class SponsoredBrandsAdCreatives(IncrementalStream):
     api_version = 4
     accept_header = f"application/vnd.sbAdCreativeResource.v{api_version}+json"
     content_type = f"application/vnd.sbAdCreativeResource.v{api_version}+json"
+    pagination_in = "body"
 
     def get_bookmark(self, state: Dict, key: Any = None) -> int:
         """

@@ -1,337 +1,66 @@
 {
     "type": "object",
     "properties": {
-        "keywordsBidsRecommendationSuccessResults": {
+        "recommendationId": {
             "type": [
-                "null",
-                "array"
-            ],
-            "items": {
-                "type": "object",
-                "properties": {
-                    "recommendationId": {
-                        "type": [
-                            "null",
-                            "string"
-                        ]
-                    },
-                    "recommendedBid": {
-                        "type": [
-                            "null",
-                            "object"
-                        ],
-                        "properties": {
-                            "rangeEnd": {
-                                "type": [
-                                    "null",
-                                    "number"
-                                ]
-                            },
-                            "rangeStart": {
-                                "type": [
-                                    "null",
-                                    "number"
-                                ]
-                            },
-                            "recommended": {
-                                "type": [
-                                    "null",
-                                    "number"
-                                ]
-                            }
-                        }
-                    },
-                    "keyword": {
-                        "type": [
-                            "null",
-                            "object"
-                        ],
-                        "properties": {
-                            "keywordText": {
-                                "type": [
-                                    "null",
-                                    "string"
-                                ]
-                            },
-                            "matchType": {
-                                "type": [
-                                    "null",
-                                    "string"
-                                ]
-                            }
-                        }
-                    },
-                    "keywordIndex": {
-                        "type": [
-                            "null",
-                            "integer"
-                        ]
-                    }
-                }
-            }
+                "string",
+                "null"
+            ]
         },
-        "keywordsBidsRecommendationErrorResults": {
+        "recommendedBid": {
             "type": [
-                "null",
-                "array"
+                "object",
+                "null"
             ],
-            "items": {
-                "type": "object",
-                "properties": {
-                    "code": {
-                        "type": [
-                            "null",
-                            "string"
-                        ]
-                    },
-                    "details": {
-                        "type": [
-                            "null",
-                            "string"
-                        ]
-                    },
-                    "keyword": {
-                        "type": [
-                            "null",
-                            "object"
-                        ],
-                        "properties": {
-                            "type": {
-                                "type": [
-                                    "null",
-                                    "string"
-                                ]
-                            },
-                            "value": {
-                                "type": [
-                                    "null",
-                                    "string"
-                                ]
-                            }
-                        }
-                    },
-                    "keywordIndex": {
-                        "type": [
-                            "null",
-                            "integer"
-                        ]
-                    }
+            "properties": {
+                "rangeEnd": {
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
+                "rangeStart": {
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
+                "recommended": {
+                    "type": [
+                        "number",
+                        "null"
+                    ]
                 }
-            }
+            },
+            "additionalProperties": false
         },
-        "targetsBidsRecommendationSuccessResults": {
+        "keyword": {
             "type": [
-                "null",
-                "array"
+                "object",
+                "null"
             ],
-            "items": {
-                "type": "object",
-                "properties": {
-                    "recommendationId": {
-                        "type": [
-                            "null",
-                            "string"
-                        ]
-                    },
-                    "recommendedBid": {
-                        "type": [
-                            "null",
-                            "object"
-                        ],
-                        "properties": {
-                            "rangeEnd": {
-                                "type": [
-                                    "null",
-                                    "number"
-                                ]
-                            },
-                            "rangeStart": {
-                                "type": [
-                                    "null",
-                                    "number"
-                                ]
-                            },
-                            "recommended": {
-                                "type": [
-                                    "null",
-                                    "number"
-                                ]
-                            }
-                        }
-                    },
-                    "targets": {
-                        "type": [
-                            "null",
-                            "array"
-                        ],
-                        "items": {
-                            "type": "object",
-                            "properties": {
-                                "type": {
-                                    "type": [
-                                        "null",
-                                        "string"
-                                    ]
-                                },
-                                "value": {
-                                    "type": [
-                                        "null",
-                                        "string"
-                                    ]
-                                }
-                            }
-                        }
-                    },
-                    "targetsIndex": {
-                        "type": [
-                            "null",
-                            "integer"
-                        ]
-                    }
+            "properties": {
+                "keywordText": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "matchType": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 }
-            }
+            },
+            "additionalProperties": false
         },
-        "targetsBidsRecommendationErrorResults": {
+        "keywordIndex": {
             "type": [
-                "null",
-                "array"
-            ],
-            "items": {
-                "type": "object",
-                "properties": {
-                    "code": {
-                        "type": [
-                            "null",
-                            "string"
-                        ]
-                    },
-                    "details": {
-                        "type": [
-                            "null",
-                            "string"
-                        ]
-                    },
-                    "targets": {
-                        "type": [
-                            "null",
-                            "array"
-                        ],
-                        "items": {
-                            "type": "object",
-                            "properties": {
-                                "type": {
-                                    "type": [
-                                        "null",
-                                        "string"
-                                    ]
-                                },
-                                "value": {
-                                    "type": [
-                                        "null",
-                                        "string"
-                                    ]
-                                }
-                            }
-                        }
-                    },
-                    "targetsIndex": {
-                        "type": [
-                            "null",
-                            "integer"
-                        ]
-                    }
-                }
-            }
-        },
-        "themesRecommendationSuccessResults": {
-            "type": [
-                "null",
-                "array"
-            ],
-            "items": {
-                "type": "object",
-                "properties": {
-                    "recommendationId": {
-                        "type": [
-                            "null",
-                            "string"
-                        ]
-                    },
-                    "recommendedBid": {
-                        "type": [
-                            "null",
-                            "object"
-                        ],
-                        "properties": {
-                            "rangeEnd": {
-                                "type": [
-                                    "null",
-                                    "number"
-                                ]
-                            },
-                            "rangeStart": {
-                                "type": [
-                                    "null",
-                                    "number"
-                                ]
-                            },
-                            "recommended": {
-                                "type": [
-                                    "null",
-                                    "number"
-                                ]
-                            }
-                        }
-                    },
-                    "themeType": {
-                        "type": [
-                            "null",
-                            "string"
-                        ]
-                    },
-                    "themeIndex": {
-                        "type": [
-                            "null",
-                            "integer"
-                        ]
-                    }
-                }
-            }
-        },
-        "themesRecommendationErrorResults": {
-            "type": [
-                "null",
-                "array"
-            ],
-            "items": {
-                "type": "object",
-                "properties": {
-                    "code": {
-                        "type": [
-                            "null",
-                            "string"
-                        ]
-                    },
-                    "details": {
-                        "type": [
-                            "null",
-                            "string"
-                        ]
-                    },
-                    "themeType": {
-                        "type": [
-                            "null",
-                            "string"
-                        ]
-                    },
-                    "themeIndex": {
-                        "type": [
-                            "null",
-                            "integer"
-                        ]
-                    }
-                }
-            }
+                "integer",
+                "null"
+            ]
         }
-    }
+    },
+    "additionalProperties": false
 }

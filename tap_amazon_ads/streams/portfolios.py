@@ -17,7 +17,8 @@ class Portfolios(IncrementalStream):
     accept_header = f"application/vnd.spPortfolio.v{api_version}+json"
     content_type = f"application/vnd.spPortfolio.v{api_version}+json"
     prefer = True
-    prefer_value = 'return=representation'
+    prefer_value = "return=representation"
+    pagination_in = "body"
 
     def update_data_payload(self, parent_obj: Dict = None) -> Dict:
         """

@@ -4,7 +4,7 @@
         "profileId": {
             "type": [
                 "null",
-                "integer"
+                "string"
             ]
         },
         "countryCode": {

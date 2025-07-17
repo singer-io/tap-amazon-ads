@@ -4,7 +4,7 @@
         "campaignId": {
             "type": [
                 "null",
-                "integer"
+                "string"
             ]
         },
         "name": {

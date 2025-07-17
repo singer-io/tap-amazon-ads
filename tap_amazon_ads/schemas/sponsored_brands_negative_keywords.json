@@ -4,19 +4,19 @@
         "keywordId": {
             "type": [
                 "null",
-                "integer"
+                "string"
             ]
         },
         "adGroupId": {
             "type": [
                 "null",
-                "integer"
+                "string"
             ]
         },
         "campaignId": {
             "type": [
                 "null",
-                "integer"
+                "string"
             ]
         },
         "keywordText": {
@@ -41,12 +41,6 @@
             "type": [
                 "null",
                 "string"
-            ]
-        },
-        "bid": {
-            "type": [
-                "null",
-                "number"
             ]
         }
     }

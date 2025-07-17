@@ -17,6 +17,7 @@ class SponsoredBrandsAds(IncrementalStream):
     api_version = 4
     accept_header = f"application/vnd.sbadresource.v{api_version}+json"
     content_type = f"application/vnd.sbadresource.v{api_version}+json"
+    pagination_in = "body"
 
     def get_bookmark(self, state: Dict, stream: str, key: Any = None) -> int:
         """A wrapper for singer.get_bookmark to deal with compatibility for

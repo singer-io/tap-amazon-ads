@@ -10,6 +10,7 @@ class SponsoredBrandsBidRecommendations(FullTableStream):
     key_properties = ["recommendationId"]
     replication_method = "FULL_TABLE"
     replication_keys = []
+    data_key = "keywordsBidsRecommendationSuccessResults"
     parent = "sponsored_brands_campaigns"
     path = "sb/recommendations/bids"
     http_method = "POST"

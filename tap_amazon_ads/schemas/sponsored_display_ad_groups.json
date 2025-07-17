@@ -4,7 +4,7 @@
         "adGroupId": {
             "type": [
                 "null",
-                "integer"
+                "string"
             ]
         },
         "name": {
@@ -16,7 +16,7 @@
         "campaignId": {
             "type": [
                 "null",
-                "integer"
+                "string"
             ]
         },
         "defaultBid": {

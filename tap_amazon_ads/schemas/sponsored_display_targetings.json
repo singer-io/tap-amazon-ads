@@ -4,19 +4,19 @@
         "targetId": {
             "type": [
                 "null",
-                "integer"
+                "string"
             ]
         },
         "adGroupId": {
             "type": [
                 "null",
-                "integer"
+                "string"
             ]
         },
         "campaignId": {
             "type": [
                 "null",
-                "integer"
+                "string"
             ]
         },
         "state": {
@@ -40,41 +40,49 @@
         "expression": {
             "type": [
                 "null",
-                "object"
+                "array"
             ],
-            "properties": {
-                "type": {
-                    "type": [
-                        "null",
-                        "string"
-                    ]
+            "items": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": [
+                            "null",
+                            "string"
+                        ]
+                    },
+                    "value": {
+                        "type": [
+                            "null",
+                            "string"
+                        ]
+                    }
                 },
-                "value": {
-                    "type": [
-                        "null",
-                        "string"
-                    ]
-                }
+                "additionalProperties": false
             }
         },
         "resolvedExpression": {
             "type": [
                 "null",
-                "object"
+                "array"
             ],
-            "properties": {
-                "type": {
-                    "type": [
-                        "null",
-                        "string"
-                    ]
+            "items": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": [
+                            "null",
+                            "string"
+                        ]
+                    },
+                    "value": {
+                        "type": [
+                            "null",
+                            "string"
+                        ]
+                    }
                 },
-                "value": {
-                    "type": [
-                        "null",
-                        "string"
-                    ]
-                }
+                "additionalProperties": false
             }
         },
         "servingStatus": {
@@ -90,7 +98,7 @@
             ],
             "format": "date-time"
         },
-        "lastUpdateDate": {
+        "lastUpdatedDate": {
             "type": [
                 "null",
                 "string"
@@ -99,3 +107,4 @@
         }
     }
 }
+

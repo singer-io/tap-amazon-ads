@@ -15,6 +15,7 @@ class SponsoredBrandsBudgetRules(IncrementalStream):
     path = "sb/budgetRules"
     http_method = "GET"
     page_size = 30
+    pagination_in = "params"
 
     def update_params(self, parent_obj: Dict = None, **kwargs):
         """Update params for the stream"""

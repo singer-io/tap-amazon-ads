@@ -9,13 +9,14 @@ class SponsoredBrandsAdGroups(IncrementalStream):
     tap_stream_id = "sponsored_brands_ad_groups"
     key_properties = ["adGroupId"]
     replication_method = "INCREMENTAL"
-    replication_keys = ["extendedData.lastUpdateDateTime"]
+    replication_keys = ["extendedData.lastUpdateDate"]
     data_key = "adGroups"
     path = "sb/v4/adGroups/list"
     http_method = "POST"
     api_version = 4
     accept_header = f"application/vnd.sbadgroupresource.v{api_version}+json"
     content_type = f"application/vnd.sbadgroupresource.v{api_version}+json"
+    pagination_in = "body"
 
     def update_data_payload(self, parent_obj: Dict = None) -> Dict:
         """
