@@ -1,5 +1,6 @@
 from typing import Any, Dict, Mapping, Optional, Tuple
 from datetime import datetime, timedelta
+import time
 
 import backoff
 import requests
@@ -43,6 +44,14 @@ def raise_for_error(response: requests.Response) -> None:
         exc = ERROR_CODE_EXCEPTION_MAPPING.get(
             response.status_code, {}).get("raise_exception", Amazon_AdsError)
         raise exc(message, response) from None
+
+def wait_if_retry_after(details):
+    """Backoff handler that checks for a 'retry_after' attribute in the exception
+    and sleeps for the specified duration to respect API rate limits.
+    """
+    exc = details['exception']
+    if hasattr(exc, 'retry_after') and exc.retry_after is not None:
+        time.sleep(exc.retry_after)  # Force exact wait
 
 class Client:
     """
@@ -148,7 +157,8 @@ class Client:
         return self.__make_request(method, endpoint, headers=headers, params=params, data=body, timeout=self.request_timeout)
 
     @backoff.on_exception(
-        wait_gen=backoff.expo,
+        wait_gen=lambda: backoff.expo(factor=2),
+        on_backoff=wait_if_retry_after,
         exception=(
             ConnectionResetError,
             ConnectionError,
@@ -160,8 +170,7 @@ class Client:
             Amazon_AdsServiceUnavailableError,
             Amazon_AdsGatewayTimeout
         ),
-        max_tries=5,
-        factor=2,
+        max_tries=5
     )
     def __make_request(self, method: str, endpoint: str, **kwargs) -> Optional[Mapping[Any, Any]]:
         """

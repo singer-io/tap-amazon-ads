@@ -10,7 +10,7 @@
     "redirect_uri"
   ],
   "page_size": 100,
-  "next_page_key": "next_token",
+  "next_page_key": "nextToken",
   "pagination_key": "page",
   "headers": {
     "Accept": "application/json"
@@ -469,7 +469,9 @@
   "tap_tester_creds": {
     "client_id": "TAP_AMAZON_ADS_CLIENT_ID",
     "client_secret": "TAP_AMAZON_ADS_CLIENT_SECRET",
-    "refresh_token": "TAP_AMAZON_ADS_REFRESH_TOKEN"
+    "refresh_token": "TAP_AMAZON_ADS_REFRESH_TOKEN",
+    "profiles": "TAP_AMAZON_ADS_PROFILES",
+    "redirect_uri": "TAP_AMAZON_ADS_REDIRECT_URI"
   },
   "author": "Stitch",
   "third_party_dependencies": [
