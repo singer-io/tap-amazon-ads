@@ -1,6 +1,6 @@
 
 
-from setuptools import setup
+from setuptools import setup, find_packages
 
 
 setup(name="tap-amazon-ads",
@@ -19,7 +19,7 @@ setup(name="tap-amazon-ads",
           [console_scripts]
           tap-amazon-ads=tap_amazon_ads:main
       """,
-      packages=["tap_amazon_ads"],
+      packages=find_packages(),
       package_data = {
           "tap_amazon_ads": ["schemas/*.json"],
       },
