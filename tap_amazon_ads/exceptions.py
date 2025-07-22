@@ -6,17 +6,8 @@ class Amazon_AdsError(Exception):
             super().__init__(message)
             self.message = message
             self.response = response
-            self.amzn_error_details = response.get('details')
-            self.amzn_code = response.get('code')
         except (IndexError, AttributeError):
             pass
-
-    def get_amzn_code(self):
-        return self.amzn_code
-
-    def get_amzn_error_details(self):
-        return self.amzn_error_details
-
 
 class Amazon_AdsBackoffError(Amazon_AdsError):
     """class representing backoff error handling."""
@@ -48,7 +39,28 @@ class Amazon_AdsUnprocessableEntityError(Amazon_AdsBackoffError):
 
 class Amazon_AdsRateLimitError(Amazon_AdsBackoffError):
     """class representing 429 status code."""
-    pass
+    def __init__(self, message=None, response=None):
+        """Initialize the Amazon_AdsRateLimitError. Parses the 'Retry-After' header from the response (if present) and sets the
+            `retry_after` attribute accordingly.
+        """
+        self.response = response
+
+        # Retry-After header parsing
+        retry_after = None
+        if response and hasattr(response, 'headers'):
+            raw_retry = response.headers.get('Retry-After')
+            if raw_retry:
+                try:
+                    retry_after = int(raw_retry)
+                except ValueError:
+                    retry_after = None
+
+        self.retry_after = retry_after
+        base_msg = message or "Rate limit hit"
+        retry_info = f"(Retry after {self.retry_after} seconds.)" \
+            if self.retry_after is not None else "(Retry after unknown delay.)"
+        full_message = f"{base_msg} {retry_info}"
+        super().__init__(full_message, response=response)
 
 class Amazon_AdsInternalServerError(Amazon_AdsBackoffError):
     """class representing 500 status code."""
