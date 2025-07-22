@@ -31,9 +31,9 @@ class Mockresponse:
         return self.text
 
 
-def get_response(status_code, json={}, raise_error=False):
+def get_response(status_code, json={}, headers={}, raise_error=False):
     """Returns required mock response."""
-    return Mockresponse(status_code, json, raise_error)
+    return Mockresponse(status_code, json, raise_error, headers)
 
 
 class TestRaiseForError(unittest.TestCase):
@@ -213,7 +213,7 @@ class TestMakeRequest(unittest.TestCase):
     def test_rate_limit_error(self, mocked_request, mock_refresh_token):
         """Test case for 429 Rate Limit error."""
         # Simulate 5 retries for 429 error
-        mocked_request.side_effect = [get_response(429, {}, True)] * 5
+        mocked_request.side_effect = [get_response(429, json={}, headers={"Retry-After": "3"}, raise_error=True)] * 5
 
         with self.assertRaises(Amazon_AdsRateLimitError):
             with Client(self.client_config) as client:
