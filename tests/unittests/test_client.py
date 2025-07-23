@@ -228,8 +228,8 @@ class TestMakeRequest(unittest.TestCase):
     def test_authorization_error(self, mocked_request, mock_refresh_token):
         """Test case for 401 Unauthorized error."""
         mocked_request.side_effect = [
-            get_response(401, {}, True),
-            get_response(401, {}, True),
+            get_response(401, {}, raise_error=True),
+            get_response(401, {}, raise_error=True),
         ]
         with self.assertRaises(Amazon_AdsUnauthorizedError) as e:
             with Client(self.client_config) as client:
