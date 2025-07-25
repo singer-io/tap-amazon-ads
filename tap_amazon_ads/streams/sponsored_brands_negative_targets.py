@@ -17,13 +17,12 @@ class SponsoredBrandsNegativeTargets(FullTableStream):
     accept_header = f"application/vnd.sblistnegativetargetsresponse.v{api_version}+json"
     pagination_in = "body"
 
-    def update_data_payload(self, parent_obj: Dict = None) -> Dict:
+    def update_data_payload(self, parent_obj: Dict = None, **kwargs) -> Dict:
         """
         Constructs the JSON body payload for the API request.
         `filters` is a required field
         `filterType` Enum values:["CREATIVE_TYPE", "TARGETING_STATE", "CAMPAIGN_ID", "AD_GROUP_ID"]
         """
-        super().update_data_payload(parent_obj)
-        # note: need to confirm how would we like to select the filterType from enums values
-        self.data_payload["filters"] = [{"filterType": "CREATIVE_TYPE","values": ["productCollection"]}]
+        kwargs["filters"] = [{"filterType": "CREATIVE_TYPE","values": ["productCollection"]}]
+        super().update_data_payload(parent_obj, **kwargs)
 

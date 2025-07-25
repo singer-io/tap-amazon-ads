@@ -19,10 +19,10 @@ class SponsoredBrandsCampaigns(IncrementalStream):
     content_type = f"application/vnd.sbcampaignresource.v{api_version}+json"
     pagination_in = "body"
 
-    def update_data_payload(self, parent_obj: Dict = None) -> Dict:
+    def update_data_payload(self, parent_obj: Dict = None, **kwargs) -> Dict:
         """
         Constructs the JSON body payload for the API request.
         """
-        super().update_data_payload(parent_obj)
-        self.data_payload["includeExtendedDataFields"] = True
+        kwargs["includeExtendedDataFields"] = True
+        super().update_data_payload(parent_obj, **kwargs)
 

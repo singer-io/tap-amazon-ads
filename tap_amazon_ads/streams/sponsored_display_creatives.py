@@ -16,7 +16,6 @@ class SponsoredDisplayCreatives(FullTableStream):
 
     def update_params(self, parent_obj: Dict = None, **kwargs):
         """Update params for the stream"""
-        # note: need to confirm params from enum adGroupIdFilter and creativeId
         kwargs["adGroupIdFilter"] = parent_obj.get("adGroupId")
         super().update_params(**kwargs)
 

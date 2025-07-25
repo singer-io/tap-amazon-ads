@@ -17,11 +17,8 @@ class SponsoredBrandsBidRecommendations(FullTableStream):
     api_version = 3
     accept_header = f"application/vnd.sbbidsrecommendation.v{api_version}+json"
 
-    def update_data_payload(self, parent_obj = None):
+    def update_data_payload(self, parent_obj = None, **kwargs):
         """Constructs the JSON body payload for the Stream API request ."""
-        super().update_data_payload(parent_obj)
-        data = {
-            "campaignId": parent_obj.get("campaignId")
-            }
-        self.data_payload.update(data)
+        kwargs["campaignId"] = parent_obj.get("campaignId")
+        super().update_data_payload(parent_obj, **kwargs)
 

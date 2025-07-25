@@ -9,6 +9,7 @@ from singer import (
     write_bookmark,
     write_record,
     write_schema,
+    write_state,
     metadata
 )
 
@@ -125,20 +126,11 @@ class BaseStream(ABC):
 
     def get_records(self) -> Iterator:
         """Interacts with api client interaction and pagination."""
-        # self.params["page"] = self.page_size      # commented for later changes if required
         next_page = 1
-
         while next_page:
-            if self.http_method == "POST":
-                response = self.client.post(
-                    self.url_endpoint, self.params, self.headers, body=json.dumps(self.data_payload), path=self.path
-                )
-            elif self.http_method == "GET":
-                response = self.client.get(
-                    self.url_endpoint, self.params, self.headers, self.path
-                )
-            else:
-                raise ValueError(f"Unsupported HTTP method: {self.http_method}")
+            response = self.client.make_request(
+                self.http_method, self.url_endpoint, self.params, self.headers, body=json.dumps(self.data_payload), path=self.path
+            )
 
             if isinstance(response, list):
                 raw_records = response
@@ -180,11 +172,11 @@ class BaseStream(ABC):
         """
         return self.url_endpoint or f"{self.client.base_url}/{self.path}"
 
-    def update_data_payload(self, parent_obj: Dict = None) -> Dict:
+    def update_data_payload(self, parent_obj: Dict = None, **kwargs) -> Dict:
         """
         Constructs the JSON body payload for the API request.
         """
-        self.data_payload = dict()
+        self.data_payload.update(kwargs)
 
     def get_dot_path_value(self, record: dict, dotted_path: str, default=None):
         """
@@ -245,7 +237,7 @@ class IncrementalStream(BaseStream):
         current_max_bookmark_date = bookmark_date
         self.url_endpoint = self.get_url_endpoint(parent_obj)
         self.update_data_payload(parent_obj=parent_obj)
-        self.update_params(parent_obj)
+        self.update_params(parent_obj=parent_obj)
 
         with metrics.record_counter(self.tap_stream_id) as counter:
             for record in self.get_records():
@@ -268,7 +260,7 @@ class IncrementalStream(BaseStream):
                         child.sync(state=state, transformer=transformer, parent_obj=record)
 
             state = self.write_bookmark(state, self.tap_stream_id, value=current_max_bookmark_date)
-            return counter.value
+            return counter.value, state
 
 
 class FullTableStream(BaseStream):
@@ -278,7 +270,7 @@ class FullTableStream(BaseStream):
         """Abstract implementation for `type: Fulltable` stream."""
         self.url_endpoint = self.get_url_endpoint(parent_obj)
         self.update_data_payload(parent_obj=parent_obj)
-        self.update_params(parent_obj)
+        self.update_params(parent_obj=parent_obj)
         with metrics.record_counter(self.tap_stream_id) as counter:
             for record in self.get_records():
                 transformed_record = transformer.transform(
@@ -291,5 +283,5 @@ class FullTableStream(BaseStream):
                 for child in self.child_to_sync:
                     child.sync(state=state, transformer=transformer, parent_obj=record)
 
-            return counter.value
+            return counter.value, state
 

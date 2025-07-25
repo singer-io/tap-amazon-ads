@@ -29,10 +29,10 @@ class SponsoredBrandsAdCreatives(IncrementalStream):
 
         return self.bookmark_value
 
-    def update_data_payload(self, parent_obj: Dict = None) -> Dict:
+    def update_data_payload(self, parent_obj: Dict = None, **kwargs) -> Dict:
         """
         Constructs the JSON body payload for the API request.
         """
-        super().update_data_payload(parent_obj)
-        self.data_payload["adId"] = parent_obj.get("adId", None)
+        kwargs["adId"] = parent_obj.get("adId", None)
+        super().update_data_payload(parent_obj, **kwargs)
 
