@@ -25,3 +25,4 @@ setup(name="tap-amazon-ads",
       },
       include_package_data=True,
 )
+
