@@ -128,6 +128,9 @@ class Client:
         path: Optional[str] = None,
         is_auth_req: bool = True
     ) -> Any:
+        """
+        Sends an HTTP request to the specified API endpoint.
+        """
         params = params or {}
         headers = headers or {}
         body = body or {}

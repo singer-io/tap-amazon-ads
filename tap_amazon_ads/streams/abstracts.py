@@ -9,7 +9,6 @@ from singer import (
     write_bookmark,
     write_record,
     write_schema,
-    write_state,
     metadata
 )
 
