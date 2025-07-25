@@ -4,19 +4,19 @@
         "targetId": {
             "type": [
                 "null",
-                "integer"
+                "string"
             ]
         },
         "adGroupId": {
             "type": [
                 "null",
-                "integer"
+                "string"
             ]
         },
         "campaignId": {
             "type": [
                 "null",
-                "integer"
+                "string"
             ]
         },
         "expressions": {

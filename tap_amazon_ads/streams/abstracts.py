@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
-from typing import Any, Dict, Tuple, List
+from typing import Any, Dict, Tuple, Iterator
+import json
 from singer import (
     Transformer,
     get_bookmark,
@@ -28,12 +29,17 @@ class BaseStream(ABC):
     url_endpoint = ""
     path = ""
     page_size = 100
-    next_page_key = "next_token"
-    headers = {'Accept': 'application/json'}
+    next_page_key = "nextToken"
     children = []
     parent = ""
     data_key = ""
     parent_bookmark_key = ""
+    content_type  = "application/json"
+    accept_header = "application/json"
+    api_version = None
+    prefer = False
+    prefer_value = ""
+    pagination_in = None
 
     def __init__(self, client=None, catalog=None) -> None:
         self.client = client
@@ -42,6 +48,7 @@ class BaseStream(ABC):
         self.metadata = metadata.to_map(catalog.metadata)
         self.child_to_sync = []
         self.params = {}
+        self.data_payload = dict()
 
     @property
     @abstractmethod
@@ -67,6 +74,28 @@ class BaseStream(ABC):
     @abstractmethod
     def key_properties(self) -> Tuple[str, str]:
         """List of key properties for stream."""
+
+    @property
+    @abstractmethod
+    def http_method(self) -> str:
+        """Defines the http method for the stream."""
+
+    @property
+    def headers(self):
+        """
+            Constructs and returns the HTTP headers for API requests.
+            This property dynamically builds the headers based on the current
+            `api_version`, `schema_version`, and optionally a `prefer` setting.
+            - If `api_version` is set, it appends the version and '+json' to the
+            `schema_version` string for the Accept and Content-Type headers.
+            - If `prefer` is enabled, it adds the Prefer header with the given value.
+            Returns:
+                dict: A dictionary of HTTP headers to be used in the API request.
+        """
+        headers = {"Accept": self.accept_header, "Content-Type": self.content_type}
+        if self.prefer:
+            headers.update({"Prefer": self.prefer_value})
+        return headers
 
     def is_selected(self):
         return metadata.get(self.metadata, (), "selected")
@@ -94,18 +123,22 @@ class BaseStream(ABC):
         """
 
 
-    def get_records(self) -> List:
+    def get_records(self) -> Iterator:
         """Interacts with api client interaction and pagination."""
-        self.params["page"] = self.page_size
         next_page = 1
         while next_page:
-            response = self.client.get(
-                self.url_endpoint, self.params, self.headers, self.path
+            response = self.client.make_request(
+                self.http_method, self.url_endpoint, self.params, self.headers, body=json.dumps(self.data_payload), path=self.path
             )
-            raw_records = response.get(self.data_key, [])
-            next_page = response.get(self.next_page_key)
 
-            self.params[self.next_page_key] = next_page
+            if isinstance(response, list):
+                raw_records = response
+                next_page = None
+            elif isinstance(response, dict):
+                raw_records = response.get(self.data_key, [])
+                next_page = self.update_pagination_key(response)
+            else:
+                raise TypeError("Unexpected response type. Expected dict or list.")
             yield from raw_records
 
     def write_schema(self) -> None:
@@ -120,7 +153,7 @@ class BaseStream(ABC):
             )
             raise err
 
-    def update_params(self, **kwargs) -> None:
+    def update_params(self, parent_obj: Dict = None, **kwargs) -> None:
         """
         Update params for the stream
         """
@@ -138,11 +171,42 @@ class BaseStream(ABC):
         """
         return self.url_endpoint or f"{self.client.base_url}/{self.path}"
 
+    def update_data_payload(self, parent_obj: Dict = None, **kwargs) -> Dict:
+        """
+        Constructs the JSON body payload for the API request.
+        """
+        self.data_payload.update(kwargs)
+
+    def get_dot_path_value(self, record: dict, dotted_path: str, default=None):
+        """
+        Safely retrieve a nested value from a dictionary using a dotted key path.
+        """
+        keys = dotted_path.split(".")
+        value = record
+        for key in keys:
+            if isinstance(value, dict) and key in value:
+                value = value[key]
+            else:
+                return default
+        return value
+
+    def update_pagination_key(self, response):
+        """
+        Extracts and updates the pagination key from the API response.
+        This method parses the given response to retrieve the pagination token (e.g., 'nextCursor', 'nextToken')
+        and updates the internal state to be used for the next paginated request.
+        """
+        next_page = response.get(self.next_page_key)
+        if self.pagination_in == "params" and next_page:
+            self.params[self.next_page_key] = next_page
+        elif self.pagination_in == "body" and next_page:
+            self.data_payload[self.next_page_key] = next_page
+        else:
+            next_page = None
+        return next_page
 
 class IncrementalStream(BaseStream):
     """Base Class for Incremental Stream."""
-
-
     def get_bookmark(self, state: dict, stream: str, key: Any = None) -> int:
         """A wrapper for singer.get_bookmark to deal with compatibility for
         bookmark values or start values."""
@@ -166,17 +230,13 @@ class IncrementalStream(BaseStream):
         )
 
 
-    def sync(
-        self,
-        state: Dict,
-        transformer: Transformer,
-        parent_obj: Dict = None,
-    ) -> Dict:
+    def sync(self,state: Dict,transformer: Transformer,parent_obj: Dict = None,) -> Dict:
         """Implementation for `type: Incremental` stream."""
         bookmark_date = self.get_bookmark(state, self.tap_stream_id)
         current_max_bookmark_date = bookmark_date
-        self.update_params(updated_since=bookmark_date)
         self.url_endpoint = self.get_url_endpoint(parent_obj)
+        self.update_data_payload(parent_obj=parent_obj)
+        self.update_params(parent_obj=parent_obj)
 
         with metrics.record_counter(self.tap_stream_id) as counter:
             for record in self.get_records():
@@ -184,9 +244,8 @@ class IncrementalStream(BaseStream):
                 transformed_record = transformer.transform(
                     record, self.schema, self.metadata
                 )
-                self.append_times_to_dates(transformed_record)
 
-                record_timestamp = transformed_record[self.replication_keys[0]]
+                record_timestamp = self.get_dot_path_value(transformed_record, self.replication_keys[0])
                 if record_timestamp >= bookmark_date:
                     if self.is_selected():
                         write_record(self.tap_stream_id, transformed_record)
@@ -200,20 +259,17 @@ class IncrementalStream(BaseStream):
                         child.sync(state=state, transformer=transformer, parent_obj=record)
 
             state = self.write_bookmark(state, self.tap_stream_id, value=current_max_bookmark_date)
-            return counter.value
+            return counter.value, state
 
 
 class FullTableStream(BaseStream):
     """Base Class for Incremental Stream."""
 
-    def sync(
-        self,
-        state: Dict,
-        transformer: Transformer,
-        parent_obj: Dict = None,
-    ) -> Dict:
+    def sync(self, state: Dict, transformer: Transformer, parent_obj: Dict = None) -> Dict:
         """Abstract implementation for `type: Fulltable` stream."""
         self.url_endpoint = self.get_url_endpoint(parent_obj)
+        self.update_data_payload(parent_obj=parent_obj)
+        self.update_params(parent_obj=parent_obj)
         with metrics.record_counter(self.tap_stream_id) as counter:
             for record in self.get_records():
                 transformed_record = transformer.transform(
@@ -226,4 +282,5 @@ class FullTableStream(BaseStream):
                 for child in self.child_to_sync:
                     child.sync(state=state, transformer=transformer, parent_obj=record)
 
-            return counter.value
+            return counter.value, state
+

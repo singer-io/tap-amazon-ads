@@ -9,5 +9,7 @@ class SponsoredDisplayTargetings(IncrementalStream):
     tap_stream_id = "sponsored_display_targetings"
     key_properties = ["targetId"]
     replication_method = "INCREMENTAL"
-    replication_keys = ["lastUpdateDate"]
+    replication_keys = ["lastUpdatedDate"]
     path = "sd/targets/extended"
+    http_method = "GET"
+

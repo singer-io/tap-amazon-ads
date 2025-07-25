@@ -11,3 +11,6 @@ class SponsoredDisplayCampaigns(IncrementalStream):
     replication_method = "INCREMENTAL"
     replication_keys = ["lastUpdatedDate"]
     path = "sd/campaigns/extended"
+    children = ["sponsored_display_campaigns_budget_rules"]
+    http_method = "GET"
+

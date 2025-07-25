@@ -4,13 +4,13 @@
         "creativeId": {
             "type": [
                 "null",
-                "integer"
+                "string"
             ]
         },
         "adGroupId": {
             "type": [
                 "null",
-                "integer"
+                "string"
             ]
         },
         "creativeType": {
