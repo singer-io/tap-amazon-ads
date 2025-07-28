@@ -12,6 +12,7 @@ from tap_amazon_ads.exceptions import ERROR_CODE_EXCEPTION_MAPPING, Amazon_AdsEr
 LOGGER = get_logger()
 REQUEST_TIMEOUT = 300
 REFRESH_URL = "https://api.amazon.com/auth/o2/token"
+DEFAULT_EXPIRY_TIME_IN_SECONDS = 3600
 
 def raise_for_error(response: requests.Response) -> None:
     """Raises the associated response exception. Takes in a response object,
@@ -82,7 +83,7 @@ class Client:
             is_auth_req=False
         )
         self._access_token = resp_json["access_token"]
-        expires_in_seconds = resp_json.get("expires_in", 1 * 60 * 60)
+        expires_in_seconds = resp_json.get("expires_in", DEFAULT_EXPIRY_TIME_IN_SECONDS)
         self._expires_at = datetime.now() + timedelta(seconds=expires_in_seconds)
         LOGGER.info("Got refreshed access token")
 
@@ -96,27 +97,27 @@ class Client:
 
     @property
     def headers(self) -> Dict[str, str]:
-        data = {
+        """
+        Construct and return the HTTP headers required for requests to the Amazon Advertising API.
+        """
+        header = {
             'User-Agent': self.config["user_agent"],
             'Amazon-Advertising-API-ClientId': self.config["client_id"],
-            "Authorization": f"Bearer {self.get_access_token()}",
             'Content-Type': 'application/json'
         }
         if profile_id := self.config["profiles"]:
-            data['Amazon-Advertising-API-Scope'] = profile_id
-        return data
+            header['Amazon-Advertising-API-Scope'] = profile_id
+        return header
 
-    def authenticate(self, headers: Dict, params: Dict) -> Tuple[Dict, Dict]:
-        """Authenticates the request with the token"""
+    def authenticate(self, headers: Optional[Dict], params: Optional[Dict]) -> Tuple[Dict, Dict]:
+        """Provides authenticated headers"""
+        result_headers = self.headers.copy()
+        result_headers["Authorization"] = f"Bearer {self.get_access_token()}"
         if headers is False:
-            base_header = self.headers.copy()
-            base_header.pop("Content-Type")
-            headers = base_header
-        elif headers is not None:
-            base_header = self.headers.copy()
-            base_header.update(headers)
-            headers = base_header
-        return headers, params
+            result_headers.pop("Content-Type", None)
+        else:
+            result_headers.update(headers)
+        return result_headers, params
 
     def make_request(
         self,
