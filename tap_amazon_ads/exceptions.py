@@ -2,10 +2,12 @@ class Amazon_AdsError(Exception):
     """class representing Generic Http error."""
 
     def __init__(self, message=None, response=None):
-        super().__init__(message)
-        self.message = message
-        self.response = response
-
+        try:
+            super().__init__(message)
+            self.message = message
+            self.response = response
+        except (IndexError, AttributeError):
+            pass
 
 class Amazon_AdsBackoffError(Amazon_AdsError):
     """class representing backoff error handling."""
@@ -18,7 +20,6 @@ class Amazon_AdsBadRequestError(Amazon_AdsError):
 class Amazon_AdsUnauthorizedError(Amazon_AdsError):
     """class representing 401 status code."""
     pass
-
 
 class Amazon_AdsForbiddenError(Amazon_AdsError):
     """class representing 403 status code."""
@@ -38,7 +39,28 @@ class Amazon_AdsUnprocessableEntityError(Amazon_AdsBackoffError):
 
 class Amazon_AdsRateLimitError(Amazon_AdsBackoffError):
     """class representing 429 status code."""
-    pass
+    def __init__(self, message=None, response=None):
+        """Initialize the Amazon_AdsRateLimitError. Parses the 'Retry-After' header from the response (if present) and sets the
+            `retry_after` attribute accordingly.
+        """
+        self.response = response
+
+        # Retry-After header parsing
+        retry_after = None
+        if response and hasattr(response, 'headers'):
+            raw_retry = response.headers.get('Retry-After')
+            if raw_retry:
+                try:
+                    retry_after = int(raw_retry)
+                except ValueError:
+                    retry_after = None
+
+        self.retry_after = retry_after
+        base_msg = message or "Rate limit hit"
+        retry_info = f"(Retry after {self.retry_after} seconds.)" \
+            if self.retry_after is not None else "(Retry after unknown delay.)"
+        full_message = f"{base_msg} {retry_info}"
+        super().__init__(full_message, response=response)
 
 class Amazon_AdsInternalServerError(Amazon_AdsBackoffError):
     """class representing 500 status code."""
@@ -54,6 +76,10 @@ class Amazon_AdsBadGatewayError(Amazon_AdsBackoffError):
 
 class Amazon_AdsServiceUnavailableError(Amazon_AdsBackoffError):
     """class representing 503 status code."""
+    pass
+
+class Amazon_AdsGatewayTimeout(Amazon_AdsBackoffError):
+    """class representing 504 status code."""
     pass
 
 ERROR_CODE_EXCEPTION_MAPPING = {
@@ -101,5 +127,10 @@ ERROR_CODE_EXCEPTION_MAPPING = {
     503: {
         "raise_exception": Amazon_AdsServiceUnavailableError,
         "message": "API service is currently unavailable."
+    },
+    504: {
+        "raise_exception": Amazon_AdsGatewayTimeout,
+        "message": "API request timed out after waiting for a response."
     }
 }
+

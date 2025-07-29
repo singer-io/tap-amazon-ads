@@ -11,3 +11,5 @@ class SponsoredDisplayNegativeTargetingClauses(IncrementalStream):
     replication_method = "INCREMENTAL"
     replication_keys = ["lastUpdatedDate"]
     path = "sd/negativeTargets/extended"
+    http_method = "GET"
+

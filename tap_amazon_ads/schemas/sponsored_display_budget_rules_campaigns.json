@@ -1,25 +1,19 @@
 {
     "type": "object",
     "properties": {
-        "assetID": {
+        "campaignId": {
             "type": [
                 "null",
                 "string"
             ]
         },
-        "url": {
+        "ruleStatus": {
             "type": [
                 "null",
                 "string"
             ]
         },
-        "mediaType": {
-            "type": [
-                "null",
-                "string"
-            ]
-        },
-        "name": {
+        "campaignName": {
             "type": [
                 "null",
                 "string"

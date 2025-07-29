@@ -1,4 +1,5 @@
 import singer
+from singer.transform import UNIX_MILLISECONDS_INTEGER_DATETIME_PARSING
 from typing import Dict
 from tap_amazon_ads.streams import STREAMS
 from tap_amazon_ads.client import Client
@@ -45,7 +46,7 @@ def sync(client: Client, config: Dict, catalog: singer.Catalog, state) -> None:
     last_stream = singer.get_currently_syncing(state)
     LOGGER.info("last/currently syncing stream: {}".format(last_stream))
 
-    with singer.Transformer() as transformer:
+    with singer.Transformer(integer_datetime_fmt=UNIX_MILLISECONDS_INTEGER_DATETIME_PARSING) as transformer:
         for stream_name in streams_to_sync:
 
             stream = STREAMS[stream_name](client, catalog.get_stream(stream_name))
@@ -61,7 +62,7 @@ def sync(client: Client, config: Dict, catalog: singer.Catalog, state) -> None:
 
             LOGGER.info("START Syncing: {}".format(stream_name))
             update_currently_syncing(state, stream_name)
-            total_records = stream.sync(state=state, transformer=transformer)
+            total_records, state = stream.sync(state=state, transformer=transformer)
 
             update_currently_syncing(state, None)
             LOGGER.info(
@@ -69,3 +70,4 @@ def sync(client: Client, config: Dict, catalog: singer.Catalog, state) -> None:
                     stream_name, total_records
                 )
             )
+

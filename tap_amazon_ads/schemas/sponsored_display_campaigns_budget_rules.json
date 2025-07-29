@@ -1,6 +1,5 @@
 {
     "type": "object",
-    "additionalProperties": false,
     "properties": {
         "ruleState": {
             "type": [
@@ -27,21 +26,18 @@
                 "null",
                 "object"
             ],
-            "additionalProperties": false,
             "properties": {
                 "duration": {
                     "type": [
                         "null",
                         "object"
                     ],
-                    "additionalProperties": false,
                     "properties": {
                         "eventTypeRuleDuration": {
                             "type": [
                                 "null",
                                 "object"
                             ],
-                            "additionalProperties": false,
                             "properties": {
                                 "eventId": {
                                     "type": [
@@ -76,16 +72,15 @@
                                 "null",
                                 "object"
                             ],
-                            "additionalProperties": false,
                             "properties": {
-                                "endDate": {
+                                "startDate": {
                                     "type": [
                                         "null",
                                         "string"
                                     ],
                                     "format": "date-time"
                                 },
-                                "startDate": {
+                                "endDate": {
                                     "type": [
                                         "null",
                                         "string"
@@ -101,37 +96,7 @@
                         "null",
                         "object"
                     ],
-                    "additionalProperties": false,
                     "properties": {
-                        "intraDaySchedule": {
-                            "type": [
-                                "null",
-                                "array"
-                            ],
-                            "items": {
-                                "type": [
-                                    "null",
-                                    "object"
-                                ],
-                                "additionalProperties": false,
-                                "properties": {
-                                    "startTime": {
-                                        "type": [
-                                            "null",
-                                            "string"
-                                        ],
-                                        "format": "date-time"
-                                    },
-                                    "endTime": {
-                                        "type": [
-                                            "null",
-                                            "string"
-                                        ],
-                                        "format": "date-time"
-                                    }
-                                }
-                            }
-                        },
                         "type": {
                             "type": [
                                 "null",
@@ -149,6 +114,29 @@
                                     "string"
                                 ]
                             }
+                        },
+                        "intraDaySchedule": {
+                            "type": [
+                                "null",
+                                "array"
+                            ],
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "startTime": {
+                                        "type": [
+                                            "null",
+                                            "string"
+                                        ]
+                                    },
+                                    "endTime": {
+                                        "type": [
+                                            "null",
+                                            "string"
+                                        ]
+                                    }
+                                }
+                            }
                         }
                     }
                 },
@@ -163,7 +151,6 @@
                         "null",
                         "object"
                     ],
-                    "additionalProperties": false,
                     "properties": {
                         "type": {
                             "type": [
@@ -190,7 +177,6 @@
                         "null",
                         "object"
                     ],
-                    "additionalProperties": false,
                     "properties": {
                         "metricName": {
                             "type": [

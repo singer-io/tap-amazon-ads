@@ -1,5 +1,6 @@
 from typing import Any, Dict, Mapping, Optional, Tuple
 from datetime import datetime, timedelta
+import time
 
 import backoff
 import requests
@@ -7,11 +8,19 @@ from requests import session
 from requests.exceptions import Timeout, ConnectionError, ChunkedEncodingError
 from singer import get_logger, metrics
 
-from tap_amazon_ads.exceptions import ERROR_CODE_EXCEPTION_MAPPING, Amazon_AdsError, Amazon_AdsBackoffError
+from tap_amazon_ads.exceptions import (
+    ERROR_CODE_EXCEPTION_MAPPING,
+    Amazon_AdsError,
+    Amazon_AdsRateLimitError,
+    Amazon_AdsInternalServerError,
+    Amazon_AdsBadGatewayError,
+    Amazon_AdsServiceUnavailableError,
+    Amazon_AdsGatewayTimeout)
 
 LOGGER = get_logger()
 REQUEST_TIMEOUT = 300
 REFRESH_URL = "https://api.amazon.com/auth/o2/token"
+DEFAULT_EXPIRY_TIME_IN_SECONDS = 3600
 
 def raise_for_error(response: requests.Response) -> None:
     """Raises the associated response exception. Takes in a response object,
@@ -25,8 +34,8 @@ def raise_for_error(response: requests.Response) -> None:
     except Exception:
         response_json = {}
     if response.status_code not in [200, 201, 204]:
-        if response_json.get("error"):
-            message = "HTTP-error-code: {}, Error: {}".format(response.status_code, response_json.get("error"))
+        if response_json.get("code"):
+            message = "HTTP-error-code: {}, Error: {}".format(response.status_code, response_json.get("details"))
         else:
             message = "HTTP-error-code: {}, Error: {}".format(
                 response.status_code,
@@ -35,6 +44,14 @@ def raise_for_error(response: requests.Response) -> None:
         exc = ERROR_CODE_EXCEPTION_MAPPING.get(
             response.status_code, {}).get("raise_exception", Amazon_AdsError)
         raise exc(message, response) from None
+
+def wait_if_retry_after(details):
+    """Backoff handler that checks for a 'retry_after' attribute in the exception
+    and sleeps for the specified duration to respect API rate limits.
+    """
+    exc = details['exception']
+    if hasattr(exc, 'retry_after') and exc.retry_after is not None:
+        time.sleep(exc.retry_after)  # Force exact wait
 
 class Client:
     """
@@ -49,7 +66,7 @@ class Client:
     def __init__(self, config: Mapping[str, Any]) -> None:
         self.config = config
         self._session = session()
-        self.base_url = "https://advertising-api.amazon.com/"
+        self.base_url = "https://advertising-api.amazon.com"
         self._access_token = None
         self._expires_at = None
 
@@ -66,18 +83,23 @@ class Client:
     def _refresh_access_token(self) -> None:
         """Refreshes the access token."""
         LOGGER.info("Refreshing Access Token")
-        resp_json = self.post(
+        resp_json = self.make_request(
+            "POST",
             endpoint=REFRESH_URL,
-            headers={"User-Agent": self.config["user_agent"]},
+            headers={
+                "User-Agent": self.config["user_agent"],
+                "content-type": "application/x-www-form-urlencoded;charset=UTF-8"
+            },
             body={
                 "refresh_token": self.config["refresh_token"],
                 "client_id": self.config["client_id"],
                 "client_secret": self.config["client_secret"],
-                "grant_type": "refresh_token",
-            }
+                "grant_type": "refresh_token"
+            },
+            is_auth_req=False
         )
         self._access_token = resp_json["access_token"]
-        expires_in_seconds = resp_json.get("expires_in", 1 * 60 * 60)
+        expires_in_seconds = resp_json.get("expires_in", DEFAULT_EXPIRY_TIME_IN_SECONDS)
         self._expires_at = datetime.now() + timedelta(seconds=expires_in_seconds)
         LOGGER.info("Got refreshed access token")
 
@@ -89,40 +111,66 @@ class Client:
         self._refresh_access_token()
         return self._access_token
 
-    def authenticate(self, headers: Dict, params: Dict) -> Tuple[Dict, Dict]:
-        """Authenticates the request with the token"""
-        headers["Authorization"] = f"Bearer {self.get_access_token()}"
-        headers["User-Agent"] = self.config["user_agent"]
-        headers["Amazon-Advertising-API-ClientId"] = self.config["client_id"]
-        headers["Amazon-Advertising-API-Scope"] = self.config["profiles"]
-        headers["Content-Type"] = "application/json"
+    @property
+    def headers(self) -> Dict[str, str]:
+        """
+        Construct and return the HTTP headers required for requests to the Amazon Advertising API.
+        """
+        header = {
+            'User-Agent': self.config["user_agent"],
+            'Amazon-Advertising-API-ClientId': self.config["client_id"],
+            'Content-Type': 'application/json'
+        }
+        if profile_id := self.config["profiles"]:
+            header['Amazon-Advertising-API-Scope'] = profile_id
+        return header
 
-        return headers, params
+    def authenticate(self, headers: Optional[Dict], params: Optional[Dict]) -> Tuple[Dict, Dict]:
+        """Provides authenticated headers"""
+        result_headers = self.headers.copy()
+        result_headers["Authorization"] = f"Bearer {self.get_access_token()}"
+        if headers is False:
+            result_headers.pop("Content-Type", None)
+        else:
+            result_headers.update(headers)
+        return result_headers, params
 
-    def get(self, endpoint: str, params: Dict, headers: Dict, path: str = None) -> Any:
-        """Calls the make_request method with a prefixed method type `GET`"""
+    def make_request(
+        self,
+        method: str,
+        endpoint: str,
+        params: Optional[Dict[str, Any]] = None,
+        headers: Optional[Dict[str, Any]] = None,
+        body: Optional[Dict[str, Any]] = None,
+        path: Optional[str] = None,
+        is_auth_req: bool = True
+    ) -> Any:
+        """
+        Sends an HTTP request to the specified API endpoint.
+        """
+        params = params or {}
+        headers = headers or {}
+        body = body or {}
         endpoint = endpoint or f"{self.base_url}/{path}"
-        headers, params = self.authenticate(headers, params)
-        return self.__make_request("GET", endpoint, headers=headers, params=params, timeout=self.request_timeout)
-
-    def post(self, endpoint: str, params: Dict, headers: Dict, body: Dict, path: str = None, add_auth: bool = False) -> Any:
-        """Calls the make_request method with a prefixed method type `POST`"""
-        if add_auth:
+        if is_auth_req:
             headers, params = self.authenticate(headers, params)
-        return self.__make_request("POST", endpoint, headers=headers, params=params, data=body, timeout=self.request_timeout)
-
+        return self.__make_request(method, endpoint, headers=headers, params=params, data=body, timeout=self.request_timeout)
 
     @backoff.on_exception(
-        wait_gen=backoff.expo,
+        wait_gen=lambda: backoff.expo(factor=2),
+        on_backoff=wait_if_retry_after,
         exception=(
             ConnectionResetError,
             ConnectionError,
             ChunkedEncodingError,
             Timeout,
-            Amazon_AdsBackoffError
+            Amazon_AdsRateLimitError,
+            Amazon_AdsInternalServerError,
+            Amazon_AdsBadGatewayError,
+            Amazon_AdsServiceUnavailableError,
+            Amazon_AdsGatewayTimeout
         ),
-        max_tries=5,
-        factor=2,
+        max_tries=5
     )
     def __make_request(self, method: str, endpoint: str, **kwargs) -> Optional[Mapping[Any, Any]]:
         """
@@ -138,7 +186,13 @@ class Client:
             Dict,List,None: Returns a `Json Parsed` HTTP Response or None if exception
         """
         with metrics.http_request_timer(endpoint) as timer:
-            response = self._session.request(method, endpoint, **kwargs)
-            raise_for_error(response)
+            if method in ("GET", "POST"):
+                if method == "GET":
+                    kwargs.pop("data", None)
+                response = self._session.request(method, endpoint, **kwargs)
+                raise_for_error(response)
+            else:
+                raise ValueError(f"Unsupported method: {method}")
 
         return response.json()
+

@@ -8,59 +8,69 @@ This tap:
 
 - Pulls raw data from the [Amazon_Ads API].
 - Extracts the following resources:
-    - [Profiles](https://advertising.amazon.com/API/docs/en-us/reference/2/profiles#/Profiles)
+    - [Invoices](https://advertising.amazon.com/API/docs/en-us/billing#tag/invoice/operation/getAdvertiserInvoices)
 
-    - [Portfolios](https://advertising.amazon.com/API/docs/en-us/reference/portfolios)
+    - [Portfolios](https://advertising.amazon.com/API/docs/en-us/reference/portfolios#tag/Portfolios/operation/ListPortfolios)
 
-    - [SponsoredDisplayCampaigns](https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Campaigns)
+    - [Profiles](https://advertising.amazon.com/API/docs/en-us/reference/2/profiles#tag/Profiles/operation/listProfiles)
 
-    - [SponsoredDisplayAdGroups](https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Ad-Groups)
+    - [SponsoredBrandsAdCreatives](https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi/prod#tag/Ad-creatives/operation/ListCreatives)
 
-    - [SponsoredDisplayProductAds](https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Product-Ads)
+    - [SponsoredBrandsAdGroups](https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi/prod#tag/Ad-groups/operation/ListSponsoredBrandsAdGroups)
 
-    - [SponsoredDisplayTargetings](https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Targeting)
+    - [SponsoredBrandsAds](https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi/prod#tag/Ads/operation/ListSponsoredBrandsAds)
 
-    - [SponsoredDisplayBudgetRules](https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Budget-Rules)
+    - [SponsoredBrandsBidRecommendations](https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi#tag/Bid-recommendations/operation/getBidsRecommendations)
 
-    - [SponsoredDisplayBrandSafetyList](https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Brand-Safety-List)
+    - [SponsoredBrandsBudgetRulesCampaigns](https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi/prod#tag/Budget-rules/operation/GetCampaignsAssociatedWithSBBudgetRule)
 
-    - [SponsoredDisplayNegativeTargetingClauses](https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Negative-Targeting)
+    - [SponsoredBrandsBudgetRules](https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi/prod#tag/Budget-rules/operation/GetSBBudgetRulesForAdvertiser)
 
-    - [SponsoredDisplayCreatives](https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Creatives)
+    - [SponsoredBrandsCampaignsBudgetRules](https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi/prod#tag/Budget-rules/operation/ListAssociatedBudgetRulesForSBCampaigns)
 
-    - [SponsoredBrandsCampaigns](https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi/prod#tag/Campaigns)
+    - [SponsoredBrandsCampaigns](https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi/prod#tag/Campaigns/operation/ListSponsoredBrandsCampaigns)
 
-    - [SponsoredBrandsAdGroups](https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi/prod#tag/Ad-groups)
+    - [SponsoredBrandsKeywords](https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi#tag/Keywords/operation/listKeywords)
 
-    - [SponsoredBrandsKeywords](https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi#tag/Keywords)
+    - [SponsoredBrandsNegativeKeywords](https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi#tag/Negative-keywords/operation/listNegativeKeywords)
 
-    - [SponsoredBrandsNegativeKeywords](https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi#tag/Negative-keywords)
+    - [SponsoredBrandsNegativeTargets](https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi#tag/Negative-product-targeting/operation/listNegativeTargets)
 
-    - [SponsoredBrandsBidRecommendations](https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi#tag/Bid-recommendations)
+    - [SponsoredBrandsProductTargets](https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi#tag/Product-targeting/operation/listTargets)
 
-    - [SponsoredBrandsNegativeTargets](https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi#tag/Negative-product-targeting)
+    - [SponsoredBrandsStoreAssets](https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi#tag/Stores/operation/listAssets)
 
-    - [SponsoredBrandsProductTargets](https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi#tag/Product-targeting)
+    - [SponsoredDisplayAdGroups](https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Ad-Groups/operation/listAdGroupsEx)
 
-    - [SponsoredBrandsStoreAssets](https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi#tag/Stores)
+    - [SponsoredDisplayBrandSafetyList](https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Brand-Safety-List/operation/listRequestStatus)
 
-    - [SponsoredBrandsAdCreatives](https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi/prod#tag/Ad-creatives)
+    - [SponsoredDisplayBudgetRulesCampaigns](https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Budget-Rules/operation/GetCampaignsAssociatedWithSDBudgetRule)
 
-    - [SponsoredBrandsBudgetRules](https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi/prod#tag/Budget-rules)
+    - [SponsoredDisplayBudgetRules](https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Budget-Rules/operation/GetSDBudgetRulesForAdvertiser)
 
-    - [SponsoredProductsCampaigns](https://advertising.amazon.com/API/docs/en-us/sponsored-products/3-0/openapi/prod#tag/Campaigns)
+    - [SponsoredDisplayCampaignsBudgetRules](https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Budget-Rules/operation/ListAssociatedBudgetRulesForSDCampaigns)
+
+    - [SponsoredDisplayCampaigns](https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Campaigns/operation/listCampaignsEx)
+
+    - [SponsoredDisplayCreatives](https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Creatives/operation/listCreatives)
+
+    - [SponsoredDisplayNegativeTargetingClauses](https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Negative-Targeting/operation/listNegativeTargetingClausesEx)
+
+    - [SponsoredDisplayProductAds](https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Product-Ads/operation/listProductAdsEx)
+
+    - [SponsoredDisplayTargetings](https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Targeting/operation/listTargetingClausesEx)
 
     - [SponsoredProductsAdGroups](https://advertising.amazon.com/API/docs/en-us/sponsored-products/3-0/openapi/prod#tag/Ad-groups/operation/ListSponsoredProductsAdGroups)
-
-    - [SponsoredProductsKeywords](https://advertising.amazon.com/API/docs/en-us/sponsored-products/3-0/openapi/prod#tag/Keywords/operation/ListSponsoredProductsKeywords)
-
-    - [SponsoredProductsNegativeKeywords](https://advertising.amazon.com/API/docs/en-us/sponsored-products/3-0/openapi/prod#tag/Negative-keywords/operation/ListSponsoredProductsNegativeKeywords)
 
     - [SponsoredProductsAds](https://advertising.amazon.com/API/docs/en-us/sponsored-products/3-0/openapi/prod#tag/Product-ads/operation/ListSponsoredProductsProductAds)
 
     - [SponsoredProductsBudgetRules](https://advertising.amazon.com/API/docs/en-us/sponsored-products/3-0/openapi/prod#tag/BudgetRules/operation/GetSPBudgetRulesForAdvertiser)
 
-    - [Invoices](https://advertising.amazon.com/API/docs/en-us/billing#tag/invoice/operation/getAdvertiserInvoices)
+    - [SponsoredProductsCampaigns](https://advertising.amazon.com/API/docs/en-us/sponsored-products/3-0/openapi/prod#tag/Campaigns/operation/ListSponsoredProductsCampaigns)
+
+    - [SponsoredProductsKeywords](https://advertising.amazon.com/API/docs/en-us/sponsored-products/3-0/openapi/prod#tag/Keywords/operation/ListSponsoredProductsKeywords)
+
+    - [SponsoredProductsNegativeKeywords](https://advertising.amazon.com/API/docs/en-us/sponsored-products/3-0/openapi/prod#tag/Negative-keywords/operation/ListSponsoredProductsNegativeKeywords)
 
 - Outputs the schema for each resource
 - Incrementally pulls data based on the input state
@@ -69,117 +79,127 @@ This tap:
 ## Streams
 
 
-** [profiles](https://advertising.amazon.com/API/docs/en-us/reference/2/profiles#/Profiles)**
-- Primary keys: ['profileId']
-- Replication strategy: FULL_TABLE
-
-** [portfolios](https://advertising.amazon.com/API/docs/en-us/reference/portfolios)**
-- Data Key = portfolios
-- Primary keys: ['portfolioId']
-- Replication strategy: INCREMENTAL
-
 ** [invoices](https://advertising.amazon.com/API/docs/en-us/billing#tag/invoice/operation/getAdvertiserInvoices)**
 - Data Key = invoiceSummaries
 - Primary keys: ['id']
 - Replication strategy: INCREMENTAL
 
-** [sponsored_display_campaigns](https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Campaigns)**
-- Primary keys: ['campaignId']
+** [portfolios](https://advertising.amazon.com/API/docs/en-us/reference/portfolios#tag/Portfolios/operation/ListPortfolios)**
+- Data Key = portfolios
+- Primary keys: ['portfolioId']
 - Replication strategy: INCREMENTAL
 
-** [sponsored_display_ad_groups](https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Ad-Groups)**
-- Primary keys: ['adGroupId']
-- Replication strategy: INCREMENTAL
-
-** [sponsored_display_product_ads](https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Product-Ads)**
-- Primary keys: ['adId']
-- Replication strategy: INCREMENTAL
-
-** [sponsored_display_targetings](https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Targeting)**
-- Primary keys: ['targetId']
-- Replication strategy: INCREMENTAL
-
-** [sponsored_display_budget_rules](https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Budget-Rules)**
-- Data Key = budgetRulesForAdvertiserResponse
-- Primary keys: ['ruleId']
-- Replication strategy: INCREMENTAL
-
-** [sponsored_display_brand_safety_list](https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Brand-Safety-List)**
-- Data Key = requestStatusList
-- Primary keys: ['requestId']
+** [profiles](https://advertising.amazon.com/API/docs/en-us/reference/2/profiles#tag/Profiles/operation/listProfiles)**
+- Primary keys: ['profileId']
 - Replication strategy: FULL_TABLE
 
-** [sponsored_display_negative_targeting_clauses](https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Negative-Targeting)**
-- Primary keys: ['targetId']
-- Replication strategy: INCREMENTAL
-
-** [sponsored_display_creatives](https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Creatives)**
-- Primary keys: ['creativeId']
-- Replication strategy: FULL_TABLE
-
-** [sponsored_brands_campaigns](https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi/prod#tag/Campaigns)**
-- Data Key = campaigns
-- Primary keys: ['campaignId']
-- Replication strategy: INCREMENTAL
-
-** [sponsored_brands_ad_groups](https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi/prod#tag/Ad-groups)**
-- Data Key = adGroups
-- Primary keys: ['adGroupId']
-- Replication strategy: INCREMENTAL
-
-** [sponsored_brands_keywords](https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi#tag/Keywords)**
-- Primary keys: ['keywordId']
-- Replication strategy: FULL_TABLE
-
-** [sponsored_brands_negative_keywords](https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi#tag/Negative-keywords)**
-- Primary keys: ['keywordId']
-- Replication strategy: FULL_TABLE
-
-** [sponsored_brands_bid_recommendations](https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi#tag/Bid-recommendations)**
-- Primary keys: ['recommendationId']
-- Replication strategy: FULL_TABLE
-
-** [sponsored_brands_negative_targets](https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi#tag/Negative-product-targeting)**
-- Data Key = negativeTargets
-- Primary keys: ['targetId']
-- Replication strategy: FULL_TABLE
-
-** [sponsored_brands_product_targets](https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi#tag/Product-targeting)**
-- Primary keys: ['targetId']
-- Replication strategy: FULL_TABLE
-
-** [sponsored_brands_store_assets](https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi#tag/Stores)**
-- Primary keys: ['assetID']
-- Replication strategy: FULL_TABLE
-
-** [sponsored_brands_ad_creatives](https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi/prod#tag/Ad-creatives)**
+** [sponsored_brands_ad_creatives](https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi/prod#tag/Ad-creatives/operation/ListCreatives)**
 - Data Key = creatives
 - Primary keys: ['adId']
 - Replication strategy: INCREMENTAL
 
-** [sponsored_brands_budget_rules](https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi/prod#tag/Budget-rules)**
+** [sponsored_brands_ad_groups](https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi/prod#tag/Ad-groups/operation/ListSponsoredBrandsAdGroups)**
+- Data Key = adGroups
+- Primary keys: ['adGroupId']
+- Replication strategy: INCREMENTAL
+
+** [sponsored_brands_ads](https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi/prod#tag/Ads/operation/ListSponsoredBrandsAds)**
+- Data Key = ads
+- Primary keys: ['adId']
+- Replication strategy: INCREMENTAL
+
+** [sponsored_brands_bid_recommendations](https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi#tag/Bid-recommendations/operation/getBidsRecommendations)**
+- Primary keys: ['recommendationId']
+- Replication strategy: FULL_TABLE
+
+** [sponsored_brands_budget_rules_campaigns](https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi/prod#tag/Budget-rules/operation/GetCampaignsAssociatedWithSBBudgetRule)**
+- Data Key = associatedCampaigns
+- Primary keys: ['campaignId']
+- Replication strategy: FULL_TABLE
+
+** [sponsored_brands_budget_rules](https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi/prod#tag/Budget-rules/operation/GetSBBudgetRulesForAdvertiser)**
 - Data Key = budgetRulesForAdvertiserResponse
 - Primary keys: ['ruleId']
 - Replication strategy: INCREMENTAL
 
-** [sponsored_products_campaigns](https://advertising.amazon.com/API/docs/en-us/sponsored-products/3-0/openapi/prod#tag/Campaigns)**
+** [sponsored_brands_campaigns_budget_rules](https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi/prod#tag/Budget-rules/operation/ListAssociatedBudgetRulesForSBCampaigns)**
+- Data Key = associatedRules
+- Primary keys: ['ruleId']
+- Replication strategy: INCREMENTAL
+
+** [sponsored_brands_campaigns](https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi/prod#tag/Campaigns/operation/ListSponsoredBrandsCampaigns)**
 - Data Key = campaigns
 - Primary keys: ['campaignId']
+- Replication strategy: INCREMENTAL
+
+** [sponsored_brands_keywords](https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi#tag/Keywords/operation/listKeywords)**
+- Primary keys: ['keywordId']
+- Replication strategy: FULL_TABLE
+
+** [sponsored_brands_negative_keywords](https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi#tag/Negative-keywords/operation/listNegativeKeywords)**
+- Primary keys: ['keywordId']
+- Replication strategy: FULL_TABLE
+
+** [sponsored_brands_negative_targets](https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi#tag/Negative-product-targeting/operation/listNegativeTargets)**
+- Data Key = negativeTargets
+- Primary keys: ['targetId']
+- Replication strategy: FULL_TABLE
+
+** [sponsored_brands_product_targets](https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi#tag/Product-targeting/operation/listTargets)**
+- Primary keys: ['targetId']
+- Replication strategy: FULL_TABLE
+
+** [sponsored_brands_store_assets](https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi#tag/Stores/operation/listAssets)**
+- Primary keys: ['assetID']
+- Replication strategy: FULL_TABLE
+
+** [sponsored_display_ad_groups](https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Ad-Groups/operation/listAdGroupsEx)**
+- Primary keys: ['adGroupId']
+- Replication strategy: INCREMENTAL
+
+** [sponsored_display_brand_safety_list](https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Brand-Safety-List/operation/listRequestStatus)**
+- Data Key = requestStatusList
+- Primary keys: ['requestId']
+- Replication strategy: FULL_TABLE
+
+** [sponsored_display_budget_rules_campaigns](https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Budget-Rules/operation/GetCampaignsAssociatedWithSDBudgetRule)**
+- Data Key = associatedCampaigns
+- Primary keys: ['campaignId']
+- Replication strategy: FULL_TABLE
+
+** [sponsored_display_budget_rules](https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Budget-Rules/operation/GetSDBudgetRulesForAdvertiser)**
+- Data Key = budgetRulesForAdvertiserResponse
+- Primary keys: ['ruleId']
+- Replication strategy: INCREMENTAL
+
+** [sponsored_display_campaigns_budget_rules](https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Budget-rules/operation/DisassociateAssociatedBudgetRuleForSBCampaigns)**
+- Data Key = associatedRules
+- Primary keys: ['ruleId']
+- Replication strategy: INCREMENTAL
+
+** [sponsored_display_campaigns](https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Campaigns/operation/listCampaignsEx)**
+- Primary keys: ['campaignId']
+- Replication strategy: INCREMENTAL
+
+** [sponsored_display_creatives](https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Creatives/operation/listCreatives)**
+- Primary keys: ['creativeId']
+- Replication strategy: FULL_TABLE
+
+** [sponsored_display_negative_targeting_clauses](https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Negative-Targeting/operation/listNegativeTargetingClausesEx)**
+- Primary keys: ['targetId']
+- Replication strategy: INCREMENTAL
+
+** [sponsored_display_product_ads](https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Product-Ads/operation/listProductAdsEx)**
+- Primary keys: ['adId']
+- Replication strategy: INCREMENTAL
+
+** [sponsored_display_targetings](https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Targeting/operation/listTargetingClausesEx)**
+- Primary keys: ['targetId']
 - Replication strategy: INCREMENTAL
 
 ** [sponsored_products_ad_groups](https://advertising.amazon.com/API/docs/en-us/sponsored-products/3-0/openapi/prod#tag/Ad-groups/operation/ListSponsoredProductsAdGroups)**
 - Data Key = adGroups
 - Primary keys: ['adGroupId']
-- Replication strategy: INCREMENTAL
-
-** [sponsored_products_keywords](https://advertising.amazon.com/API/docs/en-us/sponsored-products/3-0/openapi/prod#tag/Keywords/operation/ListSponsoredProductsKeywords)**
-- Data Key = keywords
-- Primary keys: ['keywordId']
-- Replication strategy: INCREMENTAL
-
-** [sponsored_products_negative_keywords](https://advertising.amazon.com/API/docs/en-us/sponsored-products/3-0/openapi/prod#tag/Negative-keywords/operation/ListSponsoredProductsNegativeKeywords)**
-- Data Key = negativeKeywords
-- Primary keys: ['keywordId']
 - Replication strategy: INCREMENTAL
 
 ** [sponsored_products_ads](https://advertising.amazon.com/API/docs/en-us/sponsored-products/3-0/openapi/prod#tag/Product-ads/operation/ListSponsoredProductsProductAds)**
@@ -192,6 +212,20 @@ This tap:
 - Primary keys: ['ruleId']
 - Replication strategy: INCREMENTAL
 
+** [sponsored_products_campaigns](https://advertising.amazon.com/API/docs/en-us/sponsored-products/3-0/openapi/prod#tag/Campaigns/operation/ListSponsoredProductsCampaigns)**
+- Data Key = campaigns
+- Primary keys: ['campaignId']
+- Replication strategy: INCREMENTAL
+
+** [sponsored_products_keywords](https://advertising.amazon.com/API/docs/en-us/sponsored-products/3-0/openapi/prod#tag/Keywords/operation/ListSponsoredProductsKeywords)**
+- Data Key = keywords
+- Primary keys: ['keywordId']
+- Replication strategy: INCREMENTAL
+
+** [sponsored_products_negative_keywords](https://advertising.amazon.com/API/docs/en-us/sponsored-products/3-0/openapi/prod#tag/Negative-keywords/operation/ListSponsoredProductsNegativeKeywords)**
+- Data Key = negativeKeywords
+- Primary keys: ['keywordId']
+- Replication strategy: INCREMENTAL
 
 ## Authentication
 
@@ -226,10 +260,17 @@ This tap:
 
     ```json
     {
+        ""
+        "client_id": "the_client_id",
+        "client_secret": "the_client_secret",
+        "refresh_token": "the_refresh_token",
+        "redirect_uri": "https://the.redirect.url",
+        "profiles": "0123456789",
         "start_date": "2019-01-01T00:00:00Z",
         "user_agent": "tap-amazon_ads <api_user_email@your_company.com>",
         "request_timeout": 300
-    }```
+    }
+    ```
 
     Optionally, also create a `state.json` file. `currently_syncing` is an optional attribute used for identifying the last object to be synced in case the job is interrupted mid-stream. The next run would begin where the last job left off.
 

@@ -10,7 +10,7 @@
     "redirect_uri"
   ],
   "page_size": 100,
-  "next_page_key": "next_token",
+  "next_page_key": "nextToken",
   "pagination_key": "page",
   "headers": {
     "Accept": "application/json"
@@ -47,6 +47,20 @@
       "doc_link": "https://advertising.amazon.com/API/docs/en-us/reference/portfolios"
     },
     {
+      "name": "sponsored_display_campaigns_budget_rules",
+      "key_properties": [
+        "ruleId"
+      ],
+      "replication_method": "INCREMENTAL",
+      "replication_keys": [
+        "lastUpdatedDate"
+      ],
+      "path": "sd/campaigns/{}/budgetRules",
+      "data_key": "associatedRules",
+      "parent": "sponsored_display_campaigns",
+      "doc_link": "https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Budget-rules/operation/DisassociateAssociatedBudgetRuleForSBCampaigns"
+    },
+    {
       "name": "sponsored_display_campaigns",
       "key_properties": [
         "campaignId"
@@ -58,6 +72,9 @@
       "path": "sd/campaigns/extended",
       "data_key": "",
       "parent": "",
+      "children": [
+        "sponsored_display_campaigns_budget_rules"
+      ],
       "doc_link": "https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Campaigns"
     },
     {
@@ -72,6 +89,9 @@
       "path": "sd/adGroups/extended",
       "data_key": "",
       "parent": "",
+      "children": [
+        "sponsored_display_creatives"
+      ],
       "doc_link": "https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Ad-Groups"
     },
     {
@@ -103,6 +123,18 @@
       "doc_link": "https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Targeting"
     },
     {
+      "name": "sponsored_display_budget_rules_campaigns",
+      "key_properties": [
+        "campaignId"
+      ],
+      "replication_method": "FULL_TABLE",
+      "replication_keys": null,
+      "path": "sd/budgetRules/{}/campaigns",
+      "data_key": "associatedCampaigns",
+      "parent": "sponsored_display_budget_rules",
+      "doc_link": "https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Budget-Rules/operation/GetCampaignsAssociatedWithSDBudgetRule"
+    },
+    {
       "name": "sponsored_display_budget_rules",
       "key_properties": [
         "ruleId"
@@ -114,6 +146,9 @@
       "path": "sd/budgetRules",
       "data_key": "budgetRulesForAdvertiserResponse",
       "parent": "",
+      "children": [
+        "sponsored_display_budget_rules_campaigns"
+      ],
       "doc_link": "https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Budget-Rules"
     },
     {
@@ -151,8 +186,22 @@
       "replication_keys": null,
       "path": "sd/creatives",
       "data_key": "",
-      "parent": "",
+      "parent": "sponsored_display_ad_groups",
       "doc_link": "https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Creatives"
+    },
+    {
+      "name": "sponsored_brands_campaigns_budget_rules",
+      "key_properties": [
+        "ruleId"
+      ],
+      "replication_method": "INCREMENTAL",
+      "replication_keys": [
+        "lastUpdatedDate"
+      ],
+      "path": "sb/campaigns/{}/budgetRules",
+      "data_key": "associatedRules",
+      "parent": "sponsored_brands_campaigns",
+      "doc_link": "https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi/prod#tag/Budget-rules/operation/ListAssociatedBudgetRulesForSBCampaigns"
     },
     {
       "name": "sponsored_brands_campaigns",
@@ -163,9 +212,13 @@
       "replication_keys": [
         "extendedData.lastUpdateDateTime"
       ],
-      "path": "sb/v4/campaigns",
+      "path": "sb/v4/campaigns/list",
       "data_key": "campaigns",
       "parent": "",
+      "children": [
+        "sponsored_brands_bid_recommendations",
+        "sponsored_brands_campaigns_budget_rules"
+      ],
       "doc_link": "https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi/prod#tag/Campaigns"
     },
     {
@@ -215,7 +268,7 @@
       "replication_keys": null,
       "path": "sb/recommendations/bids",
       "data_key": "",
-      "parent": "",
+      "parent": "sponsored_brands_campaigns",
       "doc_link": "https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi#tag/Bid-recommendations"
     },
     {
@@ -265,8 +318,37 @@
       ],
       "path": "sb/ads/creatives/list",
       "data_key": "creatives",
-      "parent": "",
+      "parent": "sponsored_brands_ads",
       "doc_link": "https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi/prod#tag/Ad-creatives"
+    },
+    {
+      "name": "sponsored_brands_ads",
+      "key_properties": [
+        "adId"
+      ],
+      "replication_method": "INCREMENTAL",
+      "replication_keys": [
+        "extendedData.lastUpdateDate"
+      ],
+      "path": "sb/v4/ads/list",
+      "data_key": "ads",
+      "parent": "",
+      "children": [
+        "sponsored_brands_ad_creatives"
+      ],
+      "doc_link": "https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi/prod#tag/Ads/operation/ListSponsoredBrandsAds"
+    },
+    {
+      "name": "sponsored_brands_budget_rules_campaigns",
+      "key_properties": [
+        "campaignId"
+      ],
+      "replication_method": "FULL_TABLE",
+      "replication_keys": null,
+      "path": "sb/budgetRules/{}/campaigns",
+      "data_key": "associatedCampaigns",
+      "parent": "sponsored_brands_budget_rules",
+      "doc_link": "https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi/prod#tag/Budget-rules/operation/GetCampaignsAssociatedWithSBBudgetRule"
     },
     {
       "name": "sponsored_brands_budget_rules",
@@ -280,6 +362,9 @@
       "path": "sb/budgetRules",
       "data_key": "budgetRulesForAdvertiserResponse",
       "parent": "",
+      "children": [
+        "sponsored_brands_budget_rules_campaigns"
+      ],
       "doc_link": "https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi/prod#tag/Budget-rules"
     },
     {
@@ -384,7 +469,9 @@
   "tap_tester_creds": {
     "client_id": "TAP_AMAZON_ADS_CLIENT_ID",
     "client_secret": "TAP_AMAZON_ADS_CLIENT_SECRET",
-    "refresh_token": "TAP_AMAZON_ADS_REFRESH_TOKEN"
+    "refresh_token": "TAP_AMAZON_ADS_REFRESH_TOKEN",
+    "profiles": "TAP_AMAZON_ADS_PROFILES",
+    "redirect_uri": "TAP_AMAZON_ADS_REDIRECT_URI"
   },
   "author": "Stitch",
   "third_party_dependencies": [
