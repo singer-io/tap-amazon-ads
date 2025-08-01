@@ -1,0 +1,482 @@
+{
+  "tap_name": "Amazon_Ads",
+  "required_config_keys": [
+    "refresh_token",
+    "client_id",
+    "client_secret",
+    "start_date",
+    "user_agent",
+    "profiles",
+    "redirect_uri"
+  ],
+  "page_size": 100,
+  "next_page_key": "nextToken",
+  "pagination_key": "page",
+  "headers": {
+    "Accept": "application/json"
+  },
+  "params": {},
+  "auth_header_key": "Authorization",
+  "auth_config_key": "access_token",
+  "base_url": "https://advertising-api.amazon.com/",
+  "streams": [
+    {
+      "name": "profiles",
+      "key_properties": [
+        "profileId"
+      ],
+      "replication_method": "FULL_TABLE",
+      "replication_keys": null,
+      "path": "v2/profiles",
+      "data_key": "",
+      "parent": "",
+      "doc_link": "https://advertising.amazon.com/API/docs/en-us/reference/2/profiles#/Profiles"
+    },
+    {
+      "name": "portfolios",
+      "key_properties": [
+        "portfolioId"
+      ],
+      "replication_method": "INCREMENTAL",
+      "replication_keys": [
+        "extendedData.lastUpdateDateTime"
+      ],
+      "path": "portfolios/list",
+      "data_key": "portfolios",
+      "parent": "",
+      "doc_link": "https://advertising.amazon.com/API/docs/en-us/reference/portfolios"
+    },
+    {
+      "name": "sponsored_display_campaigns_budget_rules",
+      "key_properties": [
+        "ruleId"
+      ],
+      "replication_method": "INCREMENTAL",
+      "replication_keys": [
+        "lastUpdatedDate"
+      ],
+      "path": "sd/campaigns/{}/budgetRules",
+      "data_key": "associatedRules",
+      "parent": "sponsored_display_campaigns",
+      "doc_link": "https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Budget-rules/operation/DisassociateAssociatedBudgetRuleForSBCampaigns"
+    },
+    {
+      "name": "sponsored_display_campaigns",
+      "key_properties": [
+        "campaignId"
+      ],
+      "replication_method": "INCREMENTAL",
+      "replication_keys": [
+        "lastUpdatedDate"
+      ],
+      "path": "sd/campaigns/extended",
+      "data_key": "",
+      "parent": "",
+      "children": [
+        "sponsored_display_campaigns_budget_rules"
+      ],
+      "doc_link": "https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Campaigns"
+    },
+    {
+      "name": "sponsored_display_ad_groups",
+      "key_properties": [
+        "adGroupId"
+      ],
+      "replication_method": "INCREMENTAL",
+      "replication_keys": [
+        "lastUpdatedDate"
+      ],
+      "path": "sd/adGroups/extended",
+      "data_key": "",
+      "parent": "",
+      "children": [
+        "sponsored_display_creatives"
+      ],
+      "doc_link": "https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Ad-Groups"
+    },
+    {
+      "name": "sponsored_display_product_ads",
+      "key_properties": [
+        "adId"
+      ],
+      "replication_method": "INCREMENTAL",
+      "replication_keys": [
+        "lastUpdateDate"
+      ],
+      "path": "sd/productAds/extended",
+      "data_key": "",
+      "parent": "",
+      "doc_link": "https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Product-Ads"
+    },
+    {
+      "name": "sponsored_display_targetings",
+      "key_properties": [
+        "targetId"
+      ],
+      "replication_method": "INCREMENTAL",
+      "replication_keys": [
+        "lastUpdateDate"
+      ],
+      "path": "sd/targets/extended",
+      "data_key": "",
+      "parent": "",
+      "doc_link": "https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Targeting"
+    },
+    {
+      "name": "sponsored_display_budget_rules_campaigns",
+      "key_properties": [
+        "campaignId"
+      ],
+      "replication_method": "FULL_TABLE",
+      "replication_keys": null,
+      "path": "sd/budgetRules/{}/campaigns",
+      "data_key": "associatedCampaigns",
+      "parent": "sponsored_display_budget_rules",
+      "doc_link": "https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Budget-Rules/operation/GetCampaignsAssociatedWithSDBudgetRule"
+    },
+    {
+      "name": "sponsored_display_budget_rules",
+      "key_properties": [
+        "ruleId"
+      ],
+      "replication_method": "INCREMENTAL",
+      "replication_keys": [
+        "lastUpdateDate"
+      ],
+      "path": "sd/budgetRules",
+      "data_key": "budgetRulesForAdvertiserResponse",
+      "parent": "",
+      "children": [
+        "sponsored_display_budget_rules_campaigns"
+      ],
+      "doc_link": "https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Budget-Rules"
+    },
+    {
+      "name": "sponsored_display_brand_safety_list",
+      "key_properties": [
+        "requestId"
+      ],
+      "replication_method": "FULL_TABLE",
+      "replication_keys": null,
+      "path": "sd/brandSafety/status",
+      "data_key": "requestStatusList",
+      "parent": "",
+      "doc_link": "https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Brand-Safety-List"
+    },
+    {
+      "name": "sponsored_display_negative_targeting_clauses",
+      "key_properties": [
+        "targetId"
+      ],
+      "replication_method": "INCREMENTAL",
+      "replication_keys": [
+        "lastUpdatedDate"
+      ],
+      "path": "sd/negativeTargets/extended",
+      "data_key": "",
+      "parent": "",
+      "doc_link": "https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Negative-Targeting"
+    },
+    {
+      "name": "sponsored_display_creatives",
+      "key_properties": [
+        "creativeId"
+      ],
+      "replication_method": "FULL_TABLE",
+      "replication_keys": null,
+      "path": "sd/creatives",
+      "data_key": "",
+      "parent": "sponsored_display_ad_groups",
+      "doc_link": "https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Creatives"
+    },
+    {
+      "name": "sponsored_brands_campaigns_budget_rules",
+      "key_properties": [
+        "ruleId"
+      ],
+      "replication_method": "INCREMENTAL",
+      "replication_keys": [
+        "lastUpdatedDate"
+      ],
+      "path": "sb/campaigns/{}/budgetRules",
+      "data_key": "associatedRules",
+      "parent": "sponsored_brands_campaigns",
+      "doc_link": "https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi/prod#tag/Budget-rules/operation/ListAssociatedBudgetRulesForSBCampaigns"
+    },
+    {
+      "name": "sponsored_brands_campaigns",
+      "key_properties": [
+        "campaignId"
+      ],
+      "replication_method": "INCREMENTAL",
+      "replication_keys": [
+        "extendedData.lastUpdateDateTime"
+      ],
+      "path": "sb/v4/campaigns/list",
+      "data_key": "campaigns",
+      "parent": "",
+      "children": [
+        "sponsored_brands_bid_recommendations",
+        "sponsored_brands_campaigns_budget_rules"
+      ],
+      "doc_link": "https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi/prod#tag/Campaigns"
+    },
+    {
+      "name": "sponsored_brands_ad_groups",
+      "key_properties": [
+        "adGroupId"
+      ],
+      "replication_method": "INCREMENTAL",
+      "replication_keys": [
+        "extendedData.lastUpdateDateTime"
+      ],
+      "path": "sb/v4/adGroups/list",
+      "data_key": "adGroups",
+      "parent": "",
+      "doc_link": "https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi/prod#tag/Ad-groups"
+    },
+    {
+      "name": "sponsored_brands_keywords",
+      "key_properties": [
+        "keywordId"
+      ],
+      "replication_method": "FULL_TABLE",
+      "replication_keys": null,
+      "path": "sb/keywords",
+      "data_key": "",
+      "parent": "",
+      "doc_link": "https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi#tag/Keywords"
+    },
+    {
+      "name": "sponsored_brands_negative_keywords",
+      "key_properties": [
+        "keywordId"
+      ],
+      "replication_method": "FULL_TABLE",
+      "replication_keys": null,
+      "path": "sb/negativeKeywords",
+      "data_key": "",
+      "parent": "",
+      "doc_link": "https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi#tag/Negative-keywords"
+    },
+    {
+      "name": "sponsored_brands_bid_recommendations",
+      "key_properties": [
+        "recommendationId"
+      ],
+      "replication_method": "FULL_TABLE",
+      "replication_keys": null,
+      "path": "sb/recommendations/bids",
+      "data_key": "",
+      "parent": "sponsored_brands_campaigns",
+      "doc_link": "https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi#tag/Bid-recommendations"
+    },
+    {
+      "name": "sponsored_brands_negative_targets",
+      "key_properties": [
+        "targetId"
+      ],
+      "replication_method": "FULL_TABLE",
+      "replication_keys": null,
+      "path": "sb/negativeTargets/list",
+      "data_key": "negativeTargets",
+      "parent": "",
+      "doc_link": "https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi#tag/Negative-product-targeting"
+    },
+    {
+      "name": "sponsored_brands_product_targets",
+      "key_properties": [
+        "targetId"
+      ],
+      "replication_method": "FULL_TABLE",
+      "replication_keys": null,
+      "path": "sb/targets/list",
+      "data_key": "",
+      "parent": "",
+      "doc_link": "https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi#tag/Product-targeting"
+    },
+    {
+      "name": "sponsored_brands_store_assets",
+      "key_properties": [
+        "assetID"
+      ],
+      "replication_method": "FULL_TABLE",
+      "replication_keys": null,
+      "path": "stores/assets",
+      "data_key": "",
+      "parent": "",
+      "doc_link": "https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi#tag/Stores"
+    },
+    {
+      "name": "sponsored_brands_ad_creatives",
+      "key_properties": [
+        "adId"
+      ],
+      "replication_method": "INCREMENTAL",
+      "replication_keys": [
+        "lastUpdateTime"
+      ],
+      "path": "sb/ads/creatives/list",
+      "data_key": "creatives",
+      "parent": "sponsored_brands_ads",
+      "doc_link": "https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi/prod#tag/Ad-creatives"
+    },
+    {
+      "name": "sponsored_brands_ads",
+      "key_properties": [
+        "adId"
+      ],
+      "replication_method": "INCREMENTAL",
+      "replication_keys": [
+        "extendedData.lastUpdateDate"
+      ],
+      "path": "sb/v4/ads/list",
+      "data_key": "ads",
+      "parent": "",
+      "children": [
+        "sponsored_brands_ad_creatives"
+      ],
+      "doc_link": "https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi/prod#tag/Ads/operation/ListSponsoredBrandsAds"
+    },
+    {
+      "name": "sponsored_brands_budget_rules_campaigns",
+      "key_properties": [
+        "campaignId"
+      ],
+      "replication_method": "FULL_TABLE",
+      "replication_keys": null,
+      "path": "sb/budgetRules/{}/campaigns",
+      "data_key": "associatedCampaigns",
+      "parent": "sponsored_brands_budget_rules",
+      "doc_link": "https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi/prod#tag/Budget-rules/operation/GetCampaignsAssociatedWithSBBudgetRule"
+    },
+    {
+      "name": "sponsored_brands_budget_rules",
+      "key_properties": [
+        "ruleId"
+      ],
+      "replication_method": "INCREMENTAL",
+      "replication_keys": [
+        "lastUpdatedDate"
+      ],
+      "path": "sb/budgetRules",
+      "data_key": "budgetRulesForAdvertiserResponse",
+      "parent": "",
+      "children": [
+        "sponsored_brands_budget_rules_campaigns"
+      ],
+      "doc_link": "https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi/prod#tag/Budget-rules"
+    },
+    {
+      "name": "sponsored_products_campaigns",
+      "key_properties": [
+        "campaignId"
+      ],
+      "replication_method": "INCREMENTAL",
+      "replication_keys": [
+        "extendedData.lastUpdateDateTime"
+      ],
+      "path": "sp/campaigns/list",
+      "data_key": "campaigns",
+      "parent": "",
+      "doc_link": "https://advertising.amazon.com/API/docs/en-us/sponsored-products/3-0/openapi/prod#tag/Campaigns"
+    },
+    {
+      "name": "sponsored_products_ad_groups",
+      "key_properties": [
+        "adGroupId"
+      ],
+      "replication_method": "INCREMENTAL",
+      "replication_keys": [
+        "extendedData.lastUpdateDateTime"
+      ],
+      "path": "sp/adGroups/list",
+      "data_key": "adGroups",
+      "parent": "",
+      "doc_link": "https://advertising.amazon.com/API/docs/en-us/sponsored-products/3-0/openapi/prod#tag/Ad-groups/operation/ListSponsoredProductsAdGroups"
+    },
+    {
+      "name": "sponsored_products_keywords",
+      "key_properties": [
+        "keywordId"
+      ],
+      "replication_method": "INCREMENTAL",
+      "replication_keys": [
+        "extendedData.lastUpdateDateTime"
+      ],
+      "path": "sp/keywords/list",
+      "data_key": "keywords",
+      "parent": "",
+      "doc_link": "https://advertising.amazon.com/API/docs/en-us/sponsored-products/3-0/openapi/prod#tag/Keywords/operation/ListSponsoredProductsKeywords"
+    },
+    {
+      "name": "sponsored_products_negative_keywords",
+      "key_properties": [
+        "keywordId"
+      ],
+      "replication_method": "INCREMENTAL",
+      "replication_keys": [
+        "extendedData.lastUpdateDateTime"
+      ],
+      "path": "sp/negativeKeywords/list",
+      "data_key": "negativeKeywords",
+      "parent": "",
+      "doc_link": "https://advertising.amazon.com/API/docs/en-us/sponsored-products/3-0/openapi/prod#tag/Negative-keywords/operation/ListSponsoredProductsNegativeKeywords"
+    },
+    {
+      "name": "sponsored_products_ads",
+      "key_properties": [
+        "adId"
+      ],
+      "replication_method": "INCREMENTAL",
+      "replication_keys": [
+        "extendedData.lastUpdateDateTime"
+      ],
+      "path": "sp/productAds/list",
+      "data_key": "productAds",
+      "parent": "",
+      "doc_link": "https://advertising.amazon.com/API/docs/en-us/sponsored-products/3-0/openapi/prod#tag/Product-ads/operation/ListSponsoredProductsProductAds"
+    },
+    {
+      "name": "sponsored_products_budget_rules",
+      "key_properties": [
+        "ruleId"
+      ],
+      "replication_method": "INCREMENTAL",
+      "replication_keys": [
+        "lastUpdatedDate"
+      ],
+      "path": "sp/budgetRules",
+      "data_key": "budgetRulesForAdvertiserResponse",
+      "parent": "",
+      "doc_link": "https://advertising.amazon.com/API/docs/en-us/sponsored-products/3-0/openapi/prod#tag/BudgetRules/operation/GetSPBudgetRulesForAdvertiser"
+    },
+    {
+      "name": "invoices",
+      "key_properties": [
+        "id"
+      ],
+      "replication_method": "INCREMENTAL",
+      "replication_keys": [
+        "invoiceDate"
+      ],
+      "path": "invoices",
+      "data_key": "invoiceSummaries",
+      "parent": "",
+      "doc_link": "https://advertising.amazon.com/API/docs/en-us/billing#tag/invoice/operation/getAdvertiserInvoices"
+    }
+  ],
+  "tap_tester_creds": {
+    "client_id": "TAP_AMAZON_ADS_CLIENT_ID",
+    "client_secret": "TAP_AMAZON_ADS_CLIENT_SECRET",
+    "refresh_token": "TAP_AMAZON_ADS_REFRESH_TOKEN",
+    "profiles": "TAP_AMAZON_ADS_PROFILES",
+    "redirect_uri": "TAP_AMAZON_ADS_REDIRECT_URI"
+  },
+  "author": "Stitch",
+  "third_party_dependencies": [
+    "singer-python==6.1.1",
+    "requests==2.32.4",
+    "backoff==2.2.1"
+  ]
+}

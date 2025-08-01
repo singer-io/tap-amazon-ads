@@ -1,0 +1,77 @@
+{
+    "type": "object",
+    "properties": {
+        "profileId": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "countryCode": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "currencyCode": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "dailyBudget": {
+            "type": [
+                "null",
+                "number"
+            ]
+        },
+        "timezone": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "accountInfo": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "marketplaceStringId": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                },
+                "id": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                },
+                "type": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                },
+                "name": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                },
+                "subType": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                },
+                "validPaymentMethod": {
+                    "type": [
+                        "null",
+                        "boolean"
+                    ]
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,43 @@
+{
+    "type": "object",
+    "properties": {
+        "ruleState": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "lastUpdatedDate": {
+            "type": [
+                "null",
+                "string"
+            ],
+            "format": "date-time"
+        },
+        "createdDate": {
+            "type": [
+                "null",
+                "string"
+            ],
+            "format": "date-time"
+        },
+        "ruleDetails": {
+            "type": [
+                "null",
+                "object"
+            ]
+        },
+        "ruleId": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "ruleStatus": {
+            "type": [
+                "null",
+                "string"
+            ]
+        }
+    }
+}
