@@ -15,6 +15,7 @@ setup(name="tap-amazon-ads",
         "requests==2.32.4",
         "backoff==2.2.1"
       ],
+      extras_require={"dev": ["pylint", "ipdb", "pytest"]},
       entry_points="""
           [console_scripts]
           tap-amazon-ads=tap_amazon_ads:main
@@ -25,4 +26,3 @@ setup(name="tap-amazon-ads",
       },
       include_package_data=True,
 )
-
