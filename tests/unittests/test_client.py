@@ -163,7 +163,7 @@ class TestMakeRequest(unittest.TestCase):
         with Client(self.client_config) as client:
             # Set the side effect
             mock_refresh_token.side_effect = self.fake_refresh_token(client)
-            result = client.get(self.url, self.params, self.headers)
+            result = client.make_request('GET', self.url, self.params, self.headers)
             # Assertions
             mocked_request.assert_called_once_with(
                 "GET", self.url, headers=self.expected_headers, params=self.params, timeout=300
@@ -178,7 +178,7 @@ class TestMakeRequest(unittest.TestCase):
             with Client(self.client_config) as client:
                 # Set the side effect
                 mock_refresh_token.side_effect = self.fake_refresh_token(client)
-                client.get(self.url, self.params, self.headers)
+                client.make_request('GET', self.url, self.params, self.headers)
 
         # Ensure the request was retried up to the backoff limit
         self.assertEqual(mocked_request.call_count, 5)
@@ -191,7 +191,7 @@ class TestMakeRequest(unittest.TestCase):
             with Client(self.client_config) as client:
                 # Set the side effect
                 mock_refresh_token.side_effect = self.fake_refresh_token(client)
-                client.get(self.url, self.params, self.headers)
+                client.make_request('GET', self.url, self.params, self.headers)
 
         # Ensure the request was retried up to the backoff limit
         self.assertEqual(mocked_request.call_count, 5)
@@ -204,7 +204,7 @@ class TestMakeRequest(unittest.TestCase):
             with Client(self.client_config) as client:
                 # Set the side effect
                 mock_refresh_token.side_effect = self.fake_refresh_token(client)
-                client.get(self.url, self.params, self.headers)
+                client.make_request('GET', self.url, self.params, self.headers)
 
         # Ensure the request was retried up to the backoff limit
         self.assertEqual(mocked_request.call_count, 5)
@@ -219,7 +219,7 @@ class TestMakeRequest(unittest.TestCase):
             with Client(self.client_config) as client:
                 # Set the side effect
                 mock_refresh_token.side_effect = self.fake_refresh_token(client)
-                client.get(self.url, self.params, self.headers)
+                client.make_request('GET', self.url, self.params, self.headers)
 
         # Ensure the request was retried up to the backoff limit
         self.assertEqual(mocked_request.call_count, 5)
@@ -235,7 +235,7 @@ class TestMakeRequest(unittest.TestCase):
             with Client(self.client_config) as client:
                 # Set the side effect
                 mock_refresh_token.side_effect = self.fake_refresh_token(client)
-                client.get(self.url, self.params, self.headers)
+                client.make_request('GET', self.url, self.params, self.headers)
 
         self.assertEqual(mocked_request.call_count, 1)
         self.assertEqual(
