@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import Any, Dict, Tuple, Iterator
+from typing import Any, Dict, Tuple, Iterator, List
 import json
 from singer import (
     Transformer,
@@ -66,7 +66,7 @@ class BaseStream(ABC):
 
     @property
     @abstractmethod
-    def replication_keys(self) -> str:
+    def replication_keys(self) -> List:
         """Defines the replication key for incremental sync mode of a
         stream."""
 
@@ -275,7 +275,7 @@ class FullTableStream(BaseStream):
                 transformed_record = transformer.transform(
                     record, self.schema, self.metadata
                 )
-                if self.is_selected:
+                if self.is_selected():
                     write_record(self.tap_stream_id, transformed_record)
                     counter.increment()
 

@@ -10,12 +10,12 @@ from singer import get_logger, metrics
 
 from tap_amazon_ads.exceptions import (
     ERROR_CODE_EXCEPTION_MAPPING,
-    Amazon_AdsError,
-    Amazon_AdsRateLimitError,
-    Amazon_AdsInternalServerError,
-    Amazon_AdsBadGatewayError,
-    Amazon_AdsServiceUnavailableError,
-    Amazon_AdsGatewayTimeout)
+    AmazonAdsError,
+    AmazonAdsRateLimitError,
+    AmazonAdsInternalServerError,
+    AmazonAdsBadGatewayError,
+    AmazonAdsServiceUnavailableError,
+    AmazonAdsGatewayTimeout)
 
 LOGGER = get_logger()
 REQUEST_TIMEOUT = 300
@@ -42,7 +42,7 @@ def raise_for_error(response: requests.Response) -> None:
                 response_json.get("message", ERROR_CODE_EXCEPTION_MAPPING.get(
                     response.status_code, {}).get("message", "Unknown Error")))
         exc = ERROR_CODE_EXCEPTION_MAPPING.get(
-            response.status_code, {}).get("raise_exception", Amazon_AdsError)
+            response.status_code, {}).get("raise_exception", AmazonAdsError)
         raise exc(message, response) from None
 
 def wait_if_retry_after(details):
@@ -88,7 +88,7 @@ class Client:
             endpoint=REFRESH_URL,
             headers={
                 "User-Agent": self.config["user_agent"],
-                "content-type": "application/x-www-form-urlencoded;charset=UTF-8"
+                "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
             },
             body={
                 "refresh_token": self.config["refresh_token"],
@@ -129,7 +129,7 @@ class Client:
         """Provides authenticated headers"""
         result_headers = self.headers.copy()
         result_headers["Authorization"] = f"Bearer {self.get_access_token()}"
-        if headers is False:
+        if headers is None:
             result_headers.pop("Content-Type", None)
         else:
             result_headers.update(headers)
@@ -164,11 +164,11 @@ class Client:
             ConnectionError,
             ChunkedEncodingError,
             Timeout,
-            Amazon_AdsRateLimitError,
-            Amazon_AdsInternalServerError,
-            Amazon_AdsBadGatewayError,
-            Amazon_AdsServiceUnavailableError,
-            Amazon_AdsGatewayTimeout
+            AmazonAdsRateLimitError,
+            AmazonAdsInternalServerError,
+            AmazonAdsBadGatewayError,
+            AmazonAdsServiceUnavailableError,
+            AmazonAdsGatewayTimeout
         ),
         max_tries=5
     )

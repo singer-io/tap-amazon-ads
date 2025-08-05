@@ -1,43 +1,40 @@
-class Amazon_AdsError(Exception):
+class AmazonAdsError(Exception):
     """class representing Generic Http error."""
 
     def __init__(self, message=None, response=None):
-        try:
-            super().__init__(message)
-            self.message = message
-            self.response = response
-        except (IndexError, AttributeError):
-            pass
+        super().__init__(message)
+        self.message = message
+        self.response = response
 
-class Amazon_AdsBackoffError(Amazon_AdsError):
+class AmazonAdsBackoffError(AmazonAdsError):
     """class representing backoff error handling."""
     pass
 
-class Amazon_AdsBadRequestError(Amazon_AdsError):
+class AmazonAdsBadRequestError(AmazonAdsError):
     """class representing 400 status code."""
     pass
 
-class Amazon_AdsUnauthorizedError(Amazon_AdsError):
+class AmazonAdsUnauthorizedError(AmazonAdsError):
     """class representing 401 status code."""
     pass
 
-class Amazon_AdsForbiddenError(Amazon_AdsError):
+class AmazonAdsForbiddenError(AmazonAdsError):
     """class representing 403 status code."""
     pass
 
-class Amazon_AdsNotFoundError(Amazon_AdsError):
+class AmazonAdsNotFoundError(AmazonAdsError):
     """class representing 404 status code."""
     pass
 
-class Amazon_AdsConflictError(Amazon_AdsError):
+class AmazonAdsConflictError(AmazonAdsError):
     """class representing 406 status code."""
     pass
 
-class Amazon_AdsUnprocessableEntityError(Amazon_AdsBackoffError):
+class AmazonAdsUnprocessableEntityError(AmazonAdsBackoffError):
     """class representing 409 status code."""
     pass
 
-class Amazon_AdsRateLimitError(Amazon_AdsBackoffError):
+class AmazonAdsRateLimitError(AmazonAdsBackoffError):
     """class representing 429 status code."""
     def __init__(self, message=None, response=None):
         """Initialize the Amazon_AdsRateLimitError. Parses the 'Retry-After' header from the response (if present) and sets the
@@ -62,74 +59,74 @@ class Amazon_AdsRateLimitError(Amazon_AdsBackoffError):
         full_message = f"{base_msg} {retry_info}"
         super().__init__(full_message, response=response)
 
-class Amazon_AdsInternalServerError(Amazon_AdsBackoffError):
+class AmazonAdsInternalServerError(AmazonAdsBackoffError):
     """class representing 500 status code."""
     pass
 
-class Amazon_AdsNotImplementedError(Amazon_AdsBackoffError):
+class AmazonAdsNotImplementedError(AmazonAdsBackoffError):
     """class representing 501 status code."""
     pass
 
-class Amazon_AdsBadGatewayError(Amazon_AdsBackoffError):
+class AmazonAdsBadGatewayError(AmazonAdsBackoffError):
     """class representing 502 status code."""
     pass
 
-class Amazon_AdsServiceUnavailableError(Amazon_AdsBackoffError):
+class AmazonAdsServiceUnavailableError(AmazonAdsBackoffError):
     """class representing 503 status code."""
     pass
 
-class Amazon_AdsGatewayTimeout(Amazon_AdsBackoffError):
+class AmazonAdsGatewayTimeout(AmazonAdsBackoffError):
     """class representing 504 status code."""
     pass
 
 ERROR_CODE_EXCEPTION_MAPPING = {
     400: {
-        "raise_exception": Amazon_AdsBadRequestError,
+        "raise_exception": AmazonAdsBadRequestError,
         "message": "A validation exception has occurred."
     },
     401: {
-        "raise_exception": Amazon_AdsUnauthorizedError,
+        "raise_exception": AmazonAdsUnauthorizedError,
         "message": "The access token provided is expired, revoked, malformed or invalid for other reasons."
     },
     403: {
-        "raise_exception": Amazon_AdsForbiddenError,
+        "raise_exception": AmazonAdsForbiddenError,
         "message": "You are missing the following required scopes: read"
     },
     404: {
-        "raise_exception": Amazon_AdsNotFoundError,
+        "raise_exception": AmazonAdsNotFoundError,
         "message": "The resource you have specified cannot be found."
     },
     409: {
-        "raise_exception": Amazon_AdsConflictError,
+        "raise_exception": AmazonAdsConflictError,
         "message": "The API request cannot be completed because the requested operation would conflict with an existing item."
     },
     422: {
-        "raise_exception": Amazon_AdsUnprocessableEntityError,
+        "raise_exception": AmazonAdsUnprocessableEntityError,
         "message": "The request content itself is not processable by the server."
     },
     429: {
-        "raise_exception": Amazon_AdsRateLimitError,
+        "raise_exception": AmazonAdsRateLimitError,
         "message": "The API rate limit for your organisation/application pairing has been exceeded."
     },
     500: {
-        "raise_exception": Amazon_AdsInternalServerError,
+        "raise_exception": AmazonAdsInternalServerError,
         "message": "The server encountered an unexpected condition which prevented" \
             " it from fulfilling the request."
     },
     501: {
-        "raise_exception": Amazon_AdsNotImplementedError,
+        "raise_exception": AmazonAdsNotImplementedError,
         "message": "The server does not support the functionality required to fulfill the request."
     },
     502: {
-        "raise_exception": Amazon_AdsBadGatewayError,
+        "raise_exception": AmazonAdsBadGatewayError,
         "message": "Server received an invalid response."
     },
     503: {
-        "raise_exception": Amazon_AdsServiceUnavailableError,
+        "raise_exception": AmazonAdsServiceUnavailableError,
         "message": "API service is currently unavailable."
     },
     504: {
-        "raise_exception": Amazon_AdsGatewayTimeout,
+        "raise_exception": AmazonAdsGatewayTimeout,
         "message": "API request timed out after waiting for a response."
     }
 }

@@ -4,11 +4,11 @@ from datetime import datetime, timedelta
 import requests
 from tap_amazon_ads.client import Client, raise_for_error
 from tap_amazon_ads.exceptions import (ERROR_CODE_EXCEPTION_MAPPING,
-                                       Amazon_AdsError,
-                                       Amazon_AdsUnauthorizedError,
-                                       Amazon_AdsBadRequestError,
-                                       Amazon_AdsRateLimitError,
-                                       Amazon_AdsInternalServerError)
+                                       AmazonAdsError,
+                                       AmazonAdsUnauthorizedError,
+                                       AmazonAdsBadRequestError,
+                                       AmazonAdsRateLimitError,
+                                       AmazonAdsInternalServerError)
 from requests.exceptions import ConnectionError, Timeout, ChunkedEncodingError
 
 
@@ -68,7 +68,7 @@ class TestRaiseForError(unittest.TestCase):
         """
         response = get_response(400, {"code": "BadRequest", "details": "Invalid input"})
         # Assertions
-        with self.assertRaises(Amazon_AdsBadRequestError) as context:
+        with self.assertRaises(AmazonAdsBadRequestError) as context:
             raise_for_error(response)
         self.assertIn("HTTP-error-code: 400", str(context.exception))
 
@@ -78,7 +78,7 @@ class TestRaiseForError(unittest.TestCase):
         """
         response = get_response(401, {"message": "Unauthorized access"})
         # Assertions
-        with self.assertRaises(Amazon_AdsUnauthorizedError) as context:
+        with self.assertRaises(AmazonAdsUnauthorizedError) as context:
             raise_for_error(response)
         self.assertIn("Unauthorized access", str(context.exception))
 
@@ -88,7 +88,7 @@ class TestRaiseForError(unittest.TestCase):
         """
         response = get_response(500)
         # Assertions
-        with self.assertRaises(Amazon_AdsInternalServerError) as context:
+        with self.assertRaises(AmazonAdsInternalServerError) as context:
             raise_for_error(response)
         self.assertIn("HTTP-error-code: 500", str(context.exception))
 
@@ -100,7 +100,7 @@ class TestRaiseForError(unittest.TestCase):
         if 418 in ERROR_CODE_EXCEPTION_MAPPING:
             del ERROR_CODE_EXCEPTION_MAPPING[418]
         # Assertions
-        with self.assertRaises(Amazon_AdsError) as context:
+        with self.assertRaises(AmazonAdsError) as context:
             raise_for_error(response)
         self.assertIn("I'm new exception", str(context.exception))
 
@@ -215,7 +215,7 @@ class TestMakeRequest(unittest.TestCase):
         # Simulate 5 retries for 429 error
         mocked_request.side_effect = [get_response(429, json={}, headers={"Retry-After": "3"}, raise_error=True)] * 5
 
-        with self.assertRaises(Amazon_AdsRateLimitError):
+        with self.assertRaises(AmazonAdsRateLimitError):
             with Client(self.client_config) as client:
                 # Set the side effect
                 mock_refresh_token.side_effect = self.fake_refresh_token(client)
@@ -231,7 +231,7 @@ class TestMakeRequest(unittest.TestCase):
             get_response(401, {}, raise_error=True),
             get_response(401, {}, raise_error=True),
         ]
-        with self.assertRaises(Amazon_AdsUnauthorizedError) as e:
+        with self.assertRaises(AmazonAdsUnauthorizedError) as e:
             with Client(self.client_config) as client:
                 # Set the side effect
                 mock_refresh_token.side_effect = self.fake_refresh_token(client)
