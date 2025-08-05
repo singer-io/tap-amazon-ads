@@ -1,4 +1,4 @@
-# tap-amazon_ads
+# tap-amazon-ads
 
 This is a [Singer](https://singer.io) tap that produces JSON-formatted data
 following the [Singer
@@ -240,7 +240,7 @@ This tap:
     > source venv/bin/activate
     > python setup.py install
     OR
-    > cd .../tap-amazon_ads
+    > cd .../tap-amazon-ads
     > pip install -e .
     ```
 2. Dependent libraries. The following dependent libraries were installed.
@@ -255,7 +255,7 @@ This tap:
 
 3. Create your tap's `config.json` file.  The tap config file for this tap should include these entries:
    - `start_date` - the default value to use if no bookmark exists for an endpoint (rfc3339 date string)
-   - `user_agent` (string, optional): Process and email for API logging purposes. Example: `tap-amazon_ads <api_user_email@your_company.com>`
+   - `user_agent` (string, optional): Process and email for API logging purposes. Example: `tap-amazon-ads <api_user_email@your_company.com>`
    - `request_timeout` (integer, `300`): Max time for which request should wait to get a response. Default request_timeout is 300 seconds.
 
     ```json
@@ -267,7 +267,7 @@ This tap:
         "redirect_uri": "https://the.redirect.url",
         "profiles": "0123456789",
         "start_date": "2019-01-01T00:00:00Z",
-        "user_agent": "tap-amazon_ads <api_user_email@your_company.com>",
+        "user_agent": "tap-amazon-ads <api_user_email@your_company.com>",
         "request_timeout": 300
     }
     ```
@@ -288,7 +288,7 @@ This tap:
 4. Run the Tap in Discovery Mode
     This creates a catalog.json for selecting objects/fields to integrate:
     ```bash
-    tap-amazon_ads --config config.json --discover > catalog.json
+    tap-amazon-ads --config config.json --discover > catalog.json
     ```
    See the Singer docs on discovery mode
    [here](https://github.com/singer-io/getting-started/blob/master/docs/DISCOVERY_MODE.md).
@@ -297,17 +297,17 @@ This tap:
 
     For Sync mode:
     ```bash
-    > tap-amazon_ads --config tap_config.json --catalog catalog.json > state.json
+    > tap-amazon-ads --config tap_config.json --catalog catalog.json > state.json
     > tail -1 state.json > state.json.tmp && mv state.json.tmp state.json
     ```
     To load to json files to verify outputs:
     ```bash
-    > tap-amazon_ads --config tap_config.json --catalog catalog.json | target-json > state.json
+    > tap-amazon-ads --config tap_config.json --catalog catalog.json | target-json > state.json
     > tail -1 state.json > state.json.tmp && mv state.json.tmp state.json
     ```
     To pseudo-load to [Stitch Import API](https://github.com/singer-io/target-stitch) with dry run:
     ```bash
-    > tap-amazon_ads --config tap_config.json --catalog catalog.json | target-stitch --config target_config.json --dry-run > state.json
+    > tap-amazon-ads --config tap_config.json --catalog catalog.json | target-stitch --config target_config.json --dry-run > state.json
     > tail -1 state.json > state.json.tmp && mv state.json.tmp state.json
     ```
 
@@ -316,7 +316,7 @@ This tap:
     While developing the amazon_ads tap, the following utilities were run in accordance with Singer.io best practices:
     Pylint to improve [code quality](https://github.com/singer-io/getting-started/blob/master/docs/BEST_PRACTICES.md).
     ```bash
-    > pylint tap_amazon_ads -d missing-docstring -d logging-format-interpolation -d too-many-locals -d too-many-arguments
+    > pylint tap-amazon-ads -d missing-docstring -d logging-format-interpolation -d too-many-locals -d too-many-arguments
     ```
     Pylint test resulted in the following score:
     ```bash
@@ -325,7 +325,7 @@ This tap:
 
     To [check the tap](https://github.com/singer-io/singer-tools).
     ```bash
-    > tap_amazon_ads --config tap_config.json --catalog catalog.json | singer-check-tap > state.json
+    > tap-amazon-ads --config tap_config.json --catalog catalog.json | singer-check-tap > state.json
     > tail -1 state.json > state.json.tmp && mv state.json.tmp state.json
     ```
 

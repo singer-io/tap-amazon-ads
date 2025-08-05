@@ -129,7 +129,7 @@ class Client:
         """Provides authenticated headers"""
         result_headers = self.headers.copy()
         result_headers["Authorization"] = f"Bearer {self.get_access_token()}"
-        if headers is None:
+        if not headers:
             result_headers.pop("Content-Type", None)
         else:
             result_headers.update(headers)
