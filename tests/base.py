@@ -228,7 +228,7 @@ class Amazon_AdsBaseTest(BaseCase):
     def get_credentials():
         """Authentication information for the test account."""
         credentials_dict = {}
-        creds = {'client_id': 'TAP_AMAZON_ADS_CLIENT_ID', 'client_secret': 'TAP_AMAZON_ADS_CLIENT_SECRET', 'refresh_token': 'TAP_AMAZON_ADS_REFRESH_TOKEN'}
+        creds = {'client_id': 'TAP_AMAZON_ADS_CLIENT_ID', 'client_secret': 'TAP_AMAZON_ADS_CLIENT_SECRET', 'refresh_token': 'TAP_AMAZON_ADS_REFRESH_TOKEN', 'profiles': 'TAP_AMAZON_ADS_PROFILES'}
 
         for cred in creds:
             credentials_dict[cred] = os.getenv(creds[cred])

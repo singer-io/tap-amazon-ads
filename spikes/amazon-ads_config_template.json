@@ -470,8 +470,7 @@
     "client_id": "TAP_AMAZON_ADS_CLIENT_ID",
     "client_secret": "TAP_AMAZON_ADS_CLIENT_SECRET",
     "refresh_token": "TAP_AMAZON_ADS_REFRESH_TOKEN",
-    "profiles": "TAP_AMAZON_ADS_PROFILES",
-    "redirect_uri": "TAP_AMAZON_ADS_REDIRECT_URI"
+    "profiles": "TAP_AMAZON_ADS_PROFILES"
   },
   "author": "Stitch",
   "third_party_dependencies": [
