@@ -12,6 +12,7 @@ class SponsoredDisplayBudgetRulesCampaigns(FullTableStream):
     replication_keys = []
     data_key = "associatedCampaigns"
     parent = "sponsored_display_budget_rules"
+    parent_tap_stream_id = "sponsored_display_budget_rules"
     path = "sd/budgetRules/{}/campaigns"
     http_method = "GET"
     page_size = 30

@@ -32,6 +32,7 @@ class BaseStream(ABC):
     next_page_key = "nextToken"
     children = []
     parent = ""
+    parent_tap_stream_id = None
     data_key = ""
     parent_bookmark_key = ""
     content_type  = "application/json"

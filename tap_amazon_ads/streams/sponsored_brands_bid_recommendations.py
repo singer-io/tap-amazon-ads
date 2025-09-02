@@ -12,6 +12,7 @@ class SponsoredBrandsBidRecommendations(FullTableStream):
     replication_keys = []
     data_key = "keywordsBidsRecommendationSuccessResults"
     parent = "sponsored_brands_campaigns"
+    parent_tap_stream_id = "sponsored_brands_campaigns"
     path = "sb/recommendations/bids"
     http_method = "POST"
     api_version = 3
