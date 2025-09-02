@@ -13,7 +13,6 @@ class SponsoredBrandsAdCreatives(IncrementalStream):
     data_key = "creatives"
     path = "sb/ads/creatives/list"
     parent = "sponsored_brands_ads"
-    parent_tap_stream_id = "sponsored_brands_ads"
     bookmark_value = None
     http_method = "POST"
     api_version = 4

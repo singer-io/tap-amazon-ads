@@ -12,7 +12,6 @@ class SponsoredDisplayCreatives(FullTableStream):
     replication_keys = []
     path = "sd/creatives"
     parent = "sponsored_display_ad_groups"
-    parent_tap_stream_id = "sponsored_display_ad_groups"
     http_method = "GET"
 
     def update_params(self, parent_obj: Dict = None, **kwargs):

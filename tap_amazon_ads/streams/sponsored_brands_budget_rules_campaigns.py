@@ -12,7 +12,6 @@ class SponsoredBrandsBudgetRulesCampaigns(FullTableStream):
     replication_keys = []
     data_key = "associatedCampaigns"
     parent = "sponsored_brands_budget_rules"
-    parent_tap_stream_id = "sponsored_brands_budget_rules"
     path = "sb/budgetRules/{}/campaigns"
     http_method = "GET"
     page_size = 30

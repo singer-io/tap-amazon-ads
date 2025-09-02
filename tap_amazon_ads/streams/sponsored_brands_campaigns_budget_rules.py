@@ -13,7 +13,6 @@ class SponsoredBrandsCampaignsBudgetRules(IncrementalStream):
     data_key = "associatedRules"
     path = "sb/campaigns/{}/budgetRules"
     parent = "sponsored_brands_campaigns"
-    parent_tap_stream_id = "sponsored_brands_campaigns"
     http_method = "GET"
 
     def get_url_endpoint(self, parent_obj: Dict = None) -> str:
