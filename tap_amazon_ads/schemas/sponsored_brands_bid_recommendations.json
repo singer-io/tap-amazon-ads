@@ -1,0 +1,66 @@
+{
+    "type": "object",
+    "properties": {
+        "recommendationId": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "recommendedBid": {
+            "type": [
+                "object",
+                "null"
+            ],
+            "properties": {
+                "rangeEnd": {
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
+                "rangeStart": {
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
+                "recommended": {
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                }
+            },
+            "additionalProperties": false
+        },
+        "keyword": {
+            "type": [
+                "object",
+                "null"
+            ],
+            "properties": {
+                "keywordText": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "matchType": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "additionalProperties": false
+        },
+        "keywordIndex": {
+            "type": [
+                "integer",
+                "null"
+            ]
+        }
+    },
+    "additionalProperties": false
+}

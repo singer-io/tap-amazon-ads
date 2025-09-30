@@ -1,0 +1,312 @@
+{
+  "type": "object",
+  "properties": {
+    "adId": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "creationTime": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "creativeType": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "creativeVersion": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "creativeStatus": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "creativeProperties": {
+      "type": [
+        "null",
+        "object"
+      ],
+      "properties": {
+        "brandLogoCrop": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "properties": {
+            "top": {
+              "type": [
+                "null",
+                "integer"
+              ]
+            },
+            "left": {
+              "type": [
+                "null",
+                "integer"
+              ]
+            },
+            "width": {
+              "type": [
+                "null",
+                "integer"
+              ]
+            },
+            "height": {
+              "type": [
+                "null",
+                "integer"
+              ]
+            }
+          }
+        },
+        "brandName": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "customImageAssetId": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "landingPage": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "properties": {
+            "asins": {
+              "type": [
+                "null",
+                "array"
+              ],
+              "items": {
+                "type": "string"
+              }
+            },
+            "type": {
+              "type": [
+                "null",
+                "string"
+              ]
+            },
+            "value": {
+              "type": [
+                "null",
+                "string"
+              ]
+            }
+          }
+        },
+        "customImages": {
+          "type": [
+            "null",
+            "array"
+          ],
+          "items": {
+            "type": "object",
+            "properties": {
+              "assetId": {
+                "type": [
+                  "null",
+                  "string"
+                ]
+              },
+              "crop": {
+                "type": [
+                  "null",
+                  "object"
+                ],
+                "properties": {
+                  "top": {
+                    "type": [
+                      "null",
+                      "integer"
+                    ]
+                  },
+                  "left": {
+                    "type": [
+                      "null",
+                      "integer"
+                    ]
+                  },
+                  "width": {
+                    "type": [
+                      "null",
+                      "integer"
+                    ]
+                  },
+                  "height": {
+                    "type": [
+                      "null",
+                      "integer"
+                    ]
+                  }
+                }
+              },
+              "url": {
+                "type": [
+                  "null",
+                  "string"
+                ]
+              }
+            }
+          }
+        },
+        "consentToTranslate": {
+          "type": [
+            "null",
+            "boolean"
+          ]
+        },
+        "customImageCrop": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "properties": {
+            "top": {
+              "type": [
+                "null",
+                "integer"
+              ]
+            },
+            "left": {
+              "type": [
+                "null",
+                "integer"
+              ]
+            },
+            "width": {
+              "type": [
+                "null",
+                "integer"
+              ]
+            },
+            "height": {
+              "type": [
+                "null",
+                "integer"
+              ]
+            }
+          }
+        },
+        "customImageUrl": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "originalVideoAssetIds": {
+          "type": [
+            "null",
+            "array"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "asins": {
+          "type": [
+            "null",
+            "array"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "brandLogoUrl": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "subpages": {
+          "type": [
+            "null",
+            "array"
+          ],
+          "items": {
+            "type": "object",
+            "properties": {
+              "pageTitle": {
+                "type": [
+                  "null",
+                  "string"
+                ]
+              },
+              "asin": {
+                "type": [
+                  "null",
+                  "string"
+                ]
+              },
+              "url": {
+                "type": [
+                  "null",
+                  "string"
+                ]
+              }
+            }
+          }
+        },
+        "creativePropertiesToOptimize": {
+          "type": [
+            "null",
+            "array"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "originalHeadline": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "videoAssetIds": {
+          "type": [
+            "null",
+            "array"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "brandLogoAssetId": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "headline": {
+          "type": [
+            "null",
+            "string"
+          ]
+        }
+      }
+    },
+    "lastUpdateTime": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    }
+  }
+}

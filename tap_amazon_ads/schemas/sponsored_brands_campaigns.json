@@ -1,0 +1,275 @@
+{
+    "type": "object",
+    "properties": {
+        "budgetType": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "ruleBasedBudget": {
+            "type": [
+                "null",
+                "object"
+            ],
+            "properties": {
+                "isProcessing": {
+                    "type": [
+                        "null",
+                        "boolean"
+                    ]
+                },
+                "applicableRuleName": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                },
+                "value": {
+                    "type": [
+                        "null",
+                        "number"
+                    ]
+                },
+                "applicableRuleId": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                }
+            }
+        },
+        "brandEntityId": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "isMultiAdGroupsEnabled": {
+            "type": [
+                "null",
+                "boolean"
+            ]
+        },
+        "goal": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "bidding": {
+            "type": [
+                "null",
+                "object"
+            ],
+            "properties": {
+                "bidOptimization": {
+                    "type": [
+                        "null",
+                        "boolean"
+                    ]
+                },
+                "shopperCohortBidAdjustments": {
+                    "type": [
+                        "null",
+                        "array"
+                    ],
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "shopperCohortType": {
+                                "type": [
+                                    "null",
+                                    "string"
+                                ]
+                            },
+                            "percentage": {
+                                "type": [
+                                    "null",
+                                    "number"
+                                ]
+                            },
+                            "audienceSegments": {
+                                "type": [
+                                    "null",
+                                    "array"
+                                ],
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "audienceId": {
+                                            "type": [
+                                                "null",
+                                                "string"
+                                            ]
+                                        },
+                                        "audienceSegmentType": {
+                                            "type": [
+                                                "null",
+                                                "string"
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "bidAdjustmentsByPlacement": {
+                    "type": [
+                        "null",
+                        "array"
+                    ],
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "percentage": {
+                                "type": [
+                                    "null",
+                                    "number"
+                                ]
+                            },
+                            "placement": {
+                                "type": [
+                                    "null",
+                                    "string"
+                                ]
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "endDate": {
+            "type": [
+                "null",
+                "string"
+            ],
+            "format": "date-time"
+        },
+        "campaignId": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "productLocation": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "tags": {
+            "type": [
+                "null",
+                "object"
+            ],
+            "properties": {
+                "property1": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                },
+                "property2": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                }
+            }
+        },
+        "portfolioId": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "costType": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "smartDefault": {
+            "type": [
+                "null",
+                "array"
+            ],
+            "items": {
+                "type": "string"
+            }
+        },
+        "siteRestrictions": {
+            "type": [
+                "null",
+                "array"
+            ],
+            "items": {
+                "type": "string"
+            }
+        },
+        "name": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "state": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "startDate": {
+            "type": [
+                "null",
+                "string"
+            ],
+            "format": "date-time"
+        },
+        "budget": {
+            "type": [
+                "null",
+                "number"
+            ]
+        },
+        "extendedData": {
+            "type": [
+                "null",
+                "object"
+            ],
+            "properties": {
+                "servingStatus": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                },
+                "lastUpdateDate": {
+                    "type": [
+                        "null",
+                        "string"
+                    ],
+                    "format": "date-time"
+                },
+                "servingStatusDetails": {
+                    "type": [
+                        "null",
+                        "array"
+                    ],
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "creationDate": {
+                    "type": [
+                        "null",
+                        "string"
+                    ],
+                    "format": "date-time"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,104 @@
+{
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+        "campaignId": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "name": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "state": {
+            "type": [
+                "null",
+                "string"
+            ],
+            "enum": [
+                "ENABLED",
+                "PAUSED",
+                "ARCHIVED",
+                null
+            ]
+        },
+        "adGroupId": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "defaultBid": {
+            "type": [
+                "null",
+                "number"
+            ]
+        },
+        "extendedData": {
+            "type": [
+                "null",
+                "object"
+            ],
+            "additionalProperties": false,
+            "properties": {
+                "lastUpdateDateTime": {
+                    "type": [
+                        "null",
+                        "string"
+                    ],
+                    "format": "date-time"
+                },
+                "servingStatus": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                },
+                "servingStatusDetails": {
+                    "type": [
+                        "null",
+                        "array"
+                    ],
+                    "items": {
+                        "type": [
+                            "null",
+                            "object"
+                        ],
+                        "additionalProperties": false,
+                        "properties": {
+                            "name": {
+                                "type": [
+                                    "null",
+                                    "string"
+                                ]
+                            },
+                            "helpUrl": {
+                                "type": [
+                                    "null",
+                                    "string"
+                                ]
+                            },
+                            "message": {
+                                "type": [
+                                    "null",
+                                    "string"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "creationDateTime": {
+                    "type": [
+                        "null",
+                        "string"
+                    ],
+                    "format": "date-time"
+                }
+            }
+        }
+    }
+}

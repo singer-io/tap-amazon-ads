@@ -1,0 +1,23 @@
+{
+    "type": "object",
+    "properties": {
+        "campaignId": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "ruleStatus": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "campaignName": {
+            "type": [
+                "null",
+                "string"
+            ]
+        }
+    }
+}

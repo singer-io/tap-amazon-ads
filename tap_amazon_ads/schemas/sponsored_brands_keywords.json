@@ -1,0 +1,53 @@
+{
+    "type": "object",
+    "properties": {
+        "keywordId": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "adGroupId": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "campaignId": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "keywordText": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "nativeLanguageKeyword": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "matchType": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "state": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "bid": {
+            "type": [
+                "null",
+                "number"
+            ]
+        }
+    }
+}

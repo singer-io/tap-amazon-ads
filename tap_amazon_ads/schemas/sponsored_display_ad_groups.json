@@ -1,0 +1,73 @@
+{
+    "type": "object",
+    "properties": {
+        "adGroupId": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "name": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "campaignId": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "defaultBid": {
+            "type": [
+                "null",
+                "number"
+            ]
+        },
+        "state": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "tactic": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "creativeType": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "servingStatus": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "bidOptimization": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "creationDate": {
+            "type": [
+                "null",
+                "string"
+            ],
+            "format": "date-time"
+        },
+        "lastUpdatedDate": {
+            "type": [
+                "null",
+                "string"
+            ],
+            "format": "date-time"
+        }
+    }
+}
