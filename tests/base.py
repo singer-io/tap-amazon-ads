@@ -71,14 +71,14 @@ class Amazon_AdsBaseTest(BaseCase):
             "sponsored_display_targetings": {
                 cls.PRIMARY_KEYS: { "targetId" },
                 cls.REPLICATION_METHOD: cls.INCREMENTAL,
-                cls.REPLICATION_KEYS: { "lastUpdateDate" },
+                cls.REPLICATION_KEYS: { "lastUpdatedDate" },
                 cls.OBEYS_START_DATE: False,
                 cls.API_LIMIT: 100
             },
             "sponsored_display_budget_rules": {
                 cls.PRIMARY_KEYS: { "ruleId" },
                 cls.REPLICATION_METHOD: cls.INCREMENTAL,
-                cls.REPLICATION_KEYS: { "lastUpdateDate" },
+                cls.REPLICATION_KEYS: { "lastUpdatedDate" },
                 cls.OBEYS_START_DATE: False,
                 cls.API_LIMIT: 100
             },
