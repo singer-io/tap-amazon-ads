@@ -221,6 +221,41 @@ class Amazon_AdsBaseTest(BaseCase):
                 cls.REPLICATION_KEYS: { "invoiceDate" },
                 cls.OBEYS_START_DATE: False,
                 cls.API_LIMIT: 100
+            },
+            "sponsored_brands_ads": {
+                cls.PRIMARY_KEYS: {"adId"},
+                cls.REPLICATION_METHOD: cls.INCREMENTAL,
+                cls.REPLICATION_KEYS: {"extendedData.lastUpdateDate"},
+                cls.OBEYS_START_DATE: False,
+                cls.API_LIMIT: 100
+            },
+            "sponsored_brands_campaigns_budget_rules": {
+                cls.PRIMARY_KEYS: {"ruleId"},
+                cls.REPLICATION_METHOD: cls.INCREMENTAL,
+                cls.REPLICATION_KEYS: {"lastUpdatedDate"},
+                cls.OBEYS_START_DATE: False,
+                cls.API_LIMIT: 100
+            },
+            "sponsored_brands_budget_rules_campaigns": {
+                cls.PRIMARY_KEYS: {"campaignId"},
+                cls.REPLICATION_METHOD: cls.FULL_TABLE,
+                cls.REPLICATION_KEYS: set(),
+                cls.OBEYS_START_DATE: False,
+                cls.API_LIMIT: 100
+            },
+            "sponsored_display_budget_rules_campaigns": {
+                cls.PRIMARY_KEYS: {"campaignId"},
+                cls.REPLICATION_METHOD: cls.FULL_TABLE,
+                cls.REPLICATION_KEYS: set(),
+                cls.OBEYS_START_DATE: False,
+                cls.API_LIMIT: 100
+            },
+            "sponsored_display_campaigns_budget_rules": {
+                cls.PRIMARY_KEYS: {"campaignId"},
+                cls.REPLICATION_METHOD: cls.INCREMENTAL,
+                cls.REPLICATION_KEYS: {"lastUpdatedDate"},
+                cls.OBEYS_START_DATE: False,
+                cls.API_LIMIT: 100
             }
         }
 
