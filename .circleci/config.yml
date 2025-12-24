@@ -27,7 +27,7 @@ jobs:
           name: "Unit Tests"
           command: |
             source /usr/local/share/virtualenvs/tap-amazon-ads/bin/activate
-            pip install coverage
+            uv pip install pytest coverage
             coverage run -m pytest tests/unittests
             coverage html
       - store_test_results:
