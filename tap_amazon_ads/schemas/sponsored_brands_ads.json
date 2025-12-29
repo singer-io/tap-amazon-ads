@@ -7,7 +7,7 @@
                 "string"
             ]
         },
-        "lastUpdateDate": {
+        "lastUpdateDateTime": {
             "type": [
                 "null",
                 "string"
@@ -352,7 +352,7 @@
                         "string"
                     ]
                 },
-                "lastUpdateDate": {
+                "lastUpdateDateTime": {
                     "type": [
                         "null",
                         "string"

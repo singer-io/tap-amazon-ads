@@ -64,7 +64,7 @@ class Amazon_AdsBaseTest(BaseCase):
             "sponsored_display_product_ads": {
                 cls.PRIMARY_KEYS: { "adId" },
                 cls.REPLICATION_METHOD: cls.INCREMENTAL,
-                cls.REPLICATION_KEYS: { "lastUpdateDate" },
+                cls.REPLICATION_KEYS: { "lastUpdatedDate" },
                 cls.OBEYS_START_DATE: False,
                 cls.API_LIMIT: 100
             },
@@ -106,14 +106,14 @@ class Amazon_AdsBaseTest(BaseCase):
             "sponsored_brands_campaigns": {
                 cls.PRIMARY_KEYS: { "campaignId" },
                 cls.REPLICATION_METHOD: cls.INCREMENTAL,
-                cls.REPLICATION_KEYS: { "lastUpdateDateTime" },
+                cls.REPLICATION_KEYS: { "lastUpdateDate" },
                 cls.OBEYS_START_DATE: False,
                 cls.API_LIMIT: 100
             },
             "sponsored_brands_ad_groups": {
                 cls.PRIMARY_KEYS: { "adGroupId" },
                 cls.REPLICATION_METHOD: cls.INCREMENTAL,
-                cls.REPLICATION_KEYS: { "lastUpdateDateTime" },
+                cls.REPLICATION_KEYS: { "lastUpdateDate" },
                 cls.OBEYS_START_DATE: False,
                 cls.API_LIMIT: 100
             },
@@ -153,7 +153,7 @@ class Amazon_AdsBaseTest(BaseCase):
                 cls.API_LIMIT: 100
             },
             "sponsored_brands_store_assets": {
-                cls.PRIMARY_KEYS: { "assetID" },
+                cls.PRIMARY_KEYS: { "assetId" },
                 cls.REPLICATION_METHOD: cls.FULL_TABLE,
                 cls.REPLICATION_KEYS: set(),
                 cls.OBEYS_START_DATE: False,
@@ -251,7 +251,7 @@ class Amazon_AdsBaseTest(BaseCase):
                 cls.API_LIMIT: 100
             },
             "sponsored_display_campaigns_budget_rules": {
-                cls.PRIMARY_KEYS: {"campaignId"},
+                cls.PRIMARY_KEYS: {"ruleId"},
                 cls.REPLICATION_METHOD: cls.INCREMENTAL,
                 cls.REPLICATION_KEYS: {"lastUpdatedDate"},
                 cls.OBEYS_START_DATE: False,

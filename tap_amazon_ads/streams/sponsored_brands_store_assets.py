@@ -7,7 +7,7 @@ LOGGER = get_logger()
 
 class SponsoredBrandsStoreAssets(FullTableStream):
     tap_stream_id = "sponsored_brands_store_assets"
-    key_properties = ["assetID"]
+    key_properties = ["assetId"]
     replication_method = "FULL_TABLE"
     replication_keys = []
     path = "stores/assets"
