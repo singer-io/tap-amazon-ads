@@ -218,6 +218,13 @@
             },
             "additionalProperties": false
         },
+        "lastUpdateDateTime": {
+            "type": [
+                "null",
+                "string"
+            ],
+            "format": "date-time"
+        },
         "extendedData": {
             "type": [
                 "null",

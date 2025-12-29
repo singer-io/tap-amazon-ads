@@ -9,7 +9,7 @@ class Portfolios(IncrementalStream):
     tap_stream_id = "portfolios"
     key_properties = ["portfolioId"]
     replication_method = "INCREMENTAL"
-    replication_keys = ["extendedData.lastUpdateDateTime"]
+    replication_keys = ["lastUpdateDateTime"]
     data_key = "portfolios"
     path = "portfolios/list"
     http_method = "POST"

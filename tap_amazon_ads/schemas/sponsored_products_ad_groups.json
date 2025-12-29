@@ -8,6 +8,13 @@
                 "string"
             ]
         },
+        "lastUpdateDateTime": {
+            "type": [
+                "null",
+                "string"
+            ],
+            "format": "date-time"
+        },
         "name": {
             "type": [
                 "null",

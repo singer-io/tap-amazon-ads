@@ -9,7 +9,7 @@ class SponsoredProductsKeywords(IncrementalStream):
     tap_stream_id = "sponsored_products_keywords"
     key_properties = ["keywordId"]
     replication_method = "INCREMENTAL"
-    replication_keys = ["extendedData.lastUpdateDateTime"]
+    replication_keys = ["lastUpdateDateTime"]
     data_key = "keywords"
     path = "sp/keywords/list"
     http_method = "POST"

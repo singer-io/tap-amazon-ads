@@ -229,6 +229,14 @@ class IncrementalStream(BaseStream):
             state, stream, key or self.replication_keys[0], value
         )
 
+    def modify_object(self, record: Dict, parent_record: Dict = None) -> Dict:
+        """
+        Modify the record for all incremental streams.
+        Example: flatten lastUpdateDateTime from extendedData.
+        """
+        extended_data = record.get("extendedData", {})
+        record["lastUpdateDateTime"] = extended_data.get("lastUpdateDateTime")
+        return record
 
     def sync(self,state: Dict,transformer: Transformer,parent_obj: Dict = None,) -> Dict:
         """Implementation for `type: Incremental` stream."""

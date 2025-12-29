@@ -9,7 +9,7 @@ class SponsoredProductsCampaigns(IncrementalStream):
     tap_stream_id = "sponsored_products_campaigns"
     key_properties = ["campaignId"]
     replication_method = "INCREMENTAL"
-    replication_keys = ["extendedData.lastUpdateDateTime"]
+    replication_keys = ["lastUpdateDateTime"]
     data_key = "campaigns"
     path = "sp/campaigns/list"
     http_method = "POST"

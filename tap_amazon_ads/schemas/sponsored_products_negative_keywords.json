@@ -50,6 +50,13 @@
                 "string"
             ]
         },
+        "lastUpdateDateTime": {
+            "type": [
+                "null",
+                "string"
+            ],
+            "format": "date-time"
+        },
         "extendedData": {
             "type": [
                 "null",

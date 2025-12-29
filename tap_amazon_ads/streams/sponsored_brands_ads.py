@@ -9,7 +9,7 @@ class SponsoredBrandsAds(IncrementalStream):
     tap_stream_id = "sponsored_brands_ads"
     key_properties = ["adId"]
     replication_method = "INCREMENTAL"
-    replication_keys = ["extendedData.lastUpdateDate"]
+    replication_keys = ["lastUpdateDate"]
     data_key = "ads"
     path = "sb/v4/ads/list"
     children = ["sponsored_brands_ad_creatives"]

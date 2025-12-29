@@ -43,7 +43,7 @@ class Amazon_AdsBaseTest(BaseCase):
             "portfolios": {
                 cls.PRIMARY_KEYS: { "portfolioId" },
                 cls.REPLICATION_METHOD: cls.INCREMENTAL,
-                cls.REPLICATION_KEYS: { "extendedData.lastUpdateDateTime" },
+                cls.REPLICATION_KEYS: { "lastUpdateDateTime" },
                 cls.OBEYS_START_DATE: False,
                 cls.API_LIMIT: 100
             },
@@ -106,14 +106,14 @@ class Amazon_AdsBaseTest(BaseCase):
             "sponsored_brands_campaigns": {
                 cls.PRIMARY_KEYS: { "campaignId" },
                 cls.REPLICATION_METHOD: cls.INCREMENTAL,
-                cls.REPLICATION_KEYS: { "extendedData.lastUpdateDateTime" },
+                cls.REPLICATION_KEYS: { "lastUpdateDateTime" },
                 cls.OBEYS_START_DATE: False,
                 cls.API_LIMIT: 100
             },
             "sponsored_brands_ad_groups": {
                 cls.PRIMARY_KEYS: { "adGroupId" },
                 cls.REPLICATION_METHOD: cls.INCREMENTAL,
-                cls.REPLICATION_KEYS: { "extendedData.lastUpdateDateTime" },
+                cls.REPLICATION_KEYS: { "lastUpdateDateTime" },
                 cls.OBEYS_START_DATE: False,
                 cls.API_LIMIT: 100
             },
@@ -176,35 +176,35 @@ class Amazon_AdsBaseTest(BaseCase):
             "sponsored_products_campaigns": {
                 cls.PRIMARY_KEYS: { "campaignId" },
                 cls.REPLICATION_METHOD: cls.INCREMENTAL,
-                cls.REPLICATION_KEYS: { "extendedData.lastUpdateDateTime" },
+                cls.REPLICATION_KEYS: { "lastUpdateDateTime" },
                 cls.OBEYS_START_DATE: False,
                 cls.API_LIMIT: 100
             },
             "sponsored_products_ad_groups": {
                 cls.PRIMARY_KEYS: { "adGroupId" },
                 cls.REPLICATION_METHOD: cls.INCREMENTAL,
-                cls.REPLICATION_KEYS: { "extendedData.lastUpdateDateTime" },
+                cls.REPLICATION_KEYS: { "lastUpdateDateTime" },
                 cls.OBEYS_START_DATE: False,
                 cls.API_LIMIT: 100
             },
             "sponsored_products_keywords": {
                 cls.PRIMARY_KEYS: { "keywordId" },
                 cls.REPLICATION_METHOD: cls.INCREMENTAL,
-                cls.REPLICATION_KEYS: { "extendedData.lastUpdateDateTime" },
+                cls.REPLICATION_KEYS: { "lastUpdateDateTime" },
                 cls.OBEYS_START_DATE: False,
                 cls.API_LIMIT: 100
             },
             "sponsored_products_negative_keywords": {
                 cls.PRIMARY_KEYS: { "keywordId" },
                 cls.REPLICATION_METHOD: cls.INCREMENTAL,
-                cls.REPLICATION_KEYS: { "extendedData.lastUpdateDateTime" },
+                cls.REPLICATION_KEYS: { "lastUpdateDateTime" },
                 cls.OBEYS_START_DATE: False,
                 cls.API_LIMIT: 100
             },
             "sponsored_products_ads": {
                 cls.PRIMARY_KEYS: { "adId" },
                 cls.REPLICATION_METHOD: cls.INCREMENTAL,
-                cls.REPLICATION_KEYS: { "extendedData.lastUpdateDateTime" },
+                cls.REPLICATION_KEYS: { "lastUpdateDateTime" },
                 cls.OBEYS_START_DATE: False,
                 cls.API_LIMIT: 100
             },
@@ -225,7 +225,7 @@ class Amazon_AdsBaseTest(BaseCase):
             "sponsored_brands_ads": {
                 cls.PRIMARY_KEYS: {"adId"},
                 cls.REPLICATION_METHOD: cls.INCREMENTAL,
-                cls.REPLICATION_KEYS: {"extendedData.lastUpdateDate"},
+                cls.REPLICATION_KEYS: {"lastUpdateDate"},
                 cls.OBEYS_START_DATE: False,
                 cls.API_LIMIT: 100
             },
