@@ -17,7 +17,7 @@ class Amazon_AdsBaseTest(BaseCase):
     Metadata describing streams. A bunch of shared methods that are used
     in tap-tester tests. Shared tap-specific methods (as needed).
     """
-    start_date = "2019-01-01T00:00:00Z"
+    start_date = "2025-01-01T00:00:00Z"
 
     @staticmethod
     def tap_name():
@@ -272,11 +272,6 @@ class Amazon_AdsBaseTest(BaseCase):
 
     def get_properties(self, original: bool = True):
         """Configuration of properties required for the tap."""
-        return_value = {
-            "start_date": "2022-07-01T00:00:00Z"
+        return {
+            "start_date": self.start_date
         }
-        if original:
-            return return_value
-
-        return_value["start_date"] = self.start_date
-        return return_value

@@ -25,3 +25,11 @@ class SponsoredBrandsAdGroups(IncrementalStream):
         kwargs["includeExtendedDataFields"] = True
         super().update_data_payload(parent_obj, **kwargs)
 
+    def modify_object(self, record: Dict, parent_record: Dict = None) -> Dict:
+        """
+        Modify the record for all incremental streams.
+        Example: flatten lastUpdateDate from extendedData.
+        """
+        extended_data = record.get("extendedData", {})
+        record["lastUpdateDate"] = extended_data.get("lastUpdateDate")
+        return record
