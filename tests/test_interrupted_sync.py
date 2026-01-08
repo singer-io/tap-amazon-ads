@@ -13,31 +13,36 @@ class Amazon_AdsInterruptedSyncTest(InterruptedSyncTest,Amazon_AdsBaseTest):
 
     def streams_to_test(self):
         streams_to_exclude = {
-            #this needs to check as primary key is missing
-            'sponsored_brands_store_assets',
-            # No data available for streams
+            # full table 
+            'profiles',
+            'sponsored_brands_bid_recommendations',
+            'sponsored_brands_budget_rules_campaigns',
+            'sponsored_brands_keywords',
             'sponsored_brands_negative_keywords',
-            'sponsored_display_brand_safety_list','sponsored_display_negative_targeting_clauses','sponsored_brands_campaigns',
-            'sponsored_brands_bid_recommendations','sponsored_brands_campaigns_budget_rules', 'sponsored_brands_ad_groups', 'sponsored_brands_keywords',
-            'sponsored_brands_negative_targets', 'sponsored_brands_product_targets','sponsored_brands_ads',
-            'sponsored_brands_ad_creatives', 'sponsored_brands_budget_rules_campaigns','sponsored_products_campaigns',
+            'sponsored_brands_negative_targets',
+            'sponsored_brands_product_targets',
+            'sponsored_brands_store_assets',
+            'sponsored_display_brand_safety_list',
+            'sponsored_display_budget_rules_campaigns',
+            'sponsored_display_creatives',
+            # No data available for streams
+            'sponsored_display_negative_targeting_clauses','sponsored_brands_campaigns',
+            'sponsored_brands_ad_groups','sponsored_brands_campaigns_budget_rules',
+            'sponsored_brands_ads',
+            'sponsored_brands_ad_creatives','sponsored_products_campaigns',
             'sponsored_products_ad_groups','sponsored_products_keywords', 'sponsored_products_negative_keywords',
-            'sponsored_products_ads', 'invoices'}
-        # return self.expected_stream_names().difference(streams_to_exclude)
-        return {'portfolios', 'sponsored_display_ad_groups'}
+            'sponsored_products_ads', 'invoices', 'portfolios','sponsored_display_campaigns', 'sponsored_display_product_ads',
+            'sponsored_display_targetings', 'sponsored_brands_budget_rules', 'sponsored_products_budget_rules',
+            'sponsored_display_campaigns_budget_rules'
+        }
+        return self.expected_stream_names().difference(streams_to_exclude)
 
 
     def manipulate_state(self):
         return {
-            "currently_syncing": "portfolios",
+            "currently_syncing": "sponsored_display_ad_groups",
             "bookmarks": {
-            "portfolios": { "lastUpdateDateTime" : "2025-07-03T10:53:24.882000Z"},
-            # "sponsored_display_campaigns": { "lastUpdatedDate" : "2020-01-01T00:00:00Z"},
-            "sponsored_display_ad_groups": { "lastUpdatedDate" : "2020-01-01T00:00:00Z"},
-            # "sponsored_display_product_ads": { "lastUpdateDate" : "2020-01-01T00:00:00Z"},
-            # "sponsored_display_targetings": { "lastUpdateDate" : "2020-01-01T00:00:00Z"},
-            # "sponsored_display_budget_rules": { "lastUpdateDate" : "2020-01-01T00:00:00Z"},
-            # "sponsored_brands_budget_rules": { "lastUpdatedDate" : "2020-01-01T00:00:00Z"},
-            # "sponsored_products_budget_rules": { "lastUpdatedDate" : "2020-01-01T00:00:00Z"},
+            "sponsored_display_ad_groups": { "lastUpdatedDate" : "2025-07-03T10:53:24.00Z"},
+            "sponsored_display_budget_rules": { "lastUpdatedDate" : "2025-07-16T05:24:22.224000Z"},
         }
     }
