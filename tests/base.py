@@ -17,7 +17,7 @@ class Amazon_AdsBaseTest(BaseCase):
     Metadata describing streams. A bunch of shared methods that are used
     in tap-tester tests. Shared tap-specific methods (as needed).
     """
-    start_date = "2025-01-01T00:00:00Z"
+    start_date = "2019-01-01T00:00:00Z"
 
     @staticmethod
     def tap_name():
@@ -263,7 +263,9 @@ class Amazon_AdsBaseTest(BaseCase):
     def get_credentials():
         """Authentication information for the test account."""
         credentials_dict = {}
-        creds = {'client_id': 'TAP_AMAZON_ADS_CLIENT_ID', 'client_secret': 'TAP_AMAZON_ADS_CLIENT_SECRET', 'refresh_token': 'TAP_AMAZON_ADS_REFRESH_TOKEN', 'profiles': 'TAP_AMAZON_ADS_PROFILES'}
+        creds = {'client_id': 'TAP_AMAZON_ADS_CLIENT_ID', 'client_secret': 'TAP_AMAZON_ADS_CLIENT_SECRET', 
+                 'refresh_token': 'TAP_AMAZON_ADS_REFRESH_TOKEN', 'profiles': 'TAP_AMAZON_ADS_PROFILES',
+                 'user_agent': 'TAP_AMAZON_ADS_USER_AGENT'}
 
         for cred in creds:
             credentials_dict[cred] = os.getenv(creds[cred])
