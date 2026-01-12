@@ -161,8 +161,16 @@ class BaseStream(ABC):
 
     def modify_object(self, record: Dict, parent_record: Dict = None) -> Dict:
         """
-        Modify the record before writing to the stream
+        Modify the record for incremental streams.
+        Only insert the replication key from `extendedData` if:
+        - `self.replication_keys[0]` is defined in the class, and
+        - `extendedData` contains that replication key.
         """
+        if self.replication_keys and isinstance(self.replication_keys[0], str):
+            rk = self.replication_keys[0]
+            extended_data = record.get("extendedData", {})
+            if isinstance(extended_data, dict) and rk in extended_data:
+                record[rk] = extended_data.get(rk)
         return record
 
     def get_url_endpoint(self, parent_obj: Dict = None) -> str:
@@ -228,15 +236,6 @@ class IncrementalStream(BaseStream):
         return write_bookmark(
             state, stream, key or self.replication_keys[0], value
         )
-
-    def modify_object(self, record: Dict, parent_record: Dict = None) -> Dict:
-        """
-        Modify the record for all incremental streams.
-        Example: flatten lastUpdateDateTime from extendedData.
-        """
-        extended_data = record.get("extendedData", {})
-        record["lastUpdateDateTime"] = extended_data.get("lastUpdateDateTime")
-        return record
 
     def sync(self,state: Dict,transformer: Transformer,parent_obj: Dict = None,) -> Dict:
         """Implementation for `type: Incremental` stream."""

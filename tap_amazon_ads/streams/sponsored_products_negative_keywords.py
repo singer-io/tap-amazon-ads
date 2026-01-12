@@ -24,12 +24,3 @@ class SponsoredProductsNegativeKeywords(IncrementalStream):
         """
         kwargs["includeExtendedDataFields"] = True
         super().update_data_payload(parent_obj, **kwargs)
-
-    def modify_object(self, record: Dict, parent_record: Dict = None) -> Dict:
-        """
-        Modify the record for all incremental streams.
-        Example: flatten lastUpdateDateTime from extendedData.
-        """
-        extended_data = record.get("extendedData", {})
-        record["lastUpdateDateTime"] = extended_data.get("lastUpdateDateTime")
-        return record
