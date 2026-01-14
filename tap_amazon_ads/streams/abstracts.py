@@ -49,6 +49,7 @@ class BaseStream(ABC):
         self.child_to_sync = []
         self.params = {}
         self.data_payload = dict()
+        self.page_size = self.client.config.get("page_size", self.page_size)
 
     @property
     @abstractmethod
