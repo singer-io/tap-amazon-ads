@@ -21,9 +21,3 @@ class Amazon_AdsPaginationTest(PaginationTest, Amazon_AdsBaseTest):
             'sponsored_products_ad_groups', 'sponsored_products_keywords', 'sponsored_products_negative_keywords',
             'sponsored_products_ads', 'invoices'}
         return self.expected_stream_names().difference(streams_to_exclude)
-
-    def test_record_count_greater_than_page_limit(self):  # type: ignore[override]
-        self.skipTest(
-            "Skipping strict >100 record assertion; Amazon-ads env has fewer records "
-            "but still paginates correctly with page_size=1."
-        )
