@@ -54,7 +54,7 @@ class Amazon_AdsStartDateTest(StartDateTest, Amazon_AdsBaseTest):
         return "2019-03-25T00:00:00Z"
     @property
     def start_date_2(self):
-        # Include a specific time component because we don't have data at
+        # Included a specific time component because we don't have data at
         # midnight for this date. Providing a timestamp ensures the
         # start-date logic initializes after available records and keeps
         # the test deterministic.
