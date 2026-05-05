@@ -49,6 +49,7 @@ class BaseStream(ABC):
         self.child_to_sync = []
         self.params = {}
         self.data_payload = dict()
+        self.page_size = self.client.config.get("page_size", self.page_size)
 
     @property
     @abstractmethod
@@ -161,8 +162,16 @@ class BaseStream(ABC):
 
     def modify_object(self, record: Dict, parent_record: Dict = None) -> Dict:
         """
-        Modify the record before writing to the stream
+        Modify the record for incremental streams.
+        Only insert the replication key from `extendedData` if:
+        - `self.replication_keys[0]` is defined in the class, and
+        - `extendedData` contains that replication key.
         """
+        if self.replication_keys and isinstance(self.replication_keys[0], str):
+            rk = self.replication_keys[0]
+            extended_data = record.get("extendedData", {})
+            if isinstance(extended_data, dict) and rk in extended_data:
+                record[rk] = extended_data.get(rk)
         return record
 
     def get_url_endpoint(self, parent_obj: Dict = None) -> str:
@@ -229,7 +238,6 @@ class IncrementalStream(BaseStream):
             state, stream, key or self.replication_keys[0], value
         )
 
-
     def sync(self,state: Dict,transformer: Transformer,parent_obj: Dict = None,) -> Dict:
         """Implementation for `type: Incremental` stream."""
         bookmark_date = self.get_bookmark(state, self.tap_stream_id)
@@ -283,4 +291,3 @@ class FullTableStream(BaseStream):
                     child.sync(state=state, transformer=transformer, parent_obj=record)
 
             return counter.value, state
-

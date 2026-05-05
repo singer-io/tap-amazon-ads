@@ -9,7 +9,7 @@ class SponsoredBrandsCampaigns(IncrementalStream):
     tap_stream_id = "sponsored_brands_campaigns"
     key_properties = ["campaignId"]
     replication_method = "INCREMENTAL"
-    replication_keys = ["extendedData.lastUpdateDate"]
+    replication_keys = ["lastUpdateDate"]
     data_key = "campaigns"
     path = "sb/v4/campaigns/list"
     children = ["sponsored_brands_bid_recommendations", "sponsored_brands_campaigns_budget_rules"]
@@ -25,4 +25,3 @@ class SponsoredBrandsCampaigns(IncrementalStream):
         """
         kwargs["includeExtendedDataFields"] = True
         super().update_data_payload(parent_obj, **kwargs)
-

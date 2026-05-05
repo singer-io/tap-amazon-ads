@@ -9,7 +9,7 @@ class SponsoredBrandsAds(IncrementalStream):
     tap_stream_id = "sponsored_brands_ads"
     key_properties = ["adId"]
     replication_method = "INCREMENTAL"
-    replication_keys = ["extendedData.lastUpdateDate"]
+    replication_keys = ["lastUpdateDate"]
     data_key = "ads"
     path = "sb/v4/ads/list"
     children = ["sponsored_brands_ad_creatives"]
@@ -46,4 +46,3 @@ class SponsoredBrandsAds(IncrementalStream):
                 bookmark_key = f"{self.tap_stream_id}_{self.replication_keys[0]}"
                 super().write_bookmark(state, child.tap_stream_id, key=bookmark_key, value=value)
         return state
-

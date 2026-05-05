@@ -7,6 +7,13 @@
                 "string"
             ]
         },
+        "lastUpdateDateTime": {
+            "type": [
+                "null",
+                "string"
+            ],
+            "format": "date-time"
+        },
         "inBudget": {
             "type": [
                 "null",

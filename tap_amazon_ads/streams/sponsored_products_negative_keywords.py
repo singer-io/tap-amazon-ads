@@ -9,7 +9,7 @@ class SponsoredProductsNegativeKeywords(IncrementalStream):
     tap_stream_id = "sponsored_products_negative_keywords"
     key_properties = ["keywordId"]
     replication_method = "INCREMENTAL"
-    replication_keys = ["extendedData.lastUpdateDateTime"]
+    replication_keys = ["lastUpdateDateTime"]
     data_key = "negativeKeywords"
     path = "sp/negativeKeywords/list"
     http_method = "POST"
@@ -24,4 +24,3 @@ class SponsoredProductsNegativeKeywords(IncrementalStream):
         """
         kwargs["includeExtendedDataFields"] = True
         super().update_data_payload(parent_obj, **kwargs)
-

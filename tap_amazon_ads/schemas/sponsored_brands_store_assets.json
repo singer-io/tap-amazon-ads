@@ -1,7 +1,7 @@
 {
     "type": "object",
     "properties": {
-        "assetID": {
+        "assetId": {
             "type": [
                 "null",
                 "string"

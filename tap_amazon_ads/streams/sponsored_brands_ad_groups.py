@@ -9,7 +9,7 @@ class SponsoredBrandsAdGroups(IncrementalStream):
     tap_stream_id = "sponsored_brands_ad_groups"
     key_properties = ["adGroupId"]
     replication_method = "INCREMENTAL"
-    replication_keys = ["extendedData.lastUpdateDate"]
+    replication_keys = ["lastUpdateDate"]
     data_key = "adGroups"
     path = "sb/v4/adGroups/list"
     http_method = "POST"
@@ -24,4 +24,3 @@ class SponsoredBrandsAdGroups(IncrementalStream):
         """
         kwargs["includeExtendedDataFields"] = True
         super().update_data_payload(parent_obj, **kwargs)
-

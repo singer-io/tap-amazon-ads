@@ -83,11 +83,13 @@ This tap:
 - Data Key = invoiceSummaries
 - Primary keys: ['id']
 - Replication strategy: INCREMENTAL
+- Replication key: `invoiceDate`
 
 ** [portfolios](https://advertising.amazon.com/API/docs/en-us/reference/portfolios#tag/Portfolios/operation/ListPortfolios)**
 - Data Key = portfolios
 - Primary keys: ['portfolioId']
 - Replication strategy: INCREMENTAL
+- Replication key: `lastUpdateDateTime`
 
 ** [profiles](https://advertising.amazon.com/API/docs/en-us/reference/2/profiles#tag/Profiles/operation/listProfiles)**
 - Primary keys: ['profileId']
@@ -97,16 +99,19 @@ This tap:
 - Data Key = creatives
 - Primary keys: ['adId']
 - Replication strategy: INCREMENTAL
+- Replication key: `lastUpdateTime`
 
 ** [sponsored_brands_ad_groups](https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi/prod#tag/Ad-groups/operation/ListSponsoredBrandsAdGroups)**
 - Data Key = adGroups
 - Primary keys: ['adGroupId']
 - Replication strategy: INCREMENTAL
+- Replication key: `lastUpdateDate`
 
 ** [sponsored_brands_ads](https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi/prod#tag/Ads/operation/ListSponsoredBrandsAds)**
 - Data Key = ads
 - Primary keys: ['adId']
 - Replication strategy: INCREMENTAL
+- Replication key: `lastUpdateDate`
 
 ** [sponsored_brands_bid_recommendations](https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi#tag/Bid-recommendations/operation/getBidsRecommendations)**
 - Primary keys: ['recommendationId']
@@ -121,16 +126,19 @@ This tap:
 - Data Key = budgetRulesForAdvertiserResponse
 - Primary keys: ['ruleId']
 - Replication strategy: INCREMENTAL
+- Replication key: `lastUpdatedDate`
 
 ** [sponsored_brands_campaigns_budget_rules](https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi/prod#tag/Budget-rules/operation/ListAssociatedBudgetRulesForSBCampaigns)**
 - Data Key = associatedRules
 - Primary keys: ['ruleId']
 - Replication strategy: INCREMENTAL
+- Replication key: `lastUpdatedDate`
 
 ** [sponsored_brands_campaigns](https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi/prod#tag/Campaigns/operation/ListSponsoredBrandsCampaigns)**
 - Data Key = campaigns
 - Primary keys: ['campaignId']
 - Replication strategy: INCREMENTAL
+- Replication key: `lastUpdateDate`
 
 ** [sponsored_brands_keywords](https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi#tag/Keywords/operation/listKeywords)**
 - Primary keys: ['keywordId']
@@ -150,12 +158,13 @@ This tap:
 - Replication strategy: FULL_TABLE
 
 ** [sponsored_brands_store_assets](https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi#tag/Stores/operation/listAssets)**
-- Primary keys: ['assetID']
+- Primary keys: ['assetId']
 - Replication strategy: FULL_TABLE
 
 ** [sponsored_display_ad_groups](https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Ad-Groups/operation/listAdGroupsEx)**
 - Primary keys: ['adGroupId']
 - Replication strategy: INCREMENTAL
+- Replication key: `lastUpdatedDate`
 
 ** [sponsored_display_brand_safety_list](https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Brand-Safety-List/operation/listRequestStatus)**
 - Data Key = requestStatusList
@@ -171,15 +180,18 @@ This tap:
 - Data Key = budgetRulesForAdvertiserResponse
 - Primary keys: ['ruleId']
 - Replication strategy: INCREMENTAL
+- Replication key: `lastUpdatedDate`
 
 ** [sponsored_display_campaigns_budget_rules](https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Budget-rules/operation/DisassociateAssociatedBudgetRuleForSBCampaigns)**
 - Data Key = associatedRules
 - Primary keys: ['ruleId']
 - Replication strategy: INCREMENTAL
+- Replication key: `lastUpdatedDate`
 
 ** [sponsored_display_campaigns](https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Campaigns/operation/listCampaignsEx)**
 - Primary keys: ['campaignId']
 - Replication strategy: INCREMENTAL
+- Replication key: `lastUpdatedDate`
 
 ** [sponsored_display_creatives](https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Creatives/operation/listCreatives)**
 - Primary keys: ['creativeId']
@@ -188,44 +200,53 @@ This tap:
 ** [sponsored_display_negative_targeting_clauses](https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Negative-Targeting/operation/listNegativeTargetingClausesEx)**
 - Primary keys: ['targetId']
 - Replication strategy: INCREMENTAL
+- Replication key: `lastUpdatedDate`
 
 ** [sponsored_display_product_ads](https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Product-Ads/operation/listProductAdsEx)**
 - Primary keys: ['adId']
 - Replication strategy: INCREMENTAL
+- Replication key: `lastUpdatedDate`
 
 ** [sponsored_display_targetings](https://advertising.amazon.com/API/docs/en-us/sponsored-display/3-0/openapi#tag/Targeting/operation/listTargetingClausesEx)**
 - Primary keys: ['targetId']
 - Replication strategy: INCREMENTAL
+- Replication key: `lastUpdatedDate`
 
 ** [sponsored_products_ad_groups](https://advertising.amazon.com/API/docs/en-us/sponsored-products/3-0/openapi/prod#tag/Ad-groups/operation/ListSponsoredProductsAdGroups)**
 - Data Key = adGroups
 - Primary keys: ['adGroupId']
 - Replication strategy: INCREMENTAL
+- Replication key: `lastUpdateDateTime`
 
 ** [sponsored_products_ads](https://advertising.amazon.com/API/docs/en-us/sponsored-products/3-0/openapi/prod#tag/Product-ads/operation/ListSponsoredProductsProductAds)**
 - Data Key = productAds
 - Primary keys: ['adId']
 - Replication strategy: INCREMENTAL
+- Replication key: `lastUpdateDateTime`
 
 ** [sponsored_products_budget_rules](https://advertising.amazon.com/API/docs/en-us/sponsored-products/3-0/openapi/prod#tag/BudgetRules/operation/GetSPBudgetRulesForAdvertiser)**
 - Data Key = budgetRulesForAdvertiserResponse
 - Primary keys: ['ruleId']
 - Replication strategy: INCREMENTAL
+- Replication key: `lastUpdatedDate`
 
 ** [sponsored_products_campaigns](https://advertising.amazon.com/API/docs/en-us/sponsored-products/3-0/openapi/prod#tag/Campaigns/operation/ListSponsoredProductsCampaigns)**
 - Data Key = campaigns
 - Primary keys: ['campaignId']
 - Replication strategy: INCREMENTAL
+- Replication key: `lastUpdateDateTime`
 
 ** [sponsored_products_keywords](https://advertising.amazon.com/API/docs/en-us/sponsored-products/3-0/openapi/prod#tag/Keywords/operation/ListSponsoredProductsKeywords)**
 - Data Key = keywords
 - Primary keys: ['keywordId']
 - Replication strategy: INCREMENTAL
+- Replication key: `lastUpdateDateTime`
 
 ** [sponsored_products_negative_keywords](https://advertising.amazon.com/API/docs/en-us/sponsored-products/3-0/openapi/prod#tag/Negative-keywords/operation/ListSponsoredProductsNegativeKeywords)**
 - Data Key = negativeKeywords
 - Primary keys: ['keywordId']
 - Replication strategy: INCREMENTAL
+- Replication key: `lastUpdateDateTime`
 
 ## Authentication
 
