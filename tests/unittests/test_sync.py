@@ -321,9 +321,8 @@ class TestSyncOrchestration(unittest.TestCase):
         mock_stream_instance.parent = ""
         mock_stream_instance.sync.return_value = (5, {})
         mock_stream_cls = MagicMock(return_value=mock_stream_instance)
-        mock_streams.__contains__ = lambda self, item: True
-        mock_streams.__getitem__ = lambda self, key: mock_stream_cls
-        mock_streams.__iter__ = MagicMock(return_value=iter(["test_stream"]))
+        mock_streams.__contains__.side_effect = lambda item: True
+        mock_streams.__getitem__.side_effect = lambda key: mock_stream_cls
 
         catalog = _mock_catalog(["test_stream"])
         client = MagicMock()
@@ -353,9 +352,8 @@ class TestSyncOrchestration(unittest.TestCase):
         def _stream_factory(key):
             return MagicMock(return_value=(parent_instance if key == "parent_stream" else child_instance))
 
-        mock_streams.__contains__ = lambda self, item: item in ("parent_stream", "child_stream")
-        mock_streams.__getitem__ = lambda self, key: _stream_factory(key)
-        mock_streams.__iter__ = MagicMock(return_value=iter(["parent_stream", "child_stream"]))
+        mock_streams.__contains__.side_effect = lambda item: item in ("parent_stream", "child_stream")
+        mock_streams.__getitem__.side_effect = lambda key: _stream_factory(key)
 
         catalog = _mock_catalog(["parent_stream", "child_stream"])
         client = MagicMock()
@@ -379,8 +377,8 @@ class TestSyncOrchestration(unittest.TestCase):
         mock_stream_instance = MagicMock()
         mock_stream_instance.parent = ""
         mock_stream_instance.sync.return_value = (0, {})
-        mock_streams.__contains__ = lambda self, item: True
-        mock_streams.__getitem__ = MagicMock(return_value=MagicMock(return_value=mock_stream_instance))
+        mock_streams.__contains__.side_effect = lambda item: True
+        mock_streams.__getitem__.side_effect = lambda key: MagicMock(return_value=mock_stream_instance)
 
         catalog = _mock_catalog(["my_stream"])
         client = MagicMock()

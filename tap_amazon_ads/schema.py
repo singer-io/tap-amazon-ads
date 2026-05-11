@@ -123,4 +123,3 @@ def get_schemas(client=None) -> Tuple[Dict, Dict]:
             )
 
     return schemas, field_metadata
-

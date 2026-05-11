@@ -172,8 +172,8 @@ class TestModifyObject(unittest.TestCase):
         result = self.stream.modify_object(record)
         self.assertEqual(result["lastUpdateDateTime"], "2025-05-01T00:00:00Z")
 
-    def test_does_not_overwrite_existing_top_level_value(self):
-        """If the key is already present at top level AND in extendedData, extendedData wins."""
+    def test_extended_data_takes_precedence_over_top_level_value(self):
+        """extendedData value overwrites an existing top-level value for the replication key."""
         record = {
             "id": "1",
             "lastUpdateDateTime": "2024-01-01T00:00:00Z",

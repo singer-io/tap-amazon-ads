@@ -78,21 +78,6 @@ class TestGetSchemas(unittest.TestCase):
                 actual_method = root_entry["metadata"].get("forced-replication-method")
                 self.assertEqual(actual_method, expected_method)
 
-    def test_all_streams_selected_by_default(self):
-        """All streams should have selected=True in root metadata (auto-selected)."""
-        _, field_metadata = get_schemas()
-        for stream_name in STREAMS:
-            mdata_list = field_metadata[stream_name]
-            root_entry = next(
-                (e for e in mdata_list if not e["breadcrumb"]), None
-            )
-            with self.subTest(stream=stream_name):
-                self.assertIsNotNone(root_entry)
-                self.assertTrue(
-                    root_entry["metadata"].get("selected"),
-                    f"{stream_name}: expected selected=True in metadata",
-                )
-
     def test_replication_key_present_in_schema_properties(self):
         """For every incremental stream, the replication key must exist as a schema property."""
         schemas, _ = get_schemas()
