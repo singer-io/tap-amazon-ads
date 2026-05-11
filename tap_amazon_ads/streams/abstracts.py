@@ -44,12 +44,12 @@ class BaseStream(ABC):
     def __init__(self, client=None, catalog=None) -> None:
         self.client = client
         self.catalog = catalog
-        self.schema = catalog.schema.to_dict()
-        self.metadata = metadata.to_map(catalog.metadata)
+        self.schema = catalog.schema.to_dict() if catalog else {}
+        self.metadata = metadata.to_map(catalog.metadata) if catalog else {}
         self.child_to_sync = []
         self.params = {}
         self.data_payload = dict()
-        self.page_size = self.client.config.get("page_size", self.page_size)
+        self.page_size = self.client.config.get("page_size", self.page_size) if client else self.page_size
 
     @property
     @abstractmethod
@@ -198,6 +198,27 @@ class BaseStream(ABC):
             else:
                 return default
         return value
+
+    def check_access(self):
+        """
+        Verify that the API credentials have read access to this stream.
+        Makes a minimal request to the stream's endpoint. If the credentials
+        lack permission, the client will raise AmazonAdsForbiddenError.
+        """
+        url = self.get_url_endpoint()
+        self.update_params()
+        if self.http_method == "POST":
+            self.update_data_payload()
+            body = json.dumps(self.data_payload)
+        else:
+            body = None
+        self.client.make_request(
+            self.http_method,
+            url,
+            self.params,
+            self.headers,
+            body=body,
+        )
 
     def update_pagination_key(self, response):
         """
