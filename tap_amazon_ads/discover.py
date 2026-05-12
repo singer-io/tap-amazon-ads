@@ -6,7 +6,7 @@ from tap_amazon_ads.schema import get_schemas
 LOGGER = singer.get_logger()
 
 
-def discover(client=None) -> Catalog:
+def discover(client) -> Catalog:
     """
     Run the discovery mode, prepare the catalog file and return the catalog.
     When a client is provided, access to each stream is verified and streams

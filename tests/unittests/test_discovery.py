@@ -12,13 +12,13 @@ class TestGetSchemas(unittest.TestCase):
 
     def test_returns_all_streams(self):
         """get_schemas() should return an entry for every stream in STREAMS."""
-        schemas, field_metadata = get_schemas()
+        schemas, field_metadata = get_schemas(None)
         self.assertEqual(set(schemas.keys()), set(STREAMS.keys()))
         self.assertEqual(set(field_metadata.keys()), set(STREAMS.keys()))
 
     def test_schema_properties_are_dicts(self):
         """Every schema returned should have a 'properties' dict."""
-        schemas, _ = get_schemas()
+        schemas, _ = get_schemas(None)
         for stream_name, schema in schemas.items():
             with self.subTest(stream=stream_name):
                 self.assertIn("properties", schema, f"{stream_name} schema missing 'properties'")
@@ -26,7 +26,7 @@ class TestGetSchemas(unittest.TestCase):
 
     def test_incremental_streams_have_replication_key_in_metadata(self):
         """All incremental streams should mark their replication key as 'automatic' in metadata."""
-        _, field_metadata = get_schemas()
+        _, field_metadata = get_schemas(None)
         for stream_name, stream_cls in STREAMS.items():
             rk = getattr(stream_cls, "replication_keys", [])
             if not rk:
@@ -48,7 +48,7 @@ class TestGetSchemas(unittest.TestCase):
 
     def test_primary_keys_in_metadata(self):
         """Every stream should have its key_properties recorded in root metadata."""
-        _, field_metadata = get_schemas()
+        _, field_metadata = get_schemas(None)
         for stream_name, stream_cls in STREAMS.items():
             expected_keys = list(getattr(stream_cls, "key_properties", []))
             mdata_list = field_metadata[stream_name]
@@ -66,7 +66,7 @@ class TestGetSchemas(unittest.TestCase):
 
     def test_replication_method_in_metadata(self):
         """Every stream should have its replication method recorded in root metadata."""
-        _, field_metadata = get_schemas()
+        _, field_metadata = get_schemas(None)
         for stream_name, stream_cls in STREAMS.items():
             expected_method = getattr(stream_cls, "replication_method")
             mdata_list = field_metadata[stream_name]
@@ -80,7 +80,7 @@ class TestGetSchemas(unittest.TestCase):
 
     def test_replication_key_present_in_schema_properties(self):
         """For every incremental stream, the replication key must exist as a schema property."""
-        schemas, _ = get_schemas()
+        schemas, _ = get_schemas(None)
         for stream_name, stream_cls in STREAMS.items():
             rk = getattr(stream_cls, "replication_keys", [])
             if not rk:
@@ -94,7 +94,7 @@ class TestGetSchemas(unittest.TestCase):
 
     def test_replication_key_has_date_time_format(self):
         """Every replication key field in the schema must have format=date-time."""
-        schemas, _ = get_schemas()
+        schemas, _ = get_schemas(None)
         for stream_name, stream_cls in STREAMS.items():
             rk = getattr(stream_cls, "replication_keys", [])
             if not rk:
@@ -109,7 +109,7 @@ class TestGetSchemas(unittest.TestCase):
 
     def test_primary_key_fields_exist_in_schema_properties(self):
         """Every key_property must be a property in the schema."""
-        schemas, _ = get_schemas()
+        schemas, _ = get_schemas(None)
         for stream_name, stream_cls in STREAMS.items():
             keys = getattr(stream_cls, "key_properties", [])
             props = schemas[stream_name].get("properties", {})
@@ -127,18 +127,18 @@ class TestDiscover(unittest.TestCase):
 
     def test_discover_returns_catalog(self):
         """discover() should return a singer Catalog object."""
-        catalog = discover()
+        catalog = discover(None)
         self.assertIsInstance(catalog, Catalog)
 
     def test_discover_catalog_contains_all_streams(self):
         """The catalog should contain an entry for every stream in STREAMS."""
-        catalog = discover()
+        catalog = discover(None)
         catalog_stream_names = {entry.stream for entry in catalog.streams}
         self.assertEqual(catalog_stream_names, set(STREAMS.keys()))
 
     def test_catalog_entry_has_key_properties(self):
         """Every catalog entry must have non-empty key_properties."""
-        catalog = discover()
+        catalog = discover(None)
         for entry in catalog.streams:
             with self.subTest(stream=entry.stream):
                 self.assertIsNotNone(entry.key_properties)
@@ -150,7 +150,7 @@ class TestDiscover(unittest.TestCase):
 
     def test_catalog_entry_has_schema(self):
         """Every catalog entry must have a schema with properties."""
-        catalog = discover()
+        catalog = discover(None)
         for entry in catalog.streams:
             with self.subTest(stream=entry.stream):
                 schema_dict = entry.schema.to_dict()
@@ -158,7 +158,7 @@ class TestDiscover(unittest.TestCase):
 
     def test_catalog_entry_has_metadata(self):
         """Every catalog entry must have metadata."""
-        catalog = discover()
+        catalog = discover(None)
         for entry in catalog.streams:
             with self.subTest(stream=entry.stream):
                 self.assertIsNotNone(entry.metadata)
@@ -166,7 +166,7 @@ class TestDiscover(unittest.TestCase):
 
     def test_catalog_tap_stream_id_matches_stream(self):
         """tap_stream_id must match the stream name for every entry."""
-        catalog = discover()
+        catalog = discover(None)
         for entry in catalog.streams:
             with self.subTest(stream=entry.stream):
                 self.assertEqual(entry.stream, entry.tap_stream_id)
@@ -177,11 +177,11 @@ class TestDiscover(unittest.TestCase):
         bad_metadata = {"broken_stream": []}
         with patch("tap_amazon_ads.discover.get_schemas", return_value=(bad_schemas, bad_metadata)):
             with self.assertRaises(Exception):
-                discover()
+                discover(None)
 
     def test_key_properties_match_stream_class(self):
         """key_properties in catalog must match the stream class definition."""
-        catalog = discover()
+        catalog = discover(None)
         for entry in catalog.streams:
             stream_cls = STREAMS[entry.stream]
             expected = sorted(getattr(stream_cls, "key_properties", []))
@@ -383,7 +383,7 @@ class TestGetSchemasAccessCheck(unittest.TestCase):
         stream_cls = _make_stream_cls(parent="")
 
         with patch("tap_amazon_ads.schema.STREAMS", {"some_stream": stream_cls}):
-            schemas, _ = get_schemas()  # no client
+            schemas, _ = get_schemas(None)  # explicit None — no access check
 
         stream_cls.return_value.check_access.assert_not_called()
         self.assertIn("some_stream", schemas)
@@ -410,11 +410,11 @@ class TestDiscoverWithAccessCheck(unittest.TestCase):
         self.assertEqual(catalog_stream_names, {"profiles"})
 
     def test_discover_without_client_calls_get_schemas_with_none(self):
-        """discover() called without a client passes None to get_schemas."""
+        """discover(None) passes None to get_schemas, skipping access checks."""
         with patch(
             "tap_amazon_ads.discover.get_schemas",
             return_value=({}, {}),
         ) as mock_get_schemas:
-            discover()
+            discover(None)
 
         mock_get_schemas.assert_called_once_with(None)
