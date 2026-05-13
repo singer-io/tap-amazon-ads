@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import Any, Dict, Tuple, Iterator, List
 import json
+from tap_amazon_ads.exceptions import AmazonAdsForbiddenError
 from singer import (
     Transformer,
     get_bookmark,
@@ -199,12 +200,14 @@ class BaseStream(ABC):
                 return default
         return value
 
-    def check_access(self):
+    def check_access(self) -> bool:
         """
         Verify that the API credentials have read access to this stream.
-        Makes a minimal request to the stream's endpoint. If the credentials
-        lack permission, the client will raise AmazonAdsForbiddenError.
+        Returns True if accessible, False if a 403 Forbidden error is raised.
+        Child streams always return True (access is governed by the parent check).
         """
+        if self.parent:
+            return True
         url = self.get_url_endpoint()
         self.update_params()
         if self.http_method == "POST":
@@ -212,13 +215,21 @@ class BaseStream(ABC):
             body = json.dumps(self.data_payload)
         else:
             body = None
-        self.client.make_request(
-            self.http_method,
-            url,
-            self.params,
-            self.headers,
-            body=body,
-        )
+        try:
+            self.client.make_request(
+                self.http_method,
+                url,
+                self.params,
+                self.headers,
+                body=body,
+            )
+            return True
+        except AmazonAdsForbiddenError:
+            LOGGER.warning(
+                "Stream '%s' does not have read permission, excluding from catalog.",
+                self.__class__.__name__,
+            )
+            return False
 
     def update_pagination_key(self, response):
         """
