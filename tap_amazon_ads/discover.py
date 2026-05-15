@@ -29,21 +29,21 @@ def _apply_access_checks(client, schemas: dict, field_metadata: dict) -> None:
     (and their children) from schemas and field_metadata in place.
     Raises AmazonAdsForbiddenError if no parent streams are accessible.
     """
-    error_list = [
+    inaccessible_streams = [
         stream_name
         for stream_name, stream_obj in STREAMS.items()
         if stream_name in schemas
         and not stream_obj(client=client).check_access()
     ]
-    for stream_name in error_list:
+    for stream_name in inaccessible_streams:
         schemas.pop(stream_name, None)
         field_metadata.pop(stream_name, None)
 
     _prune_inaccessible_children(schemas, field_metadata)
 
-    if error_list:
+    if inaccessible_streams:
         total_parent_streams = len([s for s in STREAMS.values() if not s.parent])
-        if len(error_list) == total_parent_streams:
+        if len(inaccessible_streams) == total_parent_streams:
             raise AmazonAdsForbiddenError(
                 "HTTP-error-code: 403, Error: The account credentials supplied do not have 'read' access to any "
                 "of the streams supported by the tap. Data collection cannot be initiated due to lack of permissions."
@@ -51,7 +51,7 @@ def _apply_access_checks(client, schemas: dict, field_metadata: dict) -> None:
         LOGGER.warning(
             "The account credentials supplied do not have 'read' access to the following stream(s): %s. "
             "These streams have been excluded from the catalog.",
-            ", ".join(error_list),
+            ", ".join(inaccessible_streams),
         )
 
 
