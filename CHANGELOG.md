@@ -1,6 +1,11 @@
 # Changelog
 
-## 2.0.0 [#10](https://github.com/singer-io/tap-amazon-ads/pull/10)
+## 1.0.1 [#12](https://github.com/singer-io/tap-amazon-ads/pull/12)
+- Streams the credentials cannot access (403) are now excluded from the catalog during discovery instead of raising an error.
+- Added unit tests for discovery, bookmark read/write, `modify_object`, incremental/full-table sync, sync orchestration, and `get_records` pagination.
+
+
+## 1.0.0 [#10](https://github.com/singer-io/tap-amazon-ads/pull/10)
 #### 1. Replication Keys Flattened from `extendedData` (9 streams)
 
 The replication key for 9 incremental streams was previously stored as a dot-notation path into the nested `extendedData` object (e.g., `extendedData.lastUpdateDateTime`). It is now promoted to a **top-level field** on each record (e.g., `lastUpdateDateTime`).

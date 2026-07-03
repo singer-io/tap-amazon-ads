@@ -39,42 +39,41 @@ def load_schema_references() -> Dict:
 
 def get_schemas() -> Tuple[Dict, Dict]:
     """
-    Load the schema references, prepare metadata for each streams and return schema and metadata for the catalog.
+    Load schemas and build Singer catalog metadata for all streams.
+    Returns raw schemas and metadata dicts keyed by stream name.
+    Access checks are the caller's responsibility (see discover()).
     """
     schemas = {}
     field_metadata = {}
 
     refs = load_schema_references()
     for stream_name, stream_obj in STREAMS.items():
-        schema_path = get_abs_path("schemas/{}.json".format(stream_name))
+        schema_path = get_abs_path(f"schemas/{stream_name}.json")
         with open(schema_path) as file:
-            schema = json.load(file)
+            raw_schema = json.load(file)
+        schemas[stream_name] = raw_schema
 
-        schemas[stream_name] = schema
-        schema = singer.resolve_schema_references(schema, refs)
+        resolved_schema = singer.resolve_schema_references(raw_schema, refs)
 
         mdata = metadata.new()
         mdata = metadata.get_standard_metadata(
-            schema=schema,
+            schema=resolved_schema,
             key_properties=getattr(stream_obj, "key_properties"),
             valid_replication_keys=(getattr(stream_obj, "replication_keys") or []),
             replication_method=getattr(stream_obj, "replication_method"),
         )
         mdata = metadata.to_map(mdata)
 
-        automatic_keys = getattr(stream_obj, "replication_keys") or []
-        for field_name in schema["properties"].keys():
-            if field_name in automatic_keys:
+        for field_name in (getattr(stream_obj, "replication_keys") or []):
+            if field_name in resolved_schema.get("properties", {}):
                 mdata = metadata.write(
                     mdata, ("properties", field_name), "inclusion", "automatic"
                 )
 
         parent_tap_stream_id = getattr(stream_obj, "parent", None)
         if parent_tap_stream_id:
-            mdata = metadata.write(mdata, (), 'parent-tap-stream-id', parent_tap_stream_id)
+            mdata = metadata.write(mdata, (), "parent-tap-stream-id", parent_tap_stream_id)
 
-        mdata = metadata.to_list(mdata)
-        field_metadata[stream_name] = mdata
+        field_metadata[stream_name] = metadata.to_list(mdata)
 
     return schemas, field_metadata
-
